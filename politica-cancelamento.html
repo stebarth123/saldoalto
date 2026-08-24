@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Cancelamento e Renovação — Saldo Alto</title>
+<meta name="description" content="Regras de cancelamento e renovação dos planos do Saldo Alto para empresas contratantes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#E8156A;
+    --pink-dark:#C4104F;
+    --pink-soft: rgba(232,21,106,0.08);
+    --lime:#C6D92E;
+    --lime-dark:#A9BC1F;
+    --cream:#FAF3F0;
+    --cream-card:#FFFFFF;
+    --ink:#171512;
+    --ink-soft: rgba(23,21,18,0.68);
+    --display:'Baloo 2', sans-serif;
+    --body:'Quicksand', sans-serif;
+    --radius:22px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--cream); color:var(--ink); font-family:var(--body); font-weight:500; line-height:1.6; -webkit-font-smoothing:antialiased;}
+  img{display:block; max-width:100%;}
+  a{color:inherit;}
+  .wrap{max-width:820px; margin:0 auto; padding:0 28px;}
+
+  .nav{position:sticky; top:0; z-index:50; background:rgba(252,241,236,0.9); backdrop-filter:blur(8px); border-bottom:1px solid rgba(23,21,18,0.08);}
+  .nav .wrap{max-width:1180px; display:flex; align-items:center; justify-content:space-between; padding:16px 28px;}
+  .logo{display:flex; align-items:baseline; text-decoration:none;}
+  .logo-img{height:34px; width:auto; display:block;}
+  .nav-back{color:var(--ink); text-decoration:none; font-weight:600; font-size:0.92rem; display:inline-flex; align-items:center; gap:6px;}
+  .nav-back:hover{color:var(--pink);}
+
+  .doc-header{padding:56px 0 20px;}
+  .doc-eyebrow{display:inline-flex; align-items:center; font-family:var(--display); font-weight:700; font-size:0.9rem; color:#fff; background:var(--pink); border-radius:100px; padding:7px 16px; margin-bottom:20px;}
+  .doc-title{font-family:var(--display); font-weight:800; font-size:clamp(1.7rem,3.6vw,2.4rem); line-height:1.15; color:var(--ink); margin-bottom:14px;}
+  .doc-meta{font-size:0.9rem; color:var(--ink-soft);}
+
+  .notice-box{background:#fff; border:1.5px solid var(--lime-dark); border-radius:var(--radius); padding:20px 22px; margin:28px 0 8px; display:flex; gap:14px;}
+  .notice-box .ico{font-family:var(--display); font-weight:800; color:var(--ink); background:var(--lime); border-radius:50%; width:28px; height:28px; min-width:28px; display:flex; align-items:center; justify-content:center; font-size:0.95rem;}
+  .notice-box p{font-size:0.92rem; color:var(--ink-soft);}
+  .notice-box strong{color:var(--ink);}
+
+  main{padding:16px 0 60px;}
+  .toc{background:#fff; border-radius:var(--radius); padding:22px 26px; margin:36px 0; box-shadow:0 14px 30px -20px rgba(23,21,18,0.15);}
+  .toc h2{font-family:var(--display); font-size:1.05rem; margin-bottom:12px;}
+  .toc ol{padding-left:20px; font-size:0.94rem;}
+  .toc li{margin-bottom:6px;}
+  .toc a{text-decoration:none; color:var(--ink-soft);}
+  .toc a:hover{color:var(--pink);}
+
+  section.doc-section{margin:38px 0;}
+  section.doc-section h2{font-family:var(--display); font-weight:700; font-size:1.3rem; color:var(--ink); margin-bottom:12px; scroll-margin-top:90px;}
+  section.doc-section h3{font-family:var(--display); font-weight:600; font-size:1.05rem; color:var(--ink); margin:18px 0 8px;}
+  section.doc-section p{font-size:0.98rem; color:var(--ink-soft); margin-bottom:12px;}
+  section.doc-section ul, section.doc-section ol{padding-left:22px; margin-bottom:12px;}
+  section.doc-section li{font-size:0.98rem; color:var(--ink-soft); margin-bottom:8px;}
+  section.doc-section strong{color:var(--ink); font-weight:700;}
+
+  .plan-table{width:100%; border-collapse:collapse; margin:14px 0 20px; background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 14px 30px -20px rgba(23,21,18,0.15);}
+  .plan-table th, .plan-table td{padding:12px 16px; text-align:left; font-size:0.9rem;}
+  .plan-table th{background:var(--ink); color:#fff; font-family:var(--display); font-weight:600;}
+  .plan-table td{border-bottom:1px solid rgba(23,21,18,0.08); color:var(--ink-soft);}
+  .plan-table tr:last-child td{border-bottom:none;}
+
+  .disclaimer{background:var(--pink-soft); border-radius:var(--radius); padding:22px 24px; margin:44px 0; border-left:4px solid var(--pink);}
+  .disclaimer p{font-size:0.88rem; color:var(--ink-soft);}
+  .disclaimer strong{color:var(--ink);}
+
+  .contact-box{background:var(--ink); color:#fff; border-radius:var(--radius); padding:28px 26px; margin:36px 0; text-align:center;}
+  .contact-box h2{font-family:var(--display); font-size:1.2rem; margin-bottom:10px;}
+  .contact-box p{color:rgba(255,255,255,0.75); font-size:0.94rem; margin-bottom:18px;}
+  .contact-box a.btn{display:inline-flex; align-items:center; gap:8px; background:var(--pink); color:#fff; font-family:var(--display); font-weight:700; padding:13px 24px; border-radius:100px; text-decoration:none;}
+
+  footer{padding:28px 0 40px; border-top:1px solid rgba(23,21,18,0.08); margin-top:20px;}
+  footer .wrap{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; font-size:0.85rem; color:var(--ink-soft);}
+  footer a{text-decoration:none; color:var(--ink-soft);}
+  footer a:hover{color:var(--pink);}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="logo" href="index.html"><img src="logo-saldo-alto.png" alt="Saldo Alto" class="logo-img"></a>
+    <a class="nav-back" href="saldo-alto-empresas.html">← Voltar para Saldo Alto para Empresas</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="doc-header">
+    <span class="doc-eyebrow">política de cancelamento e renovação</span>
+    <h1 class="doc-title">Regras claras para cancelar ou renovar seu plano com o Saldo Alto.</h1>
+    <p class="doc-meta">Última atualização: 24 de agosto de 2026 · Aplica-se aos Planos Trimestral e Semestral contratados por empresas.</p>
+  </div>
+
+  <div class="notice-box">
+    <span class="ico">i</span>
+    <p><strong>Antes de contratar:</strong> esta política é parte do contrato entre sua empresa e o Saldo Alto. Recomendamos a leitura completa antes de assinar qualquer plano recorrente.</p>
+  </div>
+
+  <div class="toc">
+    <h2>Nesta página</h2>
+    <ol>
+      <li><a href="#aplicacao">A quem essa política se aplica</a></li>
+      <li><a href="#renovacao">Vigência e renovação automática</a></li>
+      <li><a href="#como-cancelar">Como cancelar</a></li>
+      <li><a href="#periodo-minimo">Cancelamento dentro do período mínimo</a></li>
+      <li><a href="#pos-minimo">Cancelamento após o período mínimo</a></li>
+      <li><a href="#reembolsos">Reembolsos e créditos</a></li>
+      <li><a href="#alteracoes">Alterações desta política</a></li>
+      <li><a href="#contato">Dúvidas e contato</a></li>
+    </ol>
+  </div>
+
+  <main>
+    <section class="doc-section" id="aplicacao">
+      <h2>1. A quem essa política se aplica</h2>
+      <p>Esta política vale para empresas contratantes dos planos recorrentes do Saldo Alto:</p>
+      <table class="plan-table">
+        <thead>
+          <tr><th>Plano</th><th>Valor</th><th>Período mínimo</th><th>Renova automaticamente?</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Campanha pontual</td><td>R$ 2.500 / pesquisa</td><td>Sem contrato mínimo</td><td>Não — pagamento único, sem renovação</td></tr>
+          <tr><td>Plano trimestral</td><td>R$ 1.800 / mês</td><td>3 meses</td><td>Sim, salvo cancelamento</td></tr>
+          <tr><td>Plano semestral</td><td>R$ 3.500 / mês</td><td>6 meses</td><td>Sim, salvo cancelamento</td></tr>
+        </tbody>
+      </table>
+      <p>A <strong>Campanha pontual</strong> não é um plano recorrente e, portanto, não está sujeita às regras de renovação e cancelamento abaixo — o contrato se encerra automaticamente com a entrega da pesquisa contratada.</p>
+    </section>
+
+    <section class="doc-section" id="renovacao">
+      <h2>2. Vigência e renovação automática</h2>
+      <p>Os Planos Trimestral e Semestral são contratados por um <strong>período mínimo inicial</strong> (3 ou 6 meses, conforme o plano). Ao final desse período, o plano <strong>renova automaticamente</strong> por igual período, nas mesmas condições, salvo manifestação de cancelamento por parte da empresa contratante.</p>
+      <p>Para garantir transparência, o Saldo Alto avisa a empresa contratante <strong>com pelo menos 15 dias de antecedência</strong> do vencimento do período contratado, por e-mail e/ou WhatsApp, informando a data da renovação automática e como proceder caso não haja interesse em continuar.</p>
+    </section>
+
+    <section class="doc-section" id="como-cancelar">
+      <h2>3. Como cancelar</h2>
+      <p>O cancelamento pode ser solicitado a qualquer momento, pelo mesmo canal usado na contratação — WhatsApp ou e-mail (<a href="mailto:mkt.saldoalto@gmail.com">mkt.saldoalto@gmail.com</a>) —, sem necessidade de formulários complexos ou burocracia adicional. O Saldo Alto confirma o recebimento do pedido por escrito em até 2 dias úteis, informando a data efetiva de encerramento e eventuais valores pendentes (ver seção 4).</p>
+    </section>
+
+    <section class="doc-section" id="periodo-minimo">
+      <h2>4. Cancelamento dentro do período mínimo</h2>
+      <p>O período mínimo (3 ou 6 meses) representa um compromisso comercial que viabiliza o preço praticado e o planejamento operacional do Saldo Alto. Por isso:</p>
+      <ul>
+        <li>Ao cancelar <strong>antes do fim do período mínimo contratado</strong>, a empresa contratante permanece responsável pelo pagamento das mensalidades restantes até completar esse período mínimo, exceto nas hipóteses do próximo parágrafo.</li>
+        <li>Alternativamente, o Saldo Alto pode oferecer a opção de <strong>rescisão antecipada mediante o pagamento de uma multa proporcional</strong> ao tempo restante do período mínimo, em vez da quitação integral das mensalidades — condição a ser negociada e formalizada por escrito no momento do pedido de cancelamento.</li>
+      </ul>
+      <h3>Exceções — sem multa ou cobrança de mensalidades restantes:</h3>
+      <ul>
+        <li>Descumprimento comprovado, pelo Saldo Alto, das obrigações assumidas no contrato (ex.: não entrega dos dados/relatórios contratados);</li>
+        <li>Casos de força maior ou caso fortuito que impeçam a continuidade do serviço por qualquer das partes;</li>
+        <li>Acordo mútuo entre as partes para rescisão amigável, com condições específicas definidas por escrito.</li>
+      </ul>
+    </section>
+
+    <section class="doc-section" id="pos-minimo">
+      <h2>5. Cancelamento após o período mínimo</h2>
+      <p>Uma vez cumprido o período mínimo inicial (ou qualquer ciclo de renovação já iniciado), a empresa contratante pode cancelar a qualquer momento, sem multa, mediante aviso prévio de 15 dias — tempo necessário para o encerramento organizado das atividades em andamento.</p>
+    </section>
+
+    <section class="doc-section" id="reembolsos">
+      <h2>6. Reembolsos e créditos</h2>
+      <p>Não há reembolso de valores referentes a períodos já utilizados ou serviços já entregues (dados, relatórios e insights disponibilizados até a data do cancelamento). Eventuais créditos por pagamentos antecipados de período não utilizado serão avaliados caso a caso.</p>
+    </section>
+
+    <section class="doc-section" id="alteracoes">
+      <h2>7. Alterações desta política</h2>
+      <p>O Saldo Alto pode atualizar esta política a qualquer momento, para refletir mudanças legais, operacionais ou comerciais. Alterações relevantes serão comunicadas às empresas contratantes ativas com antecedência razoável, e a versão vigente estará sempre disponível nesta página.</p>
+    </section>
+
+    <div class="disclaimer">
+      <p><strong>Aviso importante:</strong> este documento foi elaborado com base em pesquisa sobre boas práticas de mercado e nos princípios gerais do Código Civil brasileiro (liberdade contratual, boa-fé objetiva e função social dos contratos — arts. 421 e 422), buscando transparência com o consumidor e proteção adequada da empresa. Ele <strong>não substitui uma revisão jurídica formal</strong>. Recomendamos que um(a) advogado(a) revise este texto antes da publicação oficial e da assinatura de qualquer contrato com empresas parceiras.</p>
+    </div>
+
+    <div class="contact-box" id="contato">
+      <h2>Ficou com alguma dúvida?</h2>
+      <p>Fale com nosso time antes de contratar ou cancelar qualquer plano.</p>
+      <a class="btn" href="https://wa.me/5511976026891" target="_blank" rel="noopener">Falar no WhatsApp →</a>
+    </div>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>Saldo Alto</div>
+    <div style="display:flex; gap:22px;">
+      <a href="saldo-alto-empresas.html">Para empresas</a>
+      <a href="index.html">Sou empreendedora</a>
+      <a href="politica-privacidade.html">Política de privacidade</a>
+      <a href="mailto:mkt.saldoalto@gmail.com">mkt.saldoalto@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

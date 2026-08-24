@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidade — Saldo Alto</title>
+<meta name="description" content="Como o Saldo Alto coleta, usa e protege os dados de empreendedoras e empresas contratantes, em conformidade com a LGPD.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#E8156A;
+    --pink-dark:#C4104F;
+    --pink-soft: rgba(232,21,106,0.08);
+    --lime:#C6D92E;
+    --lime-dark:#A9BC1F;
+    --cream:#FAF3F0;
+    --cream-card:#FFFFFF;
+    --ink:#171512;
+    --ink-soft: rgba(23,21,18,0.68);
+    --display:'Baloo 2', sans-serif;
+    --body:'Quicksand', sans-serif;
+    --radius:22px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--cream); color:var(--ink); font-family:var(--body); font-weight:500; line-height:1.6; -webkit-font-smoothing:antialiased;}
+  img{display:block; max-width:100%;}
+  a{color:inherit;}
+  .wrap{max-width:820px; margin:0 auto; padding:0 28px;}
+
+  .nav{position:sticky; top:0; z-index:50; background:rgba(252,241,236,0.9); backdrop-filter:blur(8px); border-bottom:1px solid rgba(23,21,18,0.08);}
+  .nav .wrap{max-width:1180px; display:flex; align-items:center; justify-content:space-between; padding:16px 28px;}
+  .logo{display:flex; align-items:baseline; text-decoration:none;}
+  .logo-img{height:34px; width:auto; display:block;}
+  .nav-back{color:var(--ink); text-decoration:none; font-weight:600; font-size:0.92rem; display:inline-flex; align-items:center; gap:6px;}
+  .nav-back:hover{color:var(--pink);}
+
+  .doc-header{padding:56px 0 20px;}
+  .doc-eyebrow{display:inline-flex; align-items:center; font-family:var(--display); font-weight:700; font-size:0.9rem; color:#fff; background:var(--pink); border-radius:100px; padding:7px 16px; margin-bottom:20px;}
+  .doc-title{font-family:var(--display); font-weight:800; font-size:clamp(1.7rem,3.6vw,2.4rem); line-height:1.15; color:var(--ink); margin-bottom:14px;}
+  .doc-meta{font-size:0.9rem; color:var(--ink-soft);}
+
+  .notice-box{background:#fff; border:1.5px solid var(--lime-dark); border-radius:var(--radius); padding:20px 22px; margin:28px 0 8px; display:flex; gap:14px;}
+  .notice-box .ico{font-family:var(--display); font-weight:800; color:var(--ink); background:var(--lime); border-radius:50%; width:28px; height:28px; min-width:28px; display:flex; align-items:center; justify-content:center; font-size:0.95rem;}
+  .notice-box p{font-size:0.92rem; color:var(--ink-soft);}
+  .notice-box strong{color:var(--ink);}
+
+  main{padding:16px 0 60px;}
+  .toc{background:#fff; border-radius:var(--radius); padding:22px 26px; margin:36px 0; box-shadow:0 14px 30px -20px rgba(23,21,18,0.15);}
+  .toc h2{font-family:var(--display); font-size:1.05rem; margin-bottom:12px;}
+  .toc ol{padding-left:20px; font-size:0.94rem; columns:2; column-gap:24px;}
+  .toc li{margin-bottom:6px; break-inside:avoid;}
+  .toc a{text-decoration:none; color:var(--ink-soft);}
+  .toc a:hover{color:var(--pink);}
+
+  section.doc-section{margin:38px 0;}
+  section.doc-section h2{font-family:var(--display); font-weight:700; font-size:1.3rem; color:var(--ink); margin-bottom:12px; scroll-margin-top:90px;}
+  section.doc-section h3{font-family:var(--display); font-weight:600; font-size:1.05rem; color:var(--ink); margin:18px 0 8px;}
+  section.doc-section p{font-size:0.98rem; color:var(--ink-soft); margin-bottom:12px;}
+  section.doc-section ul, section.doc-section ol{padding-left:22px; margin-bottom:12px;}
+  section.doc-section li{font-size:0.98rem; color:var(--ink-soft); margin-bottom:8px;}
+  section.doc-section strong{color:var(--ink); font-weight:700;}
+
+  .data-table{width:100%; border-collapse:collapse; margin:14px 0 20px; background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 14px 30px -20px rgba(23,21,18,0.15);}
+  .data-table th, .data-table td{padding:12px 16px; text-align:left; font-size:0.88rem; vertical-align:top;}
+  .data-table th{background:var(--ink); color:#fff; font-family:var(--display); font-weight:600;}
+  .data-table td{border-bottom:1px solid rgba(23,21,18,0.08); color:var(--ink-soft);}
+  .data-table tr:last-child td{border-bottom:none;}
+
+  .tag{display:inline-block; font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:100px; background:var(--pink-soft); color:var(--pink-dark); margin-bottom:6px;}
+  .tag.confirm{background:rgba(198,217,46,0.25); color:#5c6b0f;}
+
+  .disclaimer{background:var(--pink-soft); border-radius:var(--radius); padding:22px 24px; margin:44px 0; border-left:4px solid var(--pink);}
+  .disclaimer p{font-size:0.88rem; color:var(--ink-soft);}
+  .disclaimer strong{color:var(--ink);}
+
+  .contact-box{background:var(--ink); color:#fff; border-radius:var(--radius); padding:28px 26px; margin:36px 0; text-align:center;}
+  .contact-box h2{font-family:var(--display); font-size:1.2rem; margin-bottom:10px;}
+  .contact-box p{color:rgba(255,255,255,0.75); font-size:0.94rem; margin-bottom:18px;}
+  .contact-box a.btn{display:inline-flex; align-items:center; gap:8px; background:var(--pink); color:#fff; font-family:var(--display); font-weight:700; padding:13px 24px; border-radius:100px; text-decoration:none;}
+
+  footer{padding:28px 0 40px; border-top:1px solid rgba(23,21,18,0.08); margin-top:20px;}
+  footer .wrap{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; font-size:0.85rem; color:var(--ink-soft);}
+  footer a{text-decoration:none; color:var(--ink-soft);}
+  footer a:hover{color:var(--pink);}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="logo" href="index.html"><img src="logo-saldo-alto.png" alt="Saldo Alto" class="logo-img"></a>
+    <a class="nav-back" href="index.html">← Voltar para o Saldo Alto</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="doc-header">
+    <span class="doc-eyebrow">política de privacidade</span>
+    <h1 class="doc-title">Como cuidamos dos seus dados no Saldo Alto.</h1>
+    <p class="doc-meta">Última atualização: 24 de agosto de 2026 · Vale para empreendedoras cadastradas e para representantes de empresas contratantes.</p>
+  </div>
+
+  <div class="notice-box">
+    <span class="ico">i</span>
+    <p><strong>Resumo rápido:</strong> coletamos os dados do seu cadastro para conectar você às missões certas (se você é empreendedora) ou para viabilizar sua contratação (se você representa uma empresa). Não vendemos seus dados pessoais. Empresas contratantes recebem apenas dados <strong>100% agregados e anonimizados por segmento</strong> — nunca a identificação individual das respondentes.</p>
+  </div>
+
+  <div class="toc">
+    <h2>Nesta página</h2>
+    <ol>
+      <li><a href="#quem-somos">1. Quem somos</a></li>
+      <li><a href="#dados-coletados">2. Quais dados coletamos</a></li>
+      <li><a href="#finalidades">3. Para que usamos seus dados</a></li>
+      <li><a href="#ia">4. Uso de inteligência artificial</a></li>
+      <li><a href="#compartilhamento">5. Com quem compartilhamos</a></li>
+      <li><a href="#internacional">6. Transferência internacional</a></li>
+      <li><a href="#retencao">7. Por quanto tempo guardamos</a></li>
+      <li><a href="#seguranca">8. Como protegemos seus dados</a></li>
+      <li><a href="#direitos">9. Seus direitos</a></li>
+      <li><a href="#cookies">10. Cookies</a></li>
+      <li><a href="#menores">11. Crianças e adolescentes</a></li>
+      <li><a href="#alteracoes">12. Alterações desta política</a></li>
+      <li><a href="#contato">13. Encarregado e contato</a></li>
+    </ol>
+  </div>
+
+  <main>
+    <section class="doc-section" id="quem-somos">
+      <h2>1. Quem somos</h2>
+      <p>O <strong>Saldo Alto</strong> é uma plataforma que conecta mulheres empreendedoras a empresas, por meio de pesquisas remuneradas, testes de produto e avaliação de campanhas. Nesta política, "Saldo Alto", "nós" ou "nossa plataforma" se referem à equipe responsável pelo tratamento dos seus dados pessoais (controladora, conforme a LGPD).</p>
+      <p>O Saldo Alto está atualmente em fase de MVP e ainda não possui CNPJ ou razão social formalmente registrados. Mesmo assim, a responsabilidade pelo tratamento adequado dos seus dados, conforme descrito nesta política, já se aplica à equipe fundadora desde já. Assim que a empresa for formalizada, esta seção será atualizada com a razão social e o CNPJ correspondentes.</p>
+    </section>
+
+    <section class="doc-section" id="dados-coletados">
+      <h2>2. Quais dados coletamos</h2>
+
+      <h3>2.1. Se você é empreendedora</h3>
+      <table class="data-table">
+        <thead><tr><th>Dado</th><th>Quando coletamos</th></tr></thead>
+        <tbody>
+          <tr><td>Nome e sobrenome</td><td>No cadastro</td></tr>
+          <tr><td>Cidade e estado</td><td>No cadastro</td></tr>
+          <tr><td>E-mail pessoal e/ou corporativo</td><td>No cadastro</td></tr>
+          <tr><td>Telefone / WhatsApp</td><td>No cadastro (usado para confirmar sua entrada e enviar missões)</td></tr>
+          <tr><td>Dados do negócio (nicho, momento do negócio, Instagram, site)</td><td>No cadastro, para segmentação</td></tr>
+          <tr><td>Respostas às missões, pesquisas e validações</td><td>Ao participar das missões</td></tr>
+          <tr><td>Pontuação, saldo e histórico de saques</td><td>Ao longo do uso da plataforma</td></tr>
+          <tr><td>Chave Pix (quando o saque estiver disponível)</td><td>No momento do saque, apenas para viabilizar o pagamento</td></tr>
+        </tbody>
+      </table>
+
+      <h3>2.2. Se você representa uma empresa contratante</h3>
+      <table class="data-table">
+        <thead><tr><th>Dado</th><th>Quando coletamos</th></tr></thead>
+        <tbody>
+          <tr><td>Nome, sobrenome e cargo</td><td>No formulário de contato comercial</td></tr>
+          <tr><td>Telefone e e-mail corporativo</td><td>No formulário de contato comercial</td></tr>
+          <tr><td>Nome da empresa, CNPJ, setor e site</td><td>No formulário de contato comercial</td></tr>
+          <tr><td>Plano de interesse e objetivo da pesquisa</td><td>No formulário de contato comercial</td></tr>
+        </tbody>
+      </table>
+
+      <h3>2.3. Dados de navegação</h3>
+      <p>Atualmente, nosso site não usa cookies nem pixels de rastreamento. Veja mais na seção 10.</p>
+    </section>
+
+    <section class="doc-section" id="finalidades">
+      <h2>3. Para que usamos seus dados</h2>
+      <table class="data-table">
+        <thead><tr><th>Finalidade</th><th>Base legal (LGPD, art. 7º)</th></tr></thead>
+        <tbody>
+          <tr><td>Criar sua segmentação inicial e conectar você às missões certas</td><td>Execução de contrato / procedimentos preliminares</td></tr>
+          <tr><td>Processar e validar respostas às pesquisas</td><td>Execução de contrato</td></tr>
+          <tr><td>Gerar relatórios e insights agregados para empresas contratantes</td><td>Execução de contrato e legítimo interesse</td></tr>
+          <tr><td>Processar pontos, cashback e saques via Pix</td><td>Execução de contrato</td></tr>
+          <tr><td>Responder ao contato comercial de empresas interessadas</td><td>Procedimentos preliminares ao contrato</td></tr>
+          <tr><td>Enviar novidades, newsletter e conteúdos promocionais</td><td>Consentimento (opt-in específico no cadastro)</td></tr>
+          <tr><td>Cumprir obrigações legais e fiscais</td><td>Cumprimento de obrigação legal</td></tr>
+          <tr><td>Prevenir fraude e garantir a segurança da plataforma</td><td>Legítimo interesse</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="doc-section" id="ia">
+      <h2>4. Uso de inteligência artificial</h2>
+      <p>Usamos ferramentas de inteligência artificial (como modelos da Anthropic e/ou OpenAI) para apoiar tarefas como segmentação de perfis, identificação de padrões de resposta e apoio na geração de relatórios para empresas contratantes. Sempre que possível, buscamos minimizar os dados pessoais enviados a essas ferramentas, priorizando dados já agregados ou pseudonimizados.</p>
+      <p>Não usamos IA para tomar decisões automatizadas que gerem efeitos jurídicos ou impactos significativos sobre você sem possibilidade de revisão humana.</p>
+    </section>
+
+    <section class="doc-section" id="compartilhamento">
+      <h2>5. Com quem compartilhamos seus dados</h2>
+      <p>Não vendemos dados pessoais. Compartilhamos dados nas seguintes situações:</p>
+      <ul>
+        <li><strong>Empresas contratantes</strong> recebem apenas dados <strong>100% agregados e anonimizados por segmento</strong> (por nicho, comportamento e momento do negócio) sobre o conjunto de respondentes. Em nenhuma hipótese compartilhamos a identificação individual de uma empreendedora (nome, contato ou respostas atribuíveis a ela) com empresas contratantes.</li>
+        <li><strong>Prestadores de tecnologia (operadores)</strong> que processam dados em nosso nome: armazenamento de cadastros (Google/Google Sheets), comunicação via WhatsApp (Meta/Z-API), ferramentas de inteligência artificial (Anthropic/OpenAI) e, quando disponível, o provedor de pagamentos responsável pelos saques via Pix.</li>
+        <li><strong>Autoridades públicas</strong>, quando exigido por lei, ordem judicial ou solicitação regulatória.</li>
+      </ul>
+    </section>
+
+    <section class="doc-section" id="internacional">
+      <h2>6. Transferência internacional de dados</h2>
+      <p>Alguns dos prestadores que usamos (como provedores de nuvem, inteligência artificial e ferramentas do Google) podem processar dados em servidores fora do Brasil, principalmente nos Estados Unidos. Nesses casos, buscamos adotar salvaguardas compatíveis com o art. 33 da LGPD, como cláusulas contratuais de proteção de dados com os fornecedores, e priorizamos o envio da menor quantidade possível de dados pessoais identificáveis a essas ferramentas.</p>
+    </section>
+
+    <section class="doc-section" id="retencao">
+      <h2>7. Por quanto tempo guardamos seus dados</h2>
+      <p>Mantemos seus dados enquanto durar sua relação com o Saldo Alto (cadastro ativo, participação em missões, ou relacionamento comercial) e pelo tempo adicional necessário para cumprir obrigações legais, fiscais ou regulatórias, ou para exercício regular de direitos em processos administrativos ou judiciais. Após esse período, os dados são eliminados ou anonimizados.</p>
+      <p><span class="tag confirm">a confirmar</span> Prazos exatos de retenção por tipo de dado ainda precisam ser definidos operacionalmente.</p>
+    </section>
+
+    <section class="doc-section" id="seguranca">
+      <h2>8. Como protegemos seus dados</h2>
+      <p>Como estamos em fase de MVP, adotamos medidas de segurança proporcionais ao nosso estágio atual — controle de acesso às planilhas e sistemas internos, uso de fornecedores com práticas reconhecidas de segurança, e revisão contínua conforme a plataforma evolui para um aplicativo próprio. Nenhum sistema é 100% imune a incidentes; caso um incidente de segurança coloque em risco seus dados, comunicaremos os titulares afetados e a ANPD conforme exigido pela LGPD.</p>
+    </section>
+
+    <section class="doc-section" id="direitos">
+      <h2>9. Seus direitos como titular de dados</h2>
+      <p>De acordo com o art. 18 da LGPD, você pode solicitar a qualquer momento:</p>
+      <ul>
+        <li>Confirmação de que tratamos seus dados, e acesso a eles;</li>
+        <li>Correção de dados incompletos, inexatos ou desatualizados;</li>
+        <li>Anonimização, bloqueio ou eliminação de dados desnecessários ou tratados em desconformidade com a lei;</li>
+        <li>Portabilidade dos seus dados a outro fornecedor de serviço;</li>
+        <li>Eliminação dos dados tratados com base no seu consentimento;</li>
+        <li>Informação sobre com quem compartilhamos seus dados;</li>
+        <li>Revogação do seu consentimento (ex.: para newsletter) a qualquer momento, sem afetar tratamentos anteriores;</li>
+        <li>Oposição a tratamentos realizados com base no legítimo interesse.</li>
+      </ul>
+      <p>Para exercer qualquer um desses direitos, fale com a gente pelos canais da seção 13. Respondemos em prazo razoável, conforme a LGPD.</p>
+    </section>
+
+    <section class="doc-section" id="cookies">
+      <h2>10. Cookies e tecnologias de rastreamento</h2>
+      <p>Atualmente, o site do Saldo Alto não utiliza cookies nem pixels de rastreamento (como Meta Pixel ou tags do Google Ads). Se isso mudar no futuro — por exemplo, ao rodarmos campanhas de anúncio com rastreamento de conversão —, atualizaremos esta seção e adicionaremos um aviso de consentimento de cookies antes de ativar qualquer tecnologia desse tipo.</p>
+    </section>
+
+    <section class="doc-section" id="menores">
+      <h2>11. Crianças e adolescentes</h2>
+      <p>O Saldo Alto não é direcionado a menores de 18 anos e não coletamos intencionalmente dados de crianças ou adolescentes. Se você acredita que coletamos dados de um menor de idade sem a devida autorização dos responsáveis, entre em contato para que possamos removê-los.</p>
+    </section>
+
+    <section class="doc-section" id="alteracoes">
+      <h2>12. Alterações desta política</h2>
+      <p>Podemos atualizar esta política periodicamente, para refletir mudanças na nossa operação ou na legislação. Mudanças relevantes serão comunicadas por e-mail ou WhatsApp às pessoas com cadastro ativo, e a versão vigente estará sempre disponível nesta página.</p>
+    </section>
+
+    <div class="disclaimer">
+      <p><strong>Aviso importante:</strong> este documento foi elaborado com base em pesquisa sobre a Lei Geral de Proteção de Dados (Lei 13.709/2018) e materiais orientativos públicos, refletindo o fluxo de dados descrito nos documentos internos do Saldo Alto e confirmado pela fundadora até a data acima. Ele <strong>não substitui uma revisão jurídica formal</strong> — recomendamos que um(a) advogado(a) especializado(a) em proteção de dados revise este texto antes da publicação oficial, especialmente o ponto ainda marcado como "a confirmar" (prazos de retenção de dados) e a formalização do CNPJ mencionada na seção 1.</p>
+    </div>
+
+    <div class="contact-box" id="contato">
+      <h2>13. Encarregado e canal de contato</h2>
+      <p>Como startup em fase inicial, o Saldo Alto ainda não possui um encarregado de dados (DPO) formalmente nomeado — o que a LGPD dispensa para pequenos agentes de tratamento (art. 41, §3º), desde que haja um canal de comunicação disponível para os titulares. É isso que oferecemos abaixo:</p>
+      <a class="btn" href="mailto:mkt.saldoalto@gmail.com">Falar por e-mail →</a>
+      <p style="margin-top:14px;">Ou pelo WhatsApp: <a href="https://wa.me/5511976026891" target="_blank" rel="noopener" style="text-decoration:underline;">+55 11 97602-6891</a></p>
+    </div>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>Saldo Alto</div>
+    <div style="display:flex; gap:22px;">
+      <a href="index.html">Sou empreendedora</a>
+      <a href="saldo-alto-empresas.html">Para empresas</a>
+      <a href="politica-cancelamento.html">Política de cancelamento</a>
+      <a href="mailto:mkt.saldoalto@gmail.com">mkt.saldoalto@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

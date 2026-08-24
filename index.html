@@ -190,6 +190,19 @@
   .plan-desc{margin-top:14px; font-size:0.9rem; color:var(--ink-soft); font-weight:500;}
   .plan.featured .plan-desc{color:rgba(255,255,255,0.9);}
 
+  /* FAQ */
+  .faq .wrap{max-width:820px;}
+  .faq-list{margin-top:36px; display:flex; flex-direction:column; gap:12px;}
+  .faq-item{background:#fff; border-radius:18px; box-shadow:0 14px 30px -22px rgba(23,21,18,0.18); overflow:hidden;}
+  .faq-q{width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; background:none; border:none; text-align:left; padding:20px 24px; font-family:var(--display); font-weight:700; font-size:1.02rem; color:var(--ink); cursor:pointer;}
+  .faq-q .plus{flex:none; width:26px; height:26px; border-radius:50%; background:var(--pink-soft); color:var(--pink); display:flex; align-items:center; justify-content:center; font-size:1.15rem; font-weight:800; transition:transform .25s;}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .3s ease;}
+  .faq-a-inner{padding:0 24px 22px; font-size:0.96rem; color:var(--ink-soft); line-height:1.6;}
+  .faq-a-inner a{color:var(--pink); font-weight:700; text-decoration:underline;}
+  .faq-more{text-align:center; margin-top:28px; font-size:0.92rem; color:var(--ink-soft);}
+  .faq-more a{color:var(--pink); font-weight:700; text-decoration:underline;}
+
   /* CTA final */
   .cta-final{background:var(--ink); color:var(--cream); text-align:center; padding:100px 0;}
   .cta-final .logo{justify-content:center; font-size:2.4rem; margin-bottom:24px;}
@@ -283,6 +296,7 @@
     <div class="nav-links" id="navLinks">
       <a href="#solucao">A solução</a>
       <a href="#como-funciona">Como funciona</a>
+      <a href="#faq">FAQ</a>
       <a href="saldo-alto-empresas.html">Para empresas</a>
       <a class="nav-cta js-open-form" href="#">Quero participar</a>
     </div>
@@ -417,6 +431,65 @@
   </div>
 </section>
 
+<section class="faq" id="faq">
+  <div class="wrap">
+    <span class="sec-eyebrow lime">perguntas frequentes</span>
+    <h2 class="sec-title">Tudo o que você precisa saber <span class="accent">antes de participar.</span></h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" type="button">Como funciona o Saldo Alto na prática?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Você se cadastra, recebe missões (pesquisas, testes de produto, avaliação de campanhas) direto na plataforma, valida opiniões em segundos e acumula pontos que viram dinheiro ou benefícios.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Preciso pagar alguma coisa para participar?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Não. A participação é gratuita — pelo contrário, é você quem recebe: por cada missão concluída, você acumula pontos trocáveis por dinheiro ou benefícios.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Quem pode se cadastrar?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Mulheres empreendedoras, autônomas ou donas de pequenos negócios, de qualquer nicho e momento do negócio. A segmentação inicial é feita a partir dos dados do seu cadastro.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Como eu me cadastro?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Preenchendo o formulário rápido no site. Depois é só confirmar sua entrada pelo WhatsApp e você já começa a receber missões.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Que tipo de missão eu vou receber?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Pesquisas, testes de produto, avaliação de campanhas e dinâmicas rápidas de "concordo/discordo" (o nosso "Tinder de opiniões"), sempre relacionadas ao seu perfil e nicho.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Como funcionam os pontos? Como eu recebo meu benefício?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Cada missão concluída gera pontos. Esses pontos podem ser convertidos em dinheiro ou em benefícios oferecidos pelas empresas e parceiros da plataforma, como cashback, cupons e/ou brindes.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Como funciona o saque?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Saque via Pix, liberado assim que você solicitar. Valor mínimo de saque: R$ 50. Solicitações feitas fora do horário das 6h às 20h podem levar um pouco mais para cair, por conta da regra de segurança do Pix noturno.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Com que frequência vou receber missões?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Você recebe missões novas toda semana. A quantidade e o tipo variam conforme a demanda das empresas parceiras e o quanto seu perfil combina com cada pesquisa — quanto mais completo seu cadastro, mais relevantes tendem a ser as missões.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Meus dados e minhas respostas estão seguros?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Sim. Suas respostas são usadas de forma 100% agregada e anonimizada por segmento para gerar insights às empresas — nunca compartilhamos sua identificação individual. Veja os detalhes completos na nossa <a href="politica-privacidade.html">Política de Privacidade</a>.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Preciso ter CNPJ ou empresa formalizada para participar?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Não precisa. O Saldo Alto é feito também para quem empreende informalmente — a ideia é incentivar o mercado interno e, com o tempo, abrir caminho para que essas empreendedoras formalizem o negócio da maneira correta.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Posso participar mesmo se meu negócio está só começando?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Sim — a segmentação leva em conta justamente o "momento do negócio", então há missões também para quem está no início.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Como tiro dúvidas ou falo com a equipe?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Pelo WhatsApp — +55 11 97602-6891 —, pelo Instagram (@saldoalto) ou por e-mail (mkt.saldoalto@gmail.com), todos já linkados no rodapé do site.</div></div>
+      </div>
+    </div>
+
+    <p class="faq-more">Sua empresa quer contratar dados? <a href="saldo-alto-empresas.html">Veja a FAQ para empresas →</a></p>
+  </div>
+</section>
 
 <section class="cta-final" id="entrar">
   <div class="wrap">
@@ -915,6 +988,23 @@
       }, 500);
     }, 3800);
   }
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const btn = item.querySelector('.faq-q');
+    const answer = item.querySelector('.faq-a');
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(openItem => {
+        if (openItem !== item) {
+          openItem.classList.remove('open');
+          openItem.querySelector('.faq-a').style.maxHeight = null;
+        }
+      });
+      item.classList.toggle('open', !isOpen);
+      answer.style.maxHeight = !isOpen ? answer.scrollHeight + 'px' : null;
+    });
+  });
 </script>
 
 </body>

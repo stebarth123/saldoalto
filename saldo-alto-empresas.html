@@ -151,6 +151,19 @@
   .plan-cta{display:inline-block; margin-top:18px; font-family:var(--display); font-weight:700; font-size:0.9rem; color:var(--pink); text-decoration:none;}
   .plan.featured .plan-cta{color:#fff; text-decoration:underline;}
 
+  /* FAQ */
+  .faq .wrap{max-width:820px;}
+  .faq-list{margin-top:36px; display:flex; flex-direction:column; gap:12px;}
+  .faq-item{background:#fff; border-radius:18px; box-shadow:0 14px 30px -22px rgba(23,21,18,0.18); overflow:hidden;}
+  .faq-q{width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; background:none; border:none; text-align:left; padding:20px 24px; font-family:var(--display); font-weight:700; font-size:1.02rem; color:var(--ink); cursor:pointer;}
+  .faq-q .plus{flex:none; width:26px; height:26px; border-radius:50%; background:var(--pink-soft); color:var(--pink); display:flex; align-items:center; justify-content:center; font-size:1.15rem; font-weight:800; transition:transform .25s;}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .3s ease;}
+  .faq-a-inner{padding:0 24px 22px; font-size:0.96rem; color:var(--ink-soft); line-height:1.6;}
+  .faq-a-inner a{color:var(--pink); font-weight:700; text-decoration:underline;}
+  .faq-more{text-align:center; margin-top:28px; font-size:0.92rem; color:var(--ink-soft);}
+  .faq-more a{color:var(--pink); font-weight:700; text-decoration:underline;}
+
   /* CTA final */
   .cta-final{background:var(--ink); color:var(--cream); text-align:center; padding:100px 0;}
   .cta-final .logo{justify-content:center; font-size:2.4rem; margin-bottom:24px;}
@@ -247,6 +260,7 @@
       <a href="#como-funciona">Como funciona</a>
       <a href="#diferencial">Diferencial</a>
       <a href="#planos">Planos</a>
+      <a href="#faq">FAQ</a>
       <a href="index.html">Sou empreendedora</a>
       <a class="nav-cta js-open-form" href="#">Falar com o time</a>
     </div>
@@ -419,6 +433,54 @@
     <p style="text-align:center; margin-top:18px; font-size:0.88rem; color:var(--ink-soft);">
       Planos trimestral e semestral renovam automaticamente. Consulte nossa <a href="politica-cancelamento.html" style="color:var(--pink); font-weight:700; text-decoration:underline;">Política de Cancelamento e Renovação →</a>
     </p>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <span class="sec-eyebrow lime">perguntas frequentes</span>
+    <h2 class="sec-title">Tudo o que sua empresa precisa saber <span class="accent">antes de contratar.</span></h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" type="button">O que é o Saldo Alto e que tipo de dado eu recebo?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Uma plataforma de inteligência de mercado B2B2C: conectamos sua empresa a mulheres empreendedoras reais, entregando dados qualificados, segmentados e validados sobre esse público — não pesquisa avulsa, e sim inteligência contínua.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Como funciona o modelo de parceria (B2B2C)?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Sua empresa contrata a inteligência de dados; parte dessa receita retorna às usuárias em forma de benefícios e cashback. É esse incentivo que sustenta o engajamento e a qualidade das respostas.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Quanto custa contratar o Saldo Alto?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Três formatos: Campanha pontual (R$ 2.500 por pesquisa, sem contrato mínimo), Plano trimestral (R$ 1.800/mês, mínimo de 3 meses) e Plano semestral (R$ 3.500/mês, mínimo de 6 meses, com segmentação avançada e relatórios customizados).</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Que tipo de projeto posso rodar na plataforma?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Pesquisas de mercado, testes de produto, validação de ideias, avaliação de campanhas e dinâmicas de comportamento de consumo com o público de mulheres empreendedoras.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Como vocês garantem a qualidade e a confiabilidade dos dados?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Com três camadas: segmentação por nicho/comportamento/momento do negócio, validação de respostas em tempo real (nosso sistema de match) e engajamento contínuo via incentivo financeiro — o que reduz respostas descartáveis ou pouco confiáveis.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Como é feita a segmentação do público?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">A partir dos dados de cadastro de cada usuária (nicho, comportamento, momento do negócio), garantindo que cada pesquisa chegue ao perfil certo.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Existe contrato mínimo? Posso cancelar?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">O plano trimestral exige mínimo de 3 meses e o semestral, 6 meses; a campanha pontual não tem contrato mínimo. Cancelamento a qualquer momento pelo mesmo canal da contratação — veja as regras completas na nossa <a href="politica-cancelamento.html">Política de Cancelamento e Renovação</a>.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Quem são as respondentes? Qual o tamanho desse público?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Mulheres empreendedoras brasileiras — hoje mais de 10,3 milhões, um público que cresceu 42% em 12 anos, presente em diversos nichos e estágios de negócio.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">Como eu contrato ou falo com o time comercial?<span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Preenchendo o formulário no site — nosso time entra em contato pelo WhatsApp em até 1 dia útil.</div></div>
+      </div>
+    </div>
+
+    <p class="faq-more">É empreendedora e quer participar? <a href="index.html">Veja a FAQ para empreendedoras →</a></p>
   </div>
 </section>
 
@@ -858,6 +920,23 @@
       body: JSON.stringify(payload)
     }).catch(err => console.warn('Falha ao enviar cadastro pra planilha:', err));
   }
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const btn = item.querySelector('.faq-q');
+    const answer = item.querySelector('.faq-a');
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(openItem => {
+        if (openItem !== item) {
+          openItem.classList.remove('open');
+          openItem.querySelector('.faq-a').style.maxHeight = null;
+        }
+      });
+      item.classList.toggle('open', !isOpen);
+      answer.style.maxHeight = !isOpen ? answer.scrollHeight + 'px' : null;
+    });
+  });
 </script>
 
 </body>

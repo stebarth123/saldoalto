@@ -772,6 +772,37 @@ function kfilter_(list, keepOthers) {
   return big;
 }
 
+/* Regiões do Brasil e regras do "O que mudou" (só diferenças com significância estatística, sem inventar sinal). */
+var REGIAO_UF = { norte: ['AC', 'AM', 'AP', 'PA', 'RO', 'RR', 'TO'], nordeste: ['AL', 'BA', 'CE', 'MA', 'PB', 'PE', 'PI', 'RN', 'SE'], centrooeste: ['DF', 'GO', 'MS', 'MT'], sudeste: ['ES', 'MG', 'RJ', 'SP'], sul: ['PR', 'RS', 'SC'] };
+var MUDANCA_MIN_N = 30, MUDANCA_MIN_PP = 5, MUDANCA_Z = 2.576;
+function regiaoDe_(uf) { for (var k in REGIAO_UF) if (REGIAO_UF[k].indexOf(uf) >= 0) return k; return ''; }
+function matNivel_(r) { return r.insta && r.site && r.emailCorp ? 3 : (r.insta || r.site || r.emailCorp) && (r.site || r.emailCorp) ? 2 : 1; }
+function mudancas_(rows, nowMs) {
+  var cut = nowMs - 30 * 86400000;
+  var nw = rows.filter(function (r) { return r.at && r.at.getTime() >= cut; }), old = rows.filter(function (r) { return r.at && r.at.getTime() < cut; });
+  var out = { minN: MUDANCA_MIN_N, nNovas: nw.length, nAnteriores: old.length, itens: [] };
+  if (nw.length < MUDANCA_MIN_N || old.length < MUDANCA_MIN_N) { out.insuficiente = true; return out; }
+  var dims = [];
+  NICHOS.concat(['Outros nichos']).forEach(function (n) { dims.push({ tema: 'Nicho', rotulo: n, fn: function (r) { return r.nicho === n; } }); });
+  UFS.forEach(function (u) { dims.push({ tema: 'Estado', rotulo: u, fn: function (r) { return r.uf === u; } }); });
+  ['Presença básica', 'Em estruturação', 'Estruturada'].forEach(function (l, i) { dims.push({ tema: 'Maturidade', rotulo: l, fn: function (r) { return matNivel_(r) === i + 1; } }); });
+  dims.push({ tema: 'Presença digital', rotulo: 'Têm Instagram do negócio', fn: function (r) { return r.insta; } });
+  dims.push({ tema: 'Presença digital', rotulo: 'Têm site', fn: function (r) { return r.site; } });
+  dims.push({ tema: 'Presença digital', rotulo: 'Têm e-mail corporativo', fn: function (r) { return r.emailCorp; } });
+  var n1 = nw.length, n2 = old.length;
+  dims.forEach(function (dm) {
+    var x1 = nw.filter(dm.fn).length, x2 = old.filter(dm.fn).length;
+    if (x1 < K_ANON || x2 < K_ANON) return;                       // grupo pequeno demais para aparecer
+    var p1 = x1 / n1, p2 = x2 / n2, pp = (x1 + x2) / (n1 + n2), se = Math.sqrt(pp * (1 - pp) * (1 / n1 + 1 / n2));
+    if (!se) return;
+    var z = (p1 - p2) / se, dpp = (p1 - p2) * 100;
+    if (Math.abs(z) >= MUDANCA_Z && Math.abs(dpp) >= MUDANCA_MIN_PP) out.itens.push({ tema: dm.tema, rotulo: dm.rotulo, pNovas: Math.round(p1 * 100), pAnteriores: Math.round(p2 * 100), dpp: Math.round(dpp), z: Math.round(Math.abs(z) * 10) / 10 });
+  });
+  out.itens.sort(function (a, b) { return b.z - a.z; });
+  out.itens = out.itens.slice(0, 3);
+  return out;
+}
+
 ACTIONS['base.insights'] = function (d, ctx) {
   need_(ctx, 'dashboard');
   var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Empreendedoras');
@@ -785,25 +816,32 @@ ACTIONS['base.insights'] = function (d, ctx) {
         insta: str_(v[10]).replace('@', '').length > 0, site: !!str_(v[11]) });
     }
   }
-  var f = d.filtros || {};
-  var options = { nichos: [], estados: [] };
-  var mn = {}, me = {};
-  all.forEach(function (r) { bump_(mn, r.nicho); if (UFS.indexOf(r.uf) >= 0) bump_(me, r.uf); });
+  var f = d.filtros || {}, regiao = REGIAO_UF[f.regiao] ? f.regiao : '';
+  var options = { nichos: [], estados: [], regioes: [], cidades: [] };
+  var mn = {}, me = {}, mr = {}, mc = {};
+  all.forEach(function (r) {
+    bump_(mn, r.nicho);
+    if (UFS.indexOf(r.uf) >= 0) { bump_(me, r.uf); bump_(mr, regiaoDe_(r.uf)); if (r.cidade) bump_(mc, r.cidade + '|' + r.uf, titleCase_(r.cidadeLabel)); }
+  });
   options.nichos = kfilter_(tally_(mn), false).map(function (x) { return x.k; });
   options.estados = kfilter_(tally_(me), false).map(function (x) { return x.k; });
-  var rows = all.filter(function (r) { return (!f.nicho || r.nicho === f.nicho) && (!f.estado || r.uf === f.estado); });
+  options.regioes = kfilter_(tally_(mr), false).map(function (x) { return x.k; });
+  options.cidades = Object.keys(mc).filter(function (k) { return mc[k].n >= K_ANON; }).map(function (k) { return { v: k, k: mc[k].label, uf: k.split('|')[1] }; })
+    .sort(function (a, b) { return a.k < b.k ? -1 : 1; });
+  var rows = all.filter(function (r) {
+    return (!f.nicho || r.nicho === f.nicho) && (!regiao || REGIAO_UF[regiao].indexOf(r.uf) >= 0) && (!f.estado || r.uf === f.estado) && (!f.cidade || (r.cidade + '|' + r.uf) === f.cidade);
+  });
   var total = rows.length;
   if (total < K_ANON) return { total: total, insuficiente: true, opcoes: options, minGrupo: K_ANON };
   var byNicho = {}, byUf = {}, byCidade = {}, byMes = {}, mat = { 1: 0, 2: 0, 3: 0 }, insta = 0, site = 0, corp = 0, novos30 = 0;
-  var cut30 = ctx.now.getTime() - 30 * 86400000;
+  var cut30 = ctx.now.getTime() - 30 * 86400000, primeiro = null;
   rows.forEach(function (r) {
     bump_(byNicho, r.nicho);
     if (UFS.indexOf(r.uf) >= 0) bump_(byUf, r.uf);
     if (r.cidade) bump_(byCidade, r.cidade + '|' + r.uf, titleCase_(r.cidadeLabel) + (UFS.indexOf(r.uf) >= 0 ? ' / ' + r.uf : ''));
-    if (r.at) { var key = r.at.getUTCFullYear() + '-' + (r.at.getUTCMonth() < 9 ? '0' : '') + (r.at.getUTCMonth() + 1); bump_(byMes, key); if (r.at.getTime() >= cut30) novos30++; }
+    if (r.at) { var key = r.at.getUTCFullYear() + '-' + (r.at.getUTCMonth() < 9 ? '0' : '') + (r.at.getUTCMonth() + 1); bump_(byMes, key); if (r.at.getTime() >= cut30) novos30++; if (!primeiro || r.at < primeiro) primeiro = r.at; }
     if (r.insta) insta++; if (r.site) site++; if (r.emailCorp) corp++;
-    var lvl = r.insta && r.site && r.emailCorp ? 3 : (r.insta || r.site || r.emailCorp) && (r.site || r.emailCorp) ? 2 : 1;
-    mat[lvl]++;
+    mat[matNivel_(r)]++;
   });
   // últimos 12 meses (com zeros)
   var meses = [], base = new Date(Date.UTC(ctx.now.getUTCFullYear(), ctx.now.getUTCMonth(), 1));
@@ -815,6 +853,8 @@ ACTIONS['base.insights'] = function (d, ctx) {
   var estados = tally_(byUf), cidades = tally_(byCidade);
   return {
     total: total, novos30: novos30, minGrupo: K_ANON, opcoes: options,
+    periodo: { ate: iso_(ctx.now).slice(0, 10), desde: primeiro ? iso_(primeiro).slice(0, 10) : '' },
+    mudancas: mudancas_(rows, ctx.now.getTime()),
     nichos: kfilter_(tally_(byNicho), true),
     estados: kfilter_(estados, false),
     estadosDistintos: estados.filter(function (x) { return x.n >= K_ANON; }).length,

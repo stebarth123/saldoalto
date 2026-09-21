@@ -179,6 +179,9 @@
         rows.push({ at: at, cidade: city.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(), cidadeLabel: city, uf: uf, emailCorp: r() < 0.33, nicho: pick(r, nW), insta: r() < 0.78, site: r() < 0.41 });
       }
     });
+    // base sintética: as cadastradas dos últimos 30 dias têm um perfil um pouco diferente, para o "O que mudou" ter o que mostrar na demonstração
+    var cut = now.getTime() - 30 * 86400000;
+    rows.forEach(function (x) { if (x.at.getTime() >= cut) { if (r() < 0.2) x.nicho = NICHOS[2]; if (r() < 0.3) x.site = true; } });
     base = rows; return rows;
   }
   function bump(map, key, label) { if (!map[key]) map[key] = { label: label || key, n: 0 }; map[key].n++; }
@@ -189,25 +192,54 @@
     if (keepOthers && rest >= K_ANON) big.push({ k: 'Demais (grupos pequenos)', n: rest, agrupado: true });
     return big;
   }
+  var REGIAO_UF = { norte: ['AC', 'AM', 'AP', 'PA', 'RO', 'RR', 'TO'], nordeste: ['AL', 'BA', 'CE', 'MA', 'PB', 'PE', 'PI', 'RN', 'SE'], centrooeste: ['DF', 'GO', 'MS', 'MT'], sudeste: ['ES', 'MG', 'RJ', 'SP'], sul: ['PR', 'RS', 'SC'] };
+  var MUDANCA_MIN_N = 30, MUDANCA_MIN_PP = 5, MUDANCA_Z = 2.576;
+  function regiaoDe(uf) { for (var k in REGIAO_UF) if (REGIAO_UF[k].indexOf(uf) >= 0) return k; return ''; }
+  function matNivel(r) { return r.insta && r.site && r.emailCorp ? 3 : (r.insta || r.site || r.emailCorp) && (r.site || r.emailCorp) ? 2 : 1; }
+  function mudancas(rows, nowMs) {
+    var cut = nowMs - 30 * 86400000, nw = rows.filter(function (r) { return r.at.getTime() >= cut; }), old = rows.filter(function (r) { return r.at.getTime() < cut; });
+    var out = { minN: MUDANCA_MIN_N, nNovas: nw.length, nAnteriores: old.length, itens: [] };
+    if (nw.length < MUDANCA_MIN_N || old.length < MUDANCA_MIN_N) { out.insuficiente = true; return out; }
+    var dims = [];
+    NICHOS.concat(['Outros nichos']).forEach(function (n) { dims.push({ tema: 'Nicho', rotulo: n, fn: function (r) { return r.nicho === n; } }); });
+    UFS.forEach(function (u) { dims.push({ tema: 'Estado', rotulo: u, fn: function (r) { return r.uf === u; } }); });
+    ['Presença básica', 'Em estruturação', 'Estruturada'].forEach(function (l, i) { dims.push({ tema: 'Maturidade', rotulo: l, fn: function (r) { return matNivel(r) === i + 1; } }); });
+    dims.push({ tema: 'Presença digital', rotulo: 'Têm Instagram do negócio', fn: function (r) { return r.insta; } });
+    dims.push({ tema: 'Presença digital', rotulo: 'Têm site', fn: function (r) { return r.site; } });
+    dims.push({ tema: 'Presença digital', rotulo: 'Têm e-mail corporativo', fn: function (r) { return r.emailCorp; } });
+    var n1 = nw.length, n2 = old.length;
+    dims.forEach(function (dm) {
+      var x1 = nw.filter(dm.fn).length, x2 = old.filter(dm.fn).length;
+      if (x1 < K_ANON || x2 < K_ANON) return;
+      var p1 = x1 / n1, p2 = x2 / n2, pp = (x1 + x2) / (n1 + n2), se = Math.sqrt(pp * (1 - pp) * (1 / n1 + 1 / n2));
+      if (!se) return;
+      var z = (p1 - p2) / se, dpp = (p1 - p2) * 100;
+      if (Math.abs(z) >= MUDANCA_Z && Math.abs(dpp) >= MUDANCA_MIN_PP) out.itens.push({ tema: dm.tema, rotulo: dm.rotulo, pNovas: Math.round(p1 * 100), pAnteriores: Math.round(p2 * 100), dpp: Math.round(dpp), z: Math.round(Math.abs(z) * 10) / 10 });
+    });
+    out.itens.sort(function (a, b) { return b.z - a.z; }); out.itens = out.itens.slice(0, 3); return out;
+  }
   function insights(d) {
-    var all = baseRows(), f = d.filtros || {}, options = { nichos: [], estados: [] }, mn = {}, me = {};
-    all.forEach(function (r) { bump(mn, r.nicho); if (UFS.indexOf(r.uf) >= 0) bump(me, r.uf); });
+    var all = baseRows(), f = d.filtros || {}, regiao = REGIAO_UF[f.regiao] ? f.regiao : '', options = { nichos: [], estados: [], regioes: [], cidades: [] }, mn = {}, me = {}, mr = {}, mc = {};
+    all.forEach(function (r) { bump(mn, r.nicho); if (UFS.indexOf(r.uf) >= 0) { bump(me, r.uf); bump(mr, regiaoDe(r.uf)); if (r.cidade) bump(mc, r.cidade + '|' + r.uf, r.cidadeLabel); } });
     options.nichos = kfilter(tally(mn), false).map(function (x) { return x.k; });
     options.estados = kfilter(tally(me), false).map(function (x) { return x.k; });
-    var rows = all.filter(function (r) { return (!f.nicho || r.nicho === f.nicho) && (!f.estado || r.uf === f.estado); }), total = rows.length;
+    options.regioes = kfilter(tally(mr), false).map(function (x) { return x.k; });
+    options.cidades = Object.keys(mc).filter(function (k) { return mc[k].n >= K_ANON; }).map(function (k) { return { v: k, k: mc[k].label, uf: k.split('|')[1] }; }).sort(function (a, b) { return a.k < b.k ? -1 : 1; });
+    var rows = all.filter(function (r) { return (!f.nicho || r.nicho === f.nicho) && (!regiao || REGIAO_UF[regiao].indexOf(r.uf) >= 0) && (!f.estado || r.uf === f.estado) && (!f.cidade || (r.cidade + '|' + r.uf) === f.cidade); }), total = rows.length;
     if (total < K_ANON) return { total: total, insuficiente: true, opcoes: options, minGrupo: K_ANON };
-    var byNicho = {}, byUf = {}, byCidade = {}, byMes = {}, mat = { 1: 0, 2: 0, 3: 0 }, insta = 0, site = 0, corp = 0, novos30 = 0, cut30 = Date.now() - 30 * 86400000;
+    var byNicho = {}, byUf = {}, byCidade = {}, byMes = {}, mat = { 1: 0, 2: 0, 3: 0 }, insta = 0, site = 0, corp = 0, novos30 = 0, nowMs = Date.now(), cut30 = nowMs - 30 * 86400000, primeiro = null;
     rows.forEach(function (r) {
       bump(byNicho, r.nicho); if (UFS.indexOf(r.uf) >= 0) bump(byUf, r.uf);
       if (r.cidade) bump(byCidade, r.cidade + '|' + r.uf, r.cidadeLabel + ' / ' + r.uf);
       var key = r.at.getUTCFullYear() + '-' + (r.at.getUTCMonth() < 9 ? '0' : '') + (r.at.getUTCMonth() + 1); bump(byMes, key); if (r.at.getTime() >= cut30) novos30++;
-      if (r.insta) insta++; if (r.site) site++; if (r.emailCorp) corp++;
-      var lvl = r.insta && r.site && r.emailCorp ? 3 : (r.insta || r.site || r.emailCorp) && (r.site || r.emailCorp) ? 2 : 1; mat[lvl]++;
+      if (!primeiro || r.at < primeiro) primeiro = r.at;
+      if (r.insta) insta++; if (r.site) site++; if (r.emailCorp) corp++; mat[matNivel(r)]++;
     });
     var meses = [], n0 = new Date(), b0 = new Date(Date.UTC(n0.getUTCFullYear(), n0.getUTCMonth(), 1));
     for (var m = 11; m >= 0; m--) { var dt = new Date(Date.UTC(b0.getUTCFullYear(), b0.getUTCMonth() - m, 1)); var kk = dt.getUTCFullYear() + '-' + (dt.getUTCMonth() < 9 ? '0' : '') + (dt.getUTCMonth() + 1); meses.push({ k: kk, n: byMes[kk] ? byMes[kk].n : 0 }); }
     var estados = tally(byUf), cidades = tally(byCidade);
-    return { total: total, novos30: novos30, minGrupo: K_ANON, opcoes: options, nichos: kfilter(tally(byNicho), true), estados: kfilter(estados, false),
+    return { total: total, novos30: novos30, minGrupo: K_ANON, opcoes: options, periodo: { ate: new Date(nowMs).toISOString().slice(0, 10), desde: primeiro ? primeiro.toISOString().slice(0, 10) : '' }, mudancas: mudancas(rows, nowMs),
+      nichos: kfilter(tally(byNicho), true), estados: kfilter(estados, false),
       estadosDistintos: estados.filter(function (x) { return x.n >= K_ANON; }).length, cidades: kfilter(cidades, false).slice(0, 10), cidadesDistintas: cidades.filter(function (x) { return x.n >= K_ANON; }).length,
       crescimento: meses, presenca: { instagram: Math.round(insta / total * 100), site: Math.round(site / total * 100), emailCorp: Math.round(corp / total * 100) },
       maturidade: [{ k: 'Presença básica', n: mat[1] }, { k: 'Em estruturação', n: mat[2] }, { k: 'Estruturada', n: mat[3] }] };

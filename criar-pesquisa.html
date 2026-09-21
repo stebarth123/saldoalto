@@ -215,7 +215,7 @@
   .dd-btn:hover,.dd-btn[aria-expanded="true"]{border-color:var(--pink);}
   .dd-btn .ic{transition:transform .2s; color:var(--ink-soft);}
   .dd-btn[aria-expanded="true"] .ic{transform:rotate(180deg);}
-  .stage:has(.cbx.open),.stage:has(.dd-list){position:relative; z-index:25;}   /* a lista aberta fica acima da barra Voltar/Continuar */
+  .stage:has(.cbx.open),.stage:has(.dd-list),.stage:has(.info-pop){position:relative; z-index:25;}   /* a lista aberta fica acima da barra Voltar/Continuar */
   .dd-panel{position:absolute; left:0; right:0; top:calc(100% + 6px); z-index:15; background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:0 20px 40px -16px rgba(23,21,18,.35); padding:6px;}
   .dd-list{max-height:250px; overflow-y:auto; display:flex; flex-direction:column;}
   .dd-opt{display:flex; align-items:center; gap:10px; width:100%; border:none; background:none; text-align:left; padding:9px 10px; border-radius:11px; font-weight:700; font-size:.9rem;}
@@ -339,7 +339,7 @@
   .info-wrap{position:relative; display:flex; align-items:center; padding-right:12px;}
   .info-btn{width:26px; height:26px; border-radius:50%; border:2px solid var(--ink-soft); background:#fff; color:var(--ink-soft); font-family:Georgia,'Times New Roman',serif; font-style:italic; font-weight:700; font-size:.9rem; line-height:1; display:flex; align-items:center; justify-content:center; transition:all .15s;}
   .info-btn:hover,.info-btn[aria-expanded="true"]{border-color:var(--pink); color:var(--pink);}
-  .info-pop{position:absolute; right:8px; top:calc(100% + 8px); z-index:20; width:min(380px, calc(100vw - 48px)); background:var(--ink); color:var(--cream); border-radius:16px; padding:14px 16px; font-size:.84rem; font-weight:600; line-height:1.5; box-shadow:0 20px 40px -14px rgba(23,21,18,.5);}
+  .info-pop{position:absolute; right:8px; bottom:calc(100% + 10px); z-index:20; width:min(380px, calc(100vw - 48px)); background:var(--ink); color:var(--cream); border-radius:16px; padding:14px 16px; font-size:.84rem; font-weight:600; line-height:1.5; box-shadow:0 20px 40px -14px rgba(23,21,18,.5);}
   .result-grid.four > *{min-width:0;}
   @media (max-width:560px){ .result-grid.four{grid-template-columns:1fr;} .result-grid.four .metric .val{font-size:1.9rem;} }
   @media (max-width:900px){ .loc-row{grid-template-columns:1fr;} .result-grid.four{grid-template-columns:1fr 1fr;} .uses-row{grid-template-columns:1fr auto;} .uses-row .k{grid-column:1 / -1; padding:0;} .adv-panel{grid-template-columns:1fr;} }
@@ -852,7 +852,7 @@ const Services = {
   Pricing: {
     RULES: {
       included: { responses: 150, questions: 10 },
-      perExtraResponse: 4, perExtraQuestion: 12, perOpenQuestion: 45, perAdvancedQuestion: 15,
+      perExtraResponse: 6, perExtraQuestion: 12, perOpenQuestion: 45, perAdvancedQuestion: 15,
       perExtraSegment: 20, perImage: 150, perVideo: 350
     },
     estimate(m) {
@@ -1904,7 +1904,8 @@ const Actions = {
   'set-mode': el => mutate(s => { s.sample.mode = el.dataset.mode; }),
   'set-precision': el => mutate(s => { s.sample.precision = el.dataset.key; s.sample.mode = 'calc'; }),
   'toggle-adv': () => { UI.advOpen = !(UI.advOpen || S.sample.precision === 'custom'); UI.focusKey = 'adv-toggle'; render(); },
-  'toggle-info': () => { UI.infoOpen = !UI.infoOpen; UI.focusKey = 'info-btn'; render(); },
+  'toggle-info': () => { UI.infoOpen = !UI.infoOpen; UI.focusKey = 'info-btn'; render();
+    if (UI.infoOpen) requestAnimationFrame(() => { const pn = $('.info-pop'); if (!pn) return; const r = pn.getBoundingClientRect(), topLimit = (document.querySelector('.mprog')?.getBoundingClientRect().bottom || 0) + 12; if (r.top < topLimit) window.scrollBy({ top: r.top - topLimit, behavior: 'smooth' }); }); },
   'toggle-how': () => { UI.howOpen = !UI.howOpen; UI.focusKey = 'how-btn'; render(); },
   'toggle-compare': () => mutate(s => { s.sample.compare = !s.sample.compare; s.sample.mode = 'calc'; }),
   'sample-step': el => mutate(s => { const cur = Math.floor(Number(s.sample.manual) || 0), step = cur < 100 ? 10 : 50, dir = +el.dataset.dir;

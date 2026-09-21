@@ -41,6 +41,8 @@
   .nav-links a:hover{color:var(--pink);}
   .nav-cta{background:var(--pink); color:#fff !important; font-weight:700; padding:11px 22px; border-radius:100px; text-decoration:none; font-size:0.92rem; transition:transform .15s, background .2s;}
   .nav-cta:hover{background:var(--pink-dark); transform:translateY(-1px);}
+  .nav-login{border:2px solid var(--ink); color:var(--ink) !important; font-family:var(--display); font-weight:700 !important; padding:8px 20px; border-radius:100px; text-decoration:none; font-size:0.92rem; transition:background .2s, color .2s;}
+  .nav-login:hover{background:var(--ink); color:var(--cream) !important;}
   .nav-toggle{display:none; background:none; border:none; font-size:1.6rem; cursor:pointer; color:var(--ink);}
   @media (max-width:860px){
     .nav-links{position:absolute; top:100%; left:0; right:0; background:var(--cream); flex-direction:column; align-items:flex-start; padding:18px 28px 26px; gap:16px; border-bottom:1px solid rgba(23,21,18,0.08); display:none;}
@@ -136,20 +138,62 @@
   .model-node h4{font-family:var(--display); font-weight:800; font-size:1.05rem; margin-bottom:6px;}
   .model-node p{font-size:0.88rem; font-weight:600; opacity:0.9;}
   .arrow-down{font-size:1.6rem; color:var(--ink-soft);}
-  .pricing{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:44px;}
-  @media (max-width:860px){ .pricing{grid-template-columns:1fr;} }
-  .plan{border:2px solid rgba(23,21,18,0.1); border-radius:var(--radius); padding:28px 26px; transition:transform .2s, box-shadow .2s;}
-  .plan:hover{transform:translateY(-4px); box-shadow:0 20px 34px -18px rgba(23,21,18,0.2);}
-  .plan.featured{background:var(--pink); color:#fff; border-color:var(--pink);}
-  .plan-name{font-family:var(--display); font-weight:700; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--ink-soft);}
-  .plan.featured .plan-name{color:rgba(255,255,255,0.8);}
-  .plan-price{font-family:var(--display); font-weight:800; font-size:1.9rem; margin:10px 0 4px;}
-  .plan-unit{font-size:0.82rem; font-weight:600; color:var(--ink-soft);}
-  .plan.featured .plan-unit{color:rgba(255,255,255,0.75);}
-  .plan-desc{margin-top:14px; font-size:0.9rem; color:var(--ink-soft); font-weight:500;}
-  .plan.featured .plan-desc{color:rgba(255,255,255,0.9);}
-  .plan-cta{display:inline-block; margin-top:18px; font-family:var(--display); font-weight:700; font-size:0.9rem; color:var(--pink); text-decoration:none;}
-  .plan.featured .plan-cta{color:#fff; text-decoration:underline;}
+  /* dois compradores: pesquisas sob demanda + painel de inteligência */
+  .buyers{display:grid; grid-template-columns:1fr 1.12fr; gap:24px; margin-top:44px; align-items:stretch;}
+  @media (max-width:960px){ .buyers{grid-template-columns:1fr;} }
+  .buyer{display:flex; flex-direction:column; border-radius:28px; padding:34px 32px;}
+  .buyer.light{background:var(--cream); border:2px solid rgba(23,21,18,0.1);}
+  .buyer.dark{background:var(--ink); color:var(--cream);}
+  .buyer-head{display:flex; align-items:center; gap:12px; margin-bottom:18px;}
+  .buyer-num{width:40px; height:40px; border-radius:50%; background:var(--lime); color:var(--ink); font-family:var(--display); font-weight:800; font-size:1.05rem; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .buyer-tag{font-family:var(--display); font-weight:700; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--ink-soft);}
+  .buyer.dark .buyer-tag{color:rgba(252,241,236,0.65);}
+  .buyer h3{font-family:var(--display); font-weight:800; font-size:1.7rem; line-height:1.15; color:var(--ink);}
+  .buyer.dark h3{color:#fff;}
+  .buyer-lead{margin-top:8px; font-size:1rem; font-weight:600; color:var(--ink-soft);}
+  .buyer.dark .buyer-lead{color:rgba(252,241,236,0.78);}
+  .buyer-from{margin-top:22px; padding-top:20px; border-top:1px solid rgba(23,21,18,0.1);}
+  .buyer.dark .buyer-from{border-top-color:rgba(252,241,236,0.15);}
+  .buyer-from .lbl{font-size:0.82rem; font-weight:700; color:var(--ink-soft);}
+  .buyer.dark .buyer-from .lbl{color:rgba(252,241,236,0.65);}
+  .buyer-from .val{font-family:var(--display); font-weight:800; font-size:2.5rem; line-height:1.1; color:var(--pink); margin-top:2px;}
+  .buyer.dark .buyer-from .val{color:var(--lime);}
+  .buyer-from .val small{font-size:1.05rem; font-weight:700;}
+  .buyer-list{list-style:none; display:flex; flex-direction:column; gap:10px; margin-top:20px;}
+  .buyer-list li{display:flex; gap:8px; align-items:flex-start; font-size:0.92rem; font-weight:600; color:var(--ink);}
+  .buyer.dark .buyer-list li{color:rgba(252,241,236,0.9);}
+  .buyer-list li::before{content:"✓"; color:var(--lime-dark); font-weight:800;}
+  .buyer.dark .buyer-list li::before{color:var(--lime);}
+  .calc{margin-top:22px; background:#fff; border:1px solid rgba(23,21,18,0.08); border-radius:18px; padding:16px 18px; display:flex; flex-direction:column; gap:8px;}
+  .calc-title{font-family:var(--display); font-weight:700; font-size:0.85rem; color:var(--ink-soft);}
+  .calc-row{display:flex; align-items:center; gap:10px; font-size:0.95rem; font-weight:700; color:var(--ink);}
+  .calc-row span{width:24px; height:24px; border-radius:50%; background:var(--pink-soft); color:var(--pink); font-family:var(--display); font-weight:800; font-size:0.8rem; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .tiers{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:26px;}
+  @media (max-width:560px){ .tiers{grid-template-columns:1fr; gap:22px;} }
+  .tier{position:relative; border-radius:20px; padding:22px 20px 20px; background:rgba(252,241,236,0.08); border:1px solid rgba(252,241,236,0.18);}
+  .tier.best{background:var(--lime); color:var(--ink); border-color:var(--lime);}
+  .tier-badge{position:absolute; top:-13px; right:14px; background:var(--pink); color:#fff; font-family:var(--display); font-weight:800; font-size:0.82rem; padding:5px 13px; border-radius:100px; box-shadow:0 8px 16px -8px rgba(232,21,106,0.7);}
+  .tier-name{font-family:var(--display); font-weight:700; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.04em; color:rgba(252,241,236,0.7);}
+  .tier.best .tier-name{color:rgba(23,21,18,0.7);}
+  .tier-was{margin-top:8px; font-size:0.8rem; font-weight:700; color:rgba(23,21,18,0.6);}
+  .tier-price{font-family:var(--display); font-weight:800; font-size:1.8rem; line-height:1.1; margin-top:6px; color:#fff;}
+  .tier.best .tier-was + .tier-price{margin-top:2px;}
+  .tier.best .tier-price{color:var(--ink);}
+  .tier-price small{font-size:0.95rem; font-weight:700;}
+  .tier-desc{margin-top:10px; font-size:0.86rem; font-weight:600; color:rgba(252,241,236,0.78);}
+  .tier.best .tier-desc{color:rgba(23,21,18,0.78);}
+  .buyer .btn-primary{align-self:flex-start; margin-top:28px;}
+  .buyer-spacer{flex:1 1 auto;}
+  .buyer-fine{margin-top:16px; font-size:0.8rem; color:rgba(252,241,236,0.6); font-weight:600;}
+  .buyer-fine a{color:var(--lime); font-weight:700; text-decoration:underline;}
+  .model-caption{text-align:center; margin:56px auto 0; max-width:620px; font-size:1rem; font-weight:600; color:var(--ink-soft);}
+  .model-caption + .model-diagram{margin-top:24px;}
+  @media (max-width:560px){
+    .buyer{padding:28px 22px;}
+    .buyer h3{font-size:1.45rem;}
+    .buyer-from .val{font-size:2.15rem;}
+    .buyer .btn-primary{align-self:stretch; justify-content:center;}
+  }
 
   /* FAQ */
   .faq .wrap{max-width:820px;}
@@ -262,6 +306,7 @@
       <a href="#planos">Planos</a>
       <a href="#faq">FAQ</a>
       <a href="index.html">Sou empreendedora</a>
+      <a class="nav-login" href="entrar.html" id="navLogin">Entrar</a>
       <a class="nav-cta js-open-form" href="#">Falar com o time</a>
     </div>
   </div>
@@ -394,45 +439,85 @@
 
 <section class="model" id="planos">
   <div class="wrap">
-    <span class="sec-eyebrow pink">modelo de parceria</span>
-    <h2 class="sec-title">Como funciona a <span class="accent">parceria B2B2C.</span></h2>
-    <p class="sec-desc">Sua empresa paga pela inteligência de dados. Parte dessa receita retorna às usuárias em forma de benefícios e cashback — o que sustenta o engajamento e a qualidade das respostas.</p>
+    <span class="sec-eyebrow pink">modelo de negócio</span>
+    <h2 class="sec-title">Como empresas usam o <span class="accent">Saldo Alto.</span></h2>
+    <p class="sec-desc">Nosso modelo atende dois tipos de compradores: empresas que precisam de respostas específicas para tomar decisões e organizações que fomentam o empreendedorismo feminino.</p>
 
+    <div class="buyers">
+      <!-- 01 · Pesquisas sob demanda -->
+      <article class="buyer light">
+        <div class="buyer-head"><span class="buyer-num">01</span><span class="buyer-tag">Para empresas</span></div>
+        <h3>Pesquisas sob demanda</h3>
+        <p class="buyer-lead">Para empresas que precisam validar decisões específicas.</p>
+
+        <div class="buyer-from">
+          <div class="lbl">A partir de</div>
+          <div class="val">R$ 2.500 <small>por pesquisa</small></div>
+        </div>
+
+        <ul class="buyer-list">
+          <li>Validação de produtos, serviços, campanhas e decisões de negócio com um público específico</li>
+          <li>Respostas de mulheres empreendedoras, segmentadas e validadas</li>
+        </ul>
+
+        <div class="calc">
+          <div class="calc-title">Na calculadora inteligente, você define:</div>
+          <div class="calc-row"><span>1</span>Público-alvo</div>
+          <div class="calc-row"><span>2</span>Tamanho da amostra</div>
+          <div class="calc-row"><span>3</span>Investimento necessário</div>
+        </div>
+
+        <div class="buyer-spacer"></div>
+        <a href="#" class="btn-primary js-open-form" data-plan="Pesquisa sob demanda (a partir de R$ 2.500)">Criar uma pesquisa →</a>
+      </article>
+
+      <!-- 02 · Painel de Inteligência -->
+      <article class="buyer dark">
+        <div class="buyer-head"><span class="buyer-num">02</span><span class="buyer-tag">Para organizações</span></div>
+        <h3>Painel de Inteligência</h3>
+        <p class="buyer-lead">Para organizações que acompanham e fomentam o empreendedorismo feminino.</p>
+
+        <div class="buyer-from">
+          <div class="lbl">Planos a partir de</div>
+          <div class="val">R$ 1.800<small>/mês</small></div>
+        </div>
+
+        <ul class="buyer-list">
+          <li>Painéis e relatórios com dados agregados: perfis, necessidades e tendências</li>
+          <li>Atende organizações como SEBRAE, Rede Mulher Empreendedora, incubadoras, universidades e programas de apoio</li>
+          <li>Somente dados agregados sobre o mercado — nunca dados pessoais individuais</li>
+        </ul>
+
+        <div class="tiers">
+          <div class="tier">
+            <div class="tier-name">Trimestral</div>
+            <div class="tier-price">R$ 2.500<small>/mês</small></div>
+            <p class="tier-desc">Acompanhe dados e tendências do empreendedorismo feminino por 3 meses.</p>
+          </div>
+          <div class="tier best">
+            <span class="tier-badge">28% de economia</span>
+            <div class="tier-name">Semestral</div>
+            <div class="tier-was">de <s>R$ 2.500/mês</s> por</div>
+            <div class="tier-price">R$ 1.800<small>/mês</small></div>
+            <p class="tier-desc">Acompanhamento contínuo por 6 meses.</p>
+          </div>
+        </div>
+
+        <div class="buyer-spacer"></div>
+        <a href="#" class="btn-primary js-open-form" data-plan="Painel de Inteligência (quero conhecer os planos)">Conhecer os planos →</a>
+        <p class="buyer-fine">Planos renovam automaticamente. Consulte nossa <a href="politica-cancelamento.html">Política de Cancelamento e Renovação →</a></p>
+      </article>
+    </div>
+
+    <p class="model-caption">Em ambos os modelos, parte da receita volta para as usuárias em benefícios e cashback — o que sustenta o engajamento e a qualidade das respostas.</p>
     <div class="model-diagram">
-      <div class="model-node top card"><h4>Empresas</h4><p>pagam pela inteligência de dados</p></div>
+      <div class="model-node top card"><h4>Empresas e organizações</h4><p>pagam pela inteligência de dados</p></div>
       <div class="arrow-down">↕</div>
       <div class="model-node mid">
         <div class="card lime"><h4>Usuárias</h4><p>recebem os benefícios e alimentam os dados</p></div>
         <div class="card ink"><h4>Saldo Alto</h4><p>conecta, valida e entrega valor</p></div>
       </div>
     </div>
-
-    <div class="pricing">
-      <div class="plan">
-        <div class="plan-name">Campanha pontual</div>
-        <div class="plan-price">R$ 2.500</div>
-        <div class="plan-unit">por pesquisa · sem contrato mínimo</div>
-        <p class="plan-desc">Para demandas esporádicas de validação rápida.</p>
-        <a href="#" class="plan-cta js-open-form" data-plan="Campanha pontual (R$ 2.500/pesquisa)">Contratar →</a>
-      </div>
-      <div class="plan featured">
-        <div class="plan-name">Plano trimestral</div>
-        <div class="plan-price">R$ 1.800</div>
-        <div class="plan-unit">por mês · mínimo 3 meses</div>
-        <p class="plan-desc">Inteligência de mercado contínua para quem decide com frequência.</p>
-        <a href="#" class="plan-cta js-open-form" data-plan="Plano trimestral (R$ 1.800/mês)">Contratar →</a>
-      </div>
-      <div class="plan">
-        <div class="plan-name">Plano semestral</div>
-        <div class="plan-price">R$ 3.500</div>
-        <div class="plan-unit">por mês · mínimo 6 meses</div>
-        <p class="plan-desc">Segmentação avançada e relatórios customizados.</p>
-        <a href="#" class="plan-cta js-open-form" data-plan="Plano semestral (R$ 3.500/mês)">Contratar →</a>
-      </div>
-    </div>
-    <p style="text-align:center; margin-top:18px; font-size:0.88rem; color:var(--ink-soft);">
-      Planos trimestral e semestral renovam automaticamente. Consulte nossa <a href="politica-cancelamento.html" style="color:var(--pink); font-weight:700; text-decoration:underline;">Política de Cancelamento e Renovação →</a>
-    </p>
   </div>
 </section>
 
@@ -444,15 +529,15 @@
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q" type="button">O que é o Saldo Alto e que tipo de dado eu recebo?<span class="plus">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Uma plataforma de inteligência de mercado B2B2C: conectamos sua empresa a mulheres empreendedoras reais, entregando dados qualificados, segmentados e validados sobre esse público — não pesquisa avulsa, e sim inteligência contínua.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Uma plataforma de inteligência de mercado B2B2C: conectamos sua empresa a mulheres empreendedoras reais, entregando dados qualificados, segmentados e validados sobre esse público — pesquisa de mercado, inteligência de dados e acesso direto a mulheres empreendedoras, muito além de um questionário.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" type="button">Como funciona o modelo de parceria (B2B2C)?<span class="plus">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Sua empresa contrata a inteligência de dados; parte dessa receita retorna às usuárias em forma de benefícios e cashback. É esse incentivo que sustenta o engajamento e a qualidade das respostas.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Sua empresa ou organização contrata a inteligência de dados; parte dessa receita retorna às usuárias em forma de benefícios e cashback. É esse incentivo que sustenta o engajamento e a qualidade das respostas.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" type="button">Quanto custa contratar o Saldo Alto?<span class="plus">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Três formatos: Campanha pontual (R$ 2.500 por pesquisa, sem contrato mínimo), Plano trimestral (R$ 1.800/mês, mínimo de 3 meses) e Plano semestral (R$ 3.500/mês, mínimo de 6 meses, com segmentação avançada e relatórios customizados).</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Dois modelos. Pesquisas sob demanda, para empresas: a partir de R$ 2.500 por pesquisa, com o valor final definido na calculadora conforme público-alvo e tamanho da amostra. Painel de Inteligência, para organizações: Plano trimestral (R$ 2.500/mês, por 3 meses) e Plano semestral (R$ 1.800/mês, por 6 meses — 28% de economia em relação ao trimestral).</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" type="button">Que tipo de projeto posso rodar na plataforma?<span class="plus">+</span></button>
@@ -468,7 +553,7 @@
       </div>
       <div class="faq-item">
         <button class="faq-q" type="button">Existe contrato mínimo? Posso cancelar?<span class="plus">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner">O plano trimestral exige mínimo de 3 meses e o semestral, 6 meses; a campanha pontual não tem contrato mínimo. Cancelamento a qualquer momento pelo mesmo canal da contratação — veja as regras completas na nossa <a href="politica-cancelamento.html">Política de Cancelamento e Renovação</a>.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">No Painel de Inteligência, o plano trimestral tem duração de 3 meses e o semestral, de 6 meses; a pesquisa sob demanda é pontual e não tem contrato mínimo. Cancelamento a qualquer momento pelo mesmo canal da contratação — veja as regras completas na nossa <a href="politica-cancelamento.html">Política de Cancelamento e Renovação</a>.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" type="button">Quem são as respondentes? Qual o tamanho desse público?<span class="plus">+</span></button>
@@ -593,9 +678,10 @@
           <label for="f-plano">Plano de interesse *</label>
           <select id="f-plano" required>
             <option value="" disabled selected>Selecione</option>
-            <option>Campanha pontual (R$ 2.500/pesquisa)</option>
-            <option>Plano trimestral (R$ 1.800/mês)</option>
-            <option>Plano semestral (R$ 3.500/mês)</option>
+            <option>Pesquisa sob demanda (a partir de R$ 2.500)</option>
+            <option>Painel de Inteligência — Plano trimestral (R$ 2.500/mês)</option>
+            <option>Painel de Inteligência — Plano semestral (R$ 1.800/mês)</option>
+            <option>Painel de Inteligência (quero conhecer os planos)</option>
             <option>Ainda não sei / quero saber mais</option>
           </select>
           <span class="field-error" id="err-f-plano"></span>
@@ -669,6 +755,18 @@
   closeBtn.addEventListener('click', closeModal);
   overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+
+  // Já está conectada? O botão vira "Minha conta". Também abre o formulário quando vem de ?contato=1.
+  (function () {
+    try {
+      const raw = sessionStorage.getItem('sa.sessao.v1') || localStorage.getItem('sa.sessao.v1');
+      const s = raw && JSON.parse(raw);
+      if (s && s.token && (!s.expiraEm || new Date(s.expiraEm).getTime() > Date.now())) {
+        const a = document.getElementById('navLogin'); a.textContent = 'Minha conta'; a.setAttribute('href', 'painel.html');
+      }
+    } catch (e) { /* sem acesso ao armazenamento: mantém "Entrar" */ }
+    if (new URLSearchParams(location.search).get('contato')) openModal();
+  })();
 
   // ---------- Validadores ----------
   const NAME_REGEX = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]+$/;

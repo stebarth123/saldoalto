@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entrar — Saldo Alto para Empresas</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#E8156A; --pink-dark:#C4104F; --pink-deep:#8E0C3B; --pink-soft:rgba(232,21,106,0.08);
+    --lime:#C6D92E; --lime-dark:#A9BC1F; --cream:#FAF3F0; --ink:#171512; --ink-soft:rgba(23,21,18,0.68); --line:rgba(23,21,18,0.12);
+    --display:'Baloo 2',sans-serif; --body:'Quicksand',sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--cream); color:var(--ink); font-family:var(--body); font-weight:500; line-height:1.55; -webkit-font-smoothing:antialiased; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;}
+  img,svg{display:block; max-width:100%;}
+  a{color:inherit;}
+  button{font-family:inherit; cursor:pointer;}
+  :focus-visible{outline:3px solid var(--lime-dark); outline-offset:2px;}
+  [hidden]{display:none !important;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;} }
+
+  .card{width:100%; max-width:1140px; min-height:720px; background:#fff; border-radius:36px; padding:14px; display:grid; grid-template-columns:1.06fr 1fr; gap:14px; box-shadow:0 50px 90px -50px rgba(23,21,18,0.35), 0 0 0 1px rgba(23,21,18,0.05);}
+
+  /* ---------- lado esquerdo: hero ---------- */
+  .hero{position:relative; overflow:hidden; border-radius:26px; padding:30px 30px 30px; color:#fff; display:flex; flex-direction:column;
+    background:radial-gradient(90% 70% at 0% 100%, rgba(255,120,170,0.45) 0%, rgba(255,120,170,0) 60%), linear-gradient(160deg, var(--pink) 0%, var(--pink-dark) 55%, var(--pink-deep) 100%);}
+  .hero::before{content:""; position:absolute; width:340px; height:340px; border-radius:50%; right:-120px; top:38%; border:60px solid rgba(198,217,46,0.2); pointer-events:none;}
+  .hero-top{display:flex; align-items:center; justify-content:space-between; gap:12px; position:relative; z-index:1;}
+  .logo-chip{background:#fff; border-radius:100px; padding:9px 20px; display:inline-flex;}
+  .logo-chip img{height:28px; width:auto;}
+  .back-link{font-family:var(--display); font-weight:700; font-size:.9rem; color:#fff; text-decoration:none; opacity:.9; padding:8px 14px; border-radius:100px; border:1.5px solid rgba(255,255,255,0.35); transition:background .2s;}
+  .back-link:hover{background:rgba(255,255,255,0.15);}
+  .hero-mid{margin-top:auto; padding:40px 0 30px; position:relative; z-index:1;}
+  .tag{display:inline-flex; align-items:center; gap:8px; font-family:var(--display); font-weight:700; font-size:.88rem; background:rgba(255,255,255,0.16); border:1px solid rgba(255,255,255,0.35); border-radius:100px; padding:6px 16px; backdrop-filter:blur(6px);}
+  .tag::before{content:""; width:8px; height:8px; border-radius:50%; background:var(--lime);}
+  .hero h1{font-family:var(--display); font-weight:800; font-size:clamp(2.3rem,4.4vw,3.4rem); line-height:1.06; margin-top:20px; letter-spacing:-.01em;}
+  .hero h1 em{font-style:normal; color:var(--lime);}
+  .hero p.sub{margin-top:16px; font-size:1.05rem; font-weight:600; max-width:420px; color:rgba(255,255,255,0.88);}
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; position:relative; z-index:1;}
+  .step{border-radius:20px; padding:16px 15px 17px; background:rgba(255,255,255,0.13); border:1px solid rgba(255,255,255,0.28); backdrop-filter:blur(8px); transition:background .25s, color .25s, transform .25s;}
+  .step .n{width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--display); font-weight:800; font-size:.92rem; background:rgba(255,255,255,0.22); color:#fff; margin-bottom:26px;}
+  .step b{display:block; font-family:var(--display); font-weight:800; font-size:1rem; line-height:1.15;}
+  .step span{display:block; font-size:.8rem; font-weight:600; line-height:1.35; margin-top:5px; color:rgba(255,255,255,0.82);}
+  .step.on{background:#fff; color:var(--ink); border-color:#fff; transform:translateY(-4px); box-shadow:0 22px 36px -22px rgba(0,0,0,.5);}
+  .step.on .n{background:var(--lime); color:var(--ink);}
+  .step.on span{color:var(--ink-soft);}
+
+  /* ---------- lado direito: formulários ---------- */
+  .panel{padding:34px 40px 26px; display:flex; flex-direction:column; justify-content:center; min-width:0;}
+  .panel-in{width:100%; max-width:420px; margin:0 auto;}
+  .panel h2{font-family:var(--display); font-weight:800; font-size:2rem; text-align:center; line-height:1.15;}
+  .panel .lead{text-align:center; color:var(--ink-soft); font-weight:600; font-size:.95rem; margin:6px 0 22px;}
+  .alert{border-radius:14px; padding:11px 14px; font-size:.9rem; font-weight:700; margin-bottom:16px; display:flex; gap:10px; align-items:flex-start;}
+  .alert.err{background:rgba(196,16,79,0.09); color:var(--pink-dark);}
+  .alert.ok{background:rgba(169,188,31,0.2); color:#4e5a06;}
+  .alert.info{background:var(--pink-soft); color:var(--ink);}
+
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .field{margin-bottom:14px; min-width:0;}
+  .field label{display:block; font-family:var(--display); font-weight:700; font-size:.86rem; margin-bottom:5px;}
+  .field .opt{font-weight:600; color:var(--ink-soft); font-family:var(--body); font-size:.8rem;}
+  .wrap-in{position:relative;}
+  .field input:not([type=checkbox]), .field select{width:100%; font-family:var(--body); font-weight:600; font-size:.96rem; color:var(--ink); background:#fff; border:2px solid var(--line); border-radius:14px; padding:12px 42px 12px 15px; outline:none; transition:border-color .2s, background .2s; appearance:none; -webkit-appearance:none;}
+  .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23171512' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center;}
+  .field input:focus, .field select:focus{border-color:var(--pink);}
+  .field input::placeholder{color:rgba(23,21,18,0.38); font-weight:500;}
+  .field.invalid input, .field.invalid select{border-color:var(--pink-dark); background:rgba(232,21,106,0.04);}
+  .field.valid .wrap-in::after{content:""; position:absolute; right:14px; top:50%; width:20px; height:20px; margin-top:-10px; border-radius:50%; background:var(--lime) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23171512' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/12px no-repeat; pointer-events:none;}
+  .field.has-eye.valid .wrap-in::after{display:none;}
+  .eye{position:absolute; right:8px; top:50%; transform:translateY(-50%); width:34px; height:34px; border:none; background:none; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--ink-soft);}
+  .eye:hover{background:var(--pink-soft); color:var(--pink);}
+  .eye svg{width:19px; height:19px;}
+  .err-msg{display:none; color:var(--pink-dark); font-size:.8rem; font-weight:700; margin-top:4px;}
+  .field.invalid .err-msg{display:block;}
+  .hint{font-size:.8rem; color:var(--ink-soft); font-weight:600; margin-top:5px;}
+  .reqs{list-style:none; margin-top:8px; display:flex; flex-wrap:wrap; gap:4px 14px;}
+  .reqs li{font-size:.8rem; font-weight:700; color:var(--ink-soft); display:flex; align-items:center; gap:6px;}
+  .reqs li::before{content:""; width:14px; height:14px; border-radius:50%; border:2px solid rgba(23,21,18,0.25);}
+  .reqs li.ok{color:#5b6a08;}
+  .reqs li.ok::before{border-color:var(--lime-dark); background:var(--lime) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23171512' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/9px no-repeat;}
+
+  .line-row{display:flex; align-items:center; justify-content:space-between; gap:12px; margin:2px 0 18px; flex-wrap:wrap;}
+  .check{display:flex; align-items:center; gap:9px; font-size:.88rem; font-weight:700; cursor:pointer;}
+  .check input{width:18px; height:18px; accent-color:var(--pink); flex-shrink:0;}
+  .link{background:none; border:none; padding:0; color:var(--pink); font-family:inherit; font-weight:800; font-size:.88rem; text-decoration:underline; text-underline-offset:3px; cursor:pointer;}
+  .link:hover{color:var(--pink-dark);}
+  .consent{display:flex; gap:10px; align-items:flex-start; background:var(--pink-soft); border-radius:14px; padding:12px 14px; margin:4px 0 18px;}
+  .consent input{margin-top:3px; width:18px; height:18px; accent-color:var(--pink); flex-shrink:0;}
+  .consent label{font-family:var(--body); font-size:.84rem; font-weight:600; line-height:1.4;}
+  .consent label a{color:var(--pink); font-weight:800;}
+  .field.invalid.consent{outline:2px solid var(--pink-dark); outline-offset:2px;}
+  .consent .err-msg{margin-top:2px;}
+
+  .btn{width:100%; display:flex; align-items:center; justify-content:center; gap:10px; font-family:var(--display); font-weight:800; font-size:1.08rem; padding:15px 24px; border-radius:100px; border:2px solid transparent; text-decoration:none; transition:transform .15s, background .2s, opacity .2s;}
+  .btn.primary{background:var(--pink); color:#fff; box-shadow:0 14px 26px -12px rgba(232,21,106,0.6);}
+  .btn.primary:hover:not(:disabled){background:var(--pink-dark); transform:translateY(-2px);}
+  .btn.primary:disabled{opacity:.6; cursor:wait; box-shadow:none;}
+  .btn.ghost{background:#fff; color:var(--ink); border-color:var(--ink); font-size:1rem; padding:12px 24px;}
+  .btn.ghost:hover{background:var(--ink); color:var(--cream);}
+  .btn.plain{background:none; color:var(--ink-soft); font-size:.95rem; padding:10px; border:none;}
+  .btn.plain:hover{color:var(--pink);}
+  .spin{width:1.05em; height:1.05em; border-radius:50%; border:2.5px solid currentColor; border-right-color:transparent; animation:spin .7s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .switch{text-align:center; font-size:.92rem; font-weight:600; margin-top:16px; color:var(--ink-soft);}
+  .divider{display:flex; align-items:center; gap:14px; margin:18px 0; color:var(--ink-soft); font-weight:700; font-size:.85rem;}
+  .divider::before,.divider::after{content:""; flex:1; height:1px; background:var(--line);}
+  .legal{margin-top:20px; text-align:center; font-size:.78rem; color:var(--ink-soft); font-weight:600;}
+  .legal a{color:var(--ink); font-weight:800;}
+  .stepper{display:flex; align-items:center; justify-content:center; gap:8px; margin:-8px 0 18px; font-family:var(--display); font-weight:700; font-size:.82rem; color:var(--ink-soft);}
+  .stepper i{width:34px; height:5px; border-radius:100px; background:var(--line);}
+  .stepper i.on{background:var(--pink);}
+  .code-input{letter-spacing:.5em; text-align:center; font-family:var(--display) !important; font-weight:800 !important; font-size:1.4rem !important;}
+
+  @media (max-width:940px){
+    body{padding:12px; align-items:flex-start;}
+    .card{grid-template-columns:1fr; min-height:0; border-radius:28px; padding:10px;}
+    .hero{padding:20px 20px 20px;}
+    .hero-mid{padding:26px 0 20px;}
+    .hero h1{font-size:2rem; margin-top:14px;}
+    .hero p.sub{display:none;}
+    .steps{gap:8px;}
+    .step{padding:10px 11px;} .step .n{margin-bottom:8px; width:24px; height:24px; font-size:.8rem;} .step span{display:none;} .step b{font-size:.86rem;}
+    .step.on{transform:none;}
+    .panel{padding:26px 14px 18px;}
+    .row2{grid-template-columns:1fr;}
+    .logo-chip img{height:24px;}
+  }
+</style>
+</head>
+<body>
+
+<main class="card">
+  <!-- ===================== HERO ===================== -->
+  <aside class="hero" aria-label="Apresentação">
+    <div class="hero-top">
+      <a class="logo-chip" href="saldo-alto-empresas.html" aria-label="Saldo Alto — página para empresas"><img src="logo-saldo-alto.png" alt="Saldo Alto"></a>
+      <a class="back-link" href="saldo-alto-empresas.html">← Voltar ao site</a>
+    </div>
+    <div class="hero-mid">
+      <span class="tag" id="heroTag">Saldo Alto para empresas</span>
+      <h1 id="heroTitle">Bem-vinda <em>de volta</em></h1>
+      <p class="sub" id="heroSub">Acesse suas pesquisas e a inteligência sobre mulheres empreendedoras, tudo no mesmo lugar.</p>
+    </div>
+    <ol class="steps" id="heroSteps" style="list-style:none">
+      <li class="step" data-i="1"><div class="n">1</div><b>Crie sua conta</b><span>Cadastro rápido com o CNPJ da empresa.</span></li>
+      <li class="step" data-i="2"><div class="n">2</div><b>Monte sua pesquisa</b><span>Público, perguntas e amostra, com apoio de IA.</span></li>
+      <li class="step" data-i="3"><div class="n">3</div><b>Acompanhe</b><span>Respostas e dados da base em um só painel.</span></li>
+    </ol>
+  </aside>
+
+  <!-- ===================== FORMULÁRIOS ===================== -->
+  <section class="panel">
+    <div class="panel-in">
+
+      <!-- ENTRAR -->
+      <div data-panel="entrar">
+        <h2>Entrar</h2>
+        <p class="lead">Acesse a área da sua empresa.</p>
+        <div class="alert" id="a-entrar" role="alert" hidden></div>
+        <form id="f-entrar" novalidate>
+          <div class="field">
+            <label for="l-email">E-mail</label>
+            <div class="wrap-in"><input id="l-email" data-v="email" type="email" autocomplete="username" inputmode="email" placeholder="voce@suaempresa.com.br"></div>
+            <div class="err-msg" id="e-l-email"></div>
+          </div>
+          <div class="field has-eye">
+            <label for="l-senha">Senha</label>
+            <div class="wrap-in"><input id="l-senha" data-v="req" type="password" autocomplete="current-password" placeholder="Sua senha"><button type="button" class="eye" data-eye="l-senha" aria-label="Mostrar senha"></button></div>
+            <div class="err-msg" id="e-l-senha"></div>
+          </div>
+          <div class="line-row">
+            <label class="check"><input type="checkbox" id="l-lembrar"> Manter conectada</label>
+            <button type="button" class="link" data-go="recuperar">Esqueci minha senha</button>
+          </div>
+          <button class="btn primary" type="submit" id="b-entrar">Entrar</button>
+        </form>
+        <p class="switch">Ainda não tem conta? <button type="button" class="link" data-go="criar">Criar conta</button></p>
+        <div class="divider">ou</div>
+        <a class="btn ghost" href="saldo-alto-empresas.html?contato=1">Falar com o time</a>
+      </div>
+
+      <!-- CRIAR CONTA -->
+      <div data-panel="criar" hidden>
+        <h2>Criar conta</h2>
+        <p class="lead" id="r-lead">Dados da empresa. Leva menos de 2 minutos.</p>
+        <div class="stepper" aria-hidden="true"><i class="on" id="st1"></i><i id="st2"></i><span id="st-label">Etapa 1 de 2</span></div>
+        <div class="alert" id="a-criar" role="alert" hidden></div>
+        <form id="f-criar" novalidate>
+          <div id="r-step1">
+            <div class="field">
+              <label for="r-empresa">Nome da empresa</label>
+              <div class="wrap-in"><input id="r-empresa" data-v="empresa" autocomplete="organization" placeholder="Como a empresa é conhecida"></div>
+              <div class="err-msg" id="e-r-empresa"></div>
+            </div>
+            <div class="field">
+              <label for="r-cnpj">CNPJ</label>
+              <div class="wrap-in"><input id="r-cnpj" data-v="cnpj" inputmode="numeric" placeholder="00.000.000/0000-00" maxlength="18"></div>
+              <div class="err-msg" id="e-r-cnpj"></div>
+            </div>
+            <div class="field">
+              <label for="r-setor">Setor de atuação</label>
+              <div class="wrap-in"><select id="r-setor" data-v="setor">
+                <option value="">Selecione</option>
+                <option>Varejo / E-commerce</option><option>Moda e beleza</option><option>Alimentação e bebidas</option><option>Educação</option>
+                <option>Saúde e bem-estar</option><option>Finanças / Fintech</option><option>Tecnologia</option>
+                <option>Agências de marketing e publicidade</option><option>Outro</option>
+              </select></div>
+              <div class="err-msg" id="e-r-setor"></div>
+            </div>
+            <div class="field">
+              <label for="r-site">Site <span class="opt">(opcional)</span></label>
+              <div class="wrap-in"><input id="r-site" data-v="site" autocomplete="url" placeholder="www.suaempresa.com.br"></div>
+              <div class="err-msg" id="e-r-site"></div>
+            </div>
+            <button class="btn primary" type="button" id="b-next">Continuar</button>
+          </div>
+
+          <div id="r-step2" hidden>
+            <div class="row2">
+              <div class="field">
+                <label for="r-nome">Seu nome</label>
+                <div class="wrap-in"><input id="r-nome" data-v="nome" autocomplete="name" placeholder="Nome e sobrenome"></div>
+                <div class="err-msg" id="e-r-nome"></div>
+              </div>
+              <div class="field">
+                <label for="r-cargo">Cargo <span class="opt">(opcional)</span></label>
+                <div class="wrap-in"><input id="r-cargo" data-v="cargo" autocomplete="organization-title" placeholder="Ex.: Marketing"></div>
+                <div class="err-msg" id="e-r-cargo"></div>
+              </div>
+            </div>
+            <div class="field">
+              <label for="r-email">E-mail de acesso</label>
+              <div class="wrap-in"><input id="r-email" data-v="email" type="email" autocomplete="email" inputmode="email" placeholder="voce@suaempresa.com.br"></div>
+              <div class="err-msg" id="e-r-email"></div>
+            </div>
+            <div class="field">
+              <label for="r-telefone">Telefone / WhatsApp</label>
+              <div class="wrap-in"><input id="r-telefone" data-v="telefone" type="tel" autocomplete="tel-national" inputmode="tel" placeholder="(11) 99999-9999" maxlength="15"></div>
+              <div class="err-msg" id="e-r-telefone"></div>
+            </div>
+            <div class="field has-eye">
+              <label for="r-senha">Senha</label>
+              <div class="wrap-in"><input id="r-senha" data-v="senha" type="password" autocomplete="new-password" placeholder="Crie uma senha"><button type="button" class="eye" data-eye="r-senha" aria-label="Mostrar senha"></button></div>
+              <ul class="reqs" id="r-reqs" aria-live="polite"></ul>
+              <div class="err-msg" id="e-r-senha"></div>
+            </div>
+            <div class="field has-eye">
+              <label for="r-senha2">Confirmar senha</label>
+              <div class="wrap-in"><input id="r-senha2" data-v="senha2" type="password" autocomplete="new-password" placeholder="Repita a senha"><button type="button" class="eye" data-eye="r-senha2" aria-label="Mostrar senha"></button></div>
+              <div class="err-msg" id="e-r-senha2"></div>
+            </div>
+            <div class="field consent" id="w-aceite">
+              <input type="checkbox" id="r-aceite" data-v="aceite">
+              <div><label for="r-aceite">Li e aceito a <a href="politica-privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a> e a <a href="politica-cancelamento.html" target="_blank" rel="noopener">Política de Cancelamento</a>.</label><div class="err-msg" id="e-r-aceite"></div></div>
+            </div>
+            <button class="btn primary" type="submit" id="b-criar">Criar minha conta</button>
+            <button class="btn plain" type="button" id="b-back">← Voltar aos dados da empresa</button>
+          </div>
+        </form>
+        <p class="switch">Já tem conta? <button type="button" class="link" data-go="entrar">Entrar</button></p>
+      </div>
+
+      <!-- RECUPERAR SENHA -->
+      <div data-panel="recuperar" hidden>
+        <h2>Recuperar senha</h2>
+        <p class="lead" id="c-lead">Informe seu e-mail e enviaremos um código de 6 números.</p>
+        <div class="alert" id="a-recuperar" role="alert" hidden></div>
+        <form id="f-rec1" novalidate>
+          <div class="field">
+            <label for="c-email">E-mail da conta</label>
+            <div class="wrap-in"><input id="c-email" data-v="email" type="email" autocomplete="username" inputmode="email" placeholder="voce@suaempresa.com.br"></div>
+            <div class="err-msg" id="e-c-email"></div>
+          </div>
+          <button class="btn primary" type="submit" id="b-rec1">Enviar código</button>
+        </form>
+        <form id="f-rec2" novalidate hidden>
+          <div class="field">
+            <label for="c-codigo">Código recebido por e-mail</label>
+            <div class="wrap-in"><input id="c-codigo" data-v="codigo" class="code-input" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000"></div>
+            <div class="err-msg" id="e-c-codigo"></div>
+            <div class="hint">O código vale por 30 minutos. Confira também o spam. <button type="button" class="link" id="b-resend">Reenviar código</button></div>
+          </div>
+          <div class="field has-eye">
+            <label for="c-senha">Nova senha</label>
+            <div class="wrap-in"><input id="c-senha" data-v="senha" type="password" autocomplete="new-password" placeholder="Crie uma nova senha"><button type="button" class="eye" data-eye="c-senha" aria-label="Mostrar senha"></button></div>
+            <ul class="reqs" id="c-reqs" aria-live="polite"></ul>
+            <div class="err-msg" id="e-c-senha"></div>
+          </div>
+          <div class="field has-eye">
+            <label for="c-senha2">Confirmar nova senha</label>
+            <div class="wrap-in"><input id="c-senha2" data-v="senha2" type="password" autocomplete="new-password" placeholder="Repita a senha"><button type="button" class="eye" data-eye="c-senha2" aria-label="Mostrar senha"></button></div>
+            <div class="err-msg" id="e-c-senha2"></div>
+          </div>
+          <button class="btn primary" type="submit" id="b-rec2">Redefinir senha</button>
+        </form>
+        <p class="switch"><button type="button" class="link" data-go="entrar">← Voltar para entrar</button></p>
+      </div>
+
+      <p class="legal">Ao continuar, você concorda com a <a href="politica-privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a> e a <a href="politica-cancelamento.html" target="_blank" rel="noopener">Política de Cancelamento</a>.</p>
+    </div>
+  </section>
+</main>
+
+<script src="sa-app.js"></script>
+<script>
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var qs = new URLSearchParams(location.search);
+  var NEXT = SA.safeNext(qs.get('next')) || 'painel.html';
+
+  var EYE_ON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+  var EYE_OFF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 19c-6.4 0-10-7-10-7a18.5 18.5 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c6.4 0 10 7 10 7a18.5 18.5 0 0 1-2.16 3.19"/><path d="m1 1 22 22"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/></svg>';
+  $$('[data-eye]').forEach(function (b) { b.innerHTML = EYE_ON; });
+
+  /* ---------- modos ---------- */
+  var HERO = {
+    entrar: { tag: 'Saldo Alto para empresas', title: 'Bem-vinda <em>de volta</em>', sub: 'Acesse suas pesquisas e a inteligência sobre mulheres empreendedoras, tudo no mesmo lugar.', step: 3, doc: 'Entrar' },
+    criar: { tag: 'Cadastro de empresa', title: 'Comece sua <em>jornada</em>', sub: 'Crie a conta da sua empresa e ouça diretamente quem empreende: pesquisas com dados de origem.', step: 1, doc: 'Criar conta' },
+    recuperar: { tag: 'Acesso à conta', title: 'Vamos <em>recuperar</em> seu acesso', sub: 'Enviamos um código por e-mail para você criar uma senha nova com segurança.', step: 0, doc: 'Recuperar senha' }
+  };
+  var mode = 'entrar';
+  function setMode(m, focus) {
+    if (!HERO[m]) m = 'entrar';
+    mode = m;
+    $$('[data-panel]').forEach(function (p) { p.hidden = p.getAttribute('data-panel') !== m; });
+    var h = HERO[m];
+    $('#heroTag').textContent = h.tag; $('#heroTitle').innerHTML = h.title; $('#heroSub').textContent = h.sub;
+    $$('#heroSteps .step').forEach(function (s) { s.classList.toggle('on', Number(s.getAttribute('data-i')) === h.step); });
+    document.title = h.doc + ' — Saldo Alto para Empresas';
+    if (location.hash !== '#' + m && !(m === 'entrar' && !location.hash)) history.replaceState(null, '', location.pathname + location.search + (m === 'entrar' ? '' : '#' + m));
+    if (focus !== false) { var first = $('[data-panel="' + m + '"] input:not([type=checkbox]):not([hidden]), [data-panel="' + m + '"] select'); var vis = $$('[data-panel="' + m + '"] input').filter(function (i) { return i.offsetParent !== null; })[0]; (vis || first) && (vis || first).focus(); }
+  }
+  $$('[data-go]').forEach(function (b) { b.addEventListener('click', function () { clearAlerts(); setMode(b.getAttribute('data-go')); }); });
+  window.addEventListener('hashchange', function () { setMode(location.hash.replace('#', ''), false); });
+
+  /* ---------- alertas ---------- */
+  function alertBox(id, kind, msg) { var a = $('#' + id); a.className = 'alert ' + kind; a.textContent = msg; a.hidden = false; }
+  function clearAlerts() { $$('.alert').forEach(function (a) { a.hidden = true; }); }
+
+  /* ---------- validação ---------- */
+  var V = {
+    req: function (v) { return v ? '' : 'Informe a senha.'; },
+    email: function (v) { return SA.isEmail(v) ? '' : 'Informe um e-mail válido.'; },
+    empresa: function (v) { return v.trim().length >= 2 ? '' : 'Informe o nome da empresa.'; },
+    cnpj: function (v) { return SA.validCnpj(v) ? '' : 'CNPJ inválido. Confira os 14 números.'; },
+    setor: function (v) { return v ? '' : 'Escolha o setor de atuação.'; },
+    site: function () { return ''; }, cargo: function () { return ''; },
+    nome: function (v) { return v.trim().length >= 2 && /\s/.test(v.trim()) ? '' : 'Informe nome e sobrenome.'; },
+    telefone: function (v) { var d = SA.digits(v); return d.length >= 10 && d.length <= 13 ? '' : 'Informe um telefone com DDD.'; },
+    senha: function (v) { return SA.passwordChecks(v).every(function (c) { return c.ok; }) ? '' : 'A senha precisa cumprir os requisitos abaixo.'; },
+    senha2: function (v, scope) { var p = $('[data-v="senha"]', scope); return v && p && v === p.value ? '' : 'As senhas não são iguais.'; },
+    codigo: function (v) { return /^\d{6}$/.test(v) ? '' : 'Digite os 6 números do código.'; },
+    aceite: function (v, scope, el) { return el.checked ? '' : 'É preciso aceitar para criar a conta.'; }
+  };
+  function fieldOf(el) { return el.closest('.field'); }
+  function setErr(el, msg) {
+    var f = fieldOf(el), out = $('#e-' + el.id);
+    f.classList.toggle('invalid', !!msg); f.classList.toggle('valid', !msg && el.type !== 'checkbox' && el.value.trim() !== '' && ['cnpj', 'email', 'empresa', 'codigo'].indexOf(el.getAttribute('data-v')) >= 0);
+    if (out) out.textContent = msg || '';
+    el.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    if (msg && out) el.setAttribute('aria-describedby', out.id); else el.removeAttribute('aria-describedby');
+  }
+  function check(el, scope) {
+    var fn = V[el.getAttribute('data-v')]; if (!fn) return true;
+    var msg = fn(el.value, scope || el.closest('form'), el);
+    setErr(el, msg); return !msg;
+  }
+  function checkAll(scope, ids) {
+    var firstBad = null, ok = true;
+    $$('[data-v]', scope).forEach(function (el) {
+      if (ids && ids.indexOf(el.id) < 0) return;
+      if (!check(el, scope)) { ok = false; if (!firstBad) firstBad = el; }
+    });
+    if (firstBad) firstBad.focus();
+    return ok;
+  }
+  // validação ao sair do campo e limpeza do erro ao digitar
+  $$('[data-v]').forEach(function (el) {
+    el.addEventListener('blur', function () { if (el.value !== '' || fieldOf(el).classList.contains('invalid')) check(el); });
+    el.addEventListener(el.type === 'checkbox' || el.tagName === 'SELECT' ? 'change' : 'input', function () {
+      if (fieldOf(el).classList.contains('invalid')) check(el);
+      if (el.getAttribute('data-v') === 'senha') { renderReqs(el); var c = $('[data-v="senha2"]', el.closest('form')); if (c && c.value) check(c); }
+    });
+  });
+  function renderReqs(input) {
+    var ul = $('#' + (input.id === 'r-senha' ? 'r-reqs' : 'c-reqs'));
+    ul.innerHTML = SA.passwordChecks(input.value).map(function (c) { return '<li class="' + (c.ok ? 'ok' : '') + '">' + c.label + '</li>'; }).join('');
+  }
+  renderReqs($('#r-senha')); renderReqs($('#c-senha'));
+
+  // máscaras
+  $('#r-cnpj').addEventListener('input', function (e) { e.target.value = SA.maskCnpj(e.target.value); });
+  $('#r-telefone').addEventListener('input', function (e) { e.target.value = SA.maskPhone(e.target.value); });
+  $('#c-codigo').addEventListener('input', function (e) { e.target.value = SA.digits(e.target.value).slice(0, 6); });
+
+  // mostrar/ocultar senha
+  $$('[data-eye]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var inp = document.getElementById(b.getAttribute('data-eye')), show = inp.type === 'password';
+      inp.type = show ? 'text' : 'password'; b.innerHTML = show ? EYE_OFF : EYE_ON; b.setAttribute('aria-label', show ? 'Ocultar senha' : 'Mostrar senha');
+    });
+  });
+
+  function busy(btn, on, label) {
+    if (on) { btn.dataset.label = btn.textContent; btn.disabled = true; btn.innerHTML = '<span class="spin"></span>' + label; }
+    else { btn.disabled = false; btn.textContent = btn.dataset.label || btn.textContent; }
+  }
+  function applyServerErrors(err, prefix, alertId) {
+    var shown = false;
+    if (err.fields) {
+      Object.keys(err.fields).forEach(function (k) {
+        var el = document.getElementById(prefix + '-' + k);
+        if (el) { setErr(el, err.fields[k]); shown = true; }
+      });
+    }
+    if (!shown || !err.fields) alertBox(alertId, 'err', err.message);
+    return shown;
+  }
+
+  /* ---------- ENTRAR ---------- */
+  $('#f-entrar').addEventListener('submit', function (e) {
+    e.preventDefault(); clearAlerts();
+    if (!checkAll(e.target)) return;
+    var btn = $('#b-entrar'); busy(btn, true, 'Entrando…');
+    SA.api('login', { email: $('#l-email').value.trim(), senha: $('#l-senha').value, lembrar: $('#l-lembrar').checked })
+      .then(function (data) { SA.saveSession(data, $('#l-lembrar').checked); location.replace(NEXT); })
+      .catch(function (err) { busy(btn, false); alertBox('a-entrar', 'err', err.message); if (err.code === 'credenciais') $('#l-senha').select(); });
+  });
+
+  /* ---------- CRIAR CONTA (2 etapas) ---------- */
+  var STEP1 = ['r-empresa', 'r-cnpj', 'r-setor', 'r-site'];
+  var STEP1_KEYS = ['empresa', 'cnpj', 'setor', 'site'];
+  function regStep(n) {
+    $('#r-step1').hidden = n !== 1; $('#r-step2').hidden = n !== 2;
+    $('#st1').classList.add('on'); $('#st2').classList.toggle('on', n === 2);
+    $('#st-label').textContent = 'Etapa ' + n + ' de 2';
+    $('#r-lead').textContent = n === 1 ? 'Dados da empresa. Leva menos de 2 minutos.' : 'Agora os seus dados e a senha de acesso.';
+    var f = $(n === 1 ? '#r-empresa' : '#r-nome'); if (f) f.focus();
+  }
+  $('#b-next').addEventListener('click', function () { clearAlerts(); if (checkAll($('#f-criar'), STEP1)) regStep(2); });
+  $('#b-back').addEventListener('click', function () { clearAlerts(); regStep(1); });
+  $('#r-step1').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); $('#b-next').click(); } });
+  $('#f-criar').addEventListener('submit', function (e) {
+    e.preventDefault(); clearAlerts();
+    if (!$('#r-step1').hidden) { $('#b-next').click(); return; }
+    if (!checkAll(e.target, ['r-nome', 'r-cargo', 'r-email', 'r-telefone', 'r-senha', 'r-senha2', 'r-aceite'])) return;
+    var btn = $('#b-criar'); busy(btn, true, 'Criando conta…');
+    SA.api('register', {
+      empresa: $('#r-empresa').value.trim(), cnpj: SA.digits($('#r-cnpj').value), setor: $('#r-setor').value, site: $('#r-site').value.trim(),
+      nome: $('#r-nome').value.trim(), cargo: $('#r-cargo').value.trim(), email: $('#r-email').value.trim(), telefone: SA.digits($('#r-telefone').value),
+      senha: $('#r-senha').value, aceite: $('#r-aceite').checked
+    }).then(function (data) {
+      SA.saveSession(data, false); location.replace(NEXT === 'painel.html' ? 'painel.html?nova=1' : NEXT);
+    }).catch(function (err) {
+      busy(btn, false);
+      var backToStep1 = err.fields && STEP1_KEYS.some(function (k) { return err.fields[k]; });
+      if (backToStep1) regStep(1);
+      applyServerErrors(err, 'r', 'a-criar');
+    });
+  });
+
+  /* ---------- RECUPERAR SENHA ---------- */
+  var recEmail = '', resendAt = 0;
+  function sendCode(btn, label, done) {
+    busy(btn, true, label);
+    SA.api('reset.request', { email: recEmail }).then(function () { busy(btn, false); done(); })
+      .catch(function (err) { busy(btn, false); if (!applyServerErrors(err, 'c', 'a-recuperar')) { /* alerta já exibido */ } });
+  }
+  $('#f-rec1').addEventListener('submit', function (e) {
+    e.preventDefault(); clearAlerts();
+    if (!checkAll(e.target)) return;
+    recEmail = $('#c-email').value.trim().toLowerCase();
+    sendCode($('#b-rec1'), 'Enviando…', function () {
+      $('#f-rec1').hidden = true; $('#f-rec2').hidden = false; resendAt = Date.now() + 45000;
+      $('#c-lead').textContent = 'Enviamos um código para ' + recEmail + '. Digite-o e crie a nova senha.';
+      alertBox('a-recuperar', 'info', 'Se este e-mail tiver conta, o código chega em instantes.');
+      $('#c-codigo').focus();
+    });
+  });
+  $('#b-resend').addEventListener('click', function () {
+    var left = Math.ceil((resendAt - Date.now()) / 1000);
+    if (left > 0) { alertBox('a-recuperar', 'info', 'Aguarde ' + left + 's para pedir outro código.'); return; }
+    sendCode($('#b-resend'), 'Enviando…', function () { resendAt = Date.now() + 45000; alertBox('a-recuperar', 'ok', 'Novo código enviado. Use o mais recente.'); });
+  });
+  $('#f-rec2').addEventListener('submit', function (e) {
+    e.preventDefault(); clearAlerts();
+    if (!checkAll(e.target)) return;
+    var btn = $('#b-rec2'); busy(btn, true, 'Salvando…');
+    SA.api('reset.confirm', { email: recEmail, codigo: $('#c-codigo').value, senha: $('#c-senha').value }).then(function () {
+      busy(btn, false);
+      $('#f-rec2').reset(); $('#f-rec1').reset(); $('#f-rec2').hidden = true; $('#f-rec1').hidden = false; renderReqs($('#c-senha'));
+      $('#c-lead').textContent = 'Informe seu e-mail e enviaremos um código de 6 números.';
+      $('#l-email').value = recEmail; setMode('entrar', false);
+      alertBox('a-entrar', 'ok', 'Senha alterada com sucesso. Entre com a nova senha.');
+      $('#l-senha').focus();
+    }).catch(function (err) {
+      busy(btn, false);
+      if (err.code === 'codigo') { setErr($('#c-codigo'), err.message); $('#c-codigo').focus(); }
+      else applyServerErrors(err, 'c', 'a-recuperar');
+    });
+  });
+
+  /* ---------- início ---------- */
+  var startMode = location.hash.replace('#', '');
+  setMode(startMode, false);
+  if (qs.get('expirou')) alertBox('a-entrar', 'info', 'Sua sessão terminou. Entre novamente para continuar.');
+  else if (qs.get('saiu')) alertBox('a-entrar', 'ok', 'Você saiu da sua conta.');
+  else if (SA.session()) {          // já está conectada: segue direto
+    SA.api('me').then(function (d) { SA.refreshSession(d); location.replace(NEXT); }, function () { /* sessão inválida: mostra o formulário */ });
+  }
+})();
+</script>
+</body>
+</html>

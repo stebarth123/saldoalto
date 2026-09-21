@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Criar pesquisa — Saldo Alto para Empresas</title>
+<meta name="description" content="Monte sua pesquisa com mulheres empreendedoras em poucos passos: objetivo, público, amostra, perguntas e materiais.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="sa-app.css">
+<style>
+  :root{
+    --pink:#E8156A; --pink-dark:#C4104F; --pink-soft:rgba(232,21,106,0.08); --pink-tint:#FDEBF3;
+    --lime:#C6D92E; --lime-dark:#A9BC1F; --lime-soft:rgba(198,217,46,0.22);
+    --cream:#FAF3F0; --card:#FFFFFF; --ink:#171512; --ink-soft:rgba(23,21,18,0.68); --line:rgba(23,21,18,0.1);
+    --display:'Baloo 2',sans-serif; --body:'Quicksand',sans-serif; --radius:22px;
+    --shadow:0 14px 30px -20px rgba(23,21,18,0.22);
+    --topbar-h:65px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--cream); color:var(--ink); font-family:var(--body); font-weight:500; line-height:1.55; -webkit-font-smoothing:antialiased;}
+  img,svg{display:block; max-width:100%;}
+  button{font-family:inherit; color:inherit; cursor:pointer;}
+  input,textarea,select{font-family:inherit; color:inherit;}
+  a{color:inherit;}
+  .ic{width:1.15em; height:1.15em; flex-shrink:0;}
+  :focus-visible{outline:3px solid var(--lime-dark); outline-offset:2px;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;} }
+
+  /* ---------- botões (mesmo padrão das landings) ---------- */
+  .btn-primary{background:var(--pink); color:#fff; font-family:var(--display); font-weight:700; font-size:1.02rem; padding:14px 28px; border:none; border-radius:100px; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:8px; transition:transform .15s, background .2s, opacity .2s; box-shadow:0 10px 24px -10px rgba(232,21,106,0.55);}
+  .btn-primary:hover:not(:disabled){background:var(--pink-dark); transform:translateY(-2px);}
+  .btn-primary:disabled{opacity:.38; cursor:not-allowed; box-shadow:none;}
+  .btn-ghost{background:transparent; border:2px solid var(--ink); color:var(--ink); font-family:var(--display); font-weight:700; font-size:1rem; padding:11px 24px; border-radius:100px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:background .2s, color .2s;}
+  .btn-ghost:hover{background:var(--ink); color:var(--cream);}
+  .btn-quiet{background:none; border:none; font-family:var(--display); font-weight:700; font-size:.95rem; color:var(--ink-soft); padding:8px 10px; border-radius:100px; display:inline-flex; align-items:center; gap:6px; transition:color .2s, background .2s;}
+  .btn-quiet:hover{color:var(--pink); background:var(--pink-soft);}
+  .btn-ai{background:var(--ink); color:var(--lime); font-family:var(--display); font-weight:700; font-size:.98rem; padding:12px 22px; border:none; border-radius:100px; display:inline-flex; align-items:center; gap:8px; transition:transform .15s, box-shadow .2s;}
+  .btn-ai:hover:not(:disabled){transform:translateY(-2px); box-shadow:0 12px 22px -12px rgba(23,21,18,.6);}
+  .btn-ai:disabled{opacity:.45; cursor:not-allowed;}
+  .btn-sm{font-size:.86rem; padding:8px 16px;}
+  .spin{width:1.1em; height:1.1em; border-radius:50%; border:2.5px solid currentColor; border-right-color:transparent; animation:spin .7s linear infinite; flex-shrink:0;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  /* ---------- topbar ---------- */
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(252,241,236,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:1280px; margin:0 auto; padding:13px 28px; display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:var(--topbar-h);}
+  .logo-img{height:34px; width:auto;}
+  .top-right{display:flex; align-items:center; gap:12px;}
+  .top-left{display:flex; align-items:center; gap:10px; min-width:0;}
+  .top-back{white-space:nowrap; text-decoration:none;}
+  [hidden]{display:none !important;}
+  .sync{font-size:.8rem; font-weight:700; color:var(--ink-soft); white-space:nowrap;}
+  .sync[data-k="offline"]{color:var(--pink-dark);}
+  .perm-note{margin-top:20px; background:var(--pink-soft); border-radius:16px; padding:14px 18px; font-weight:700; font-size:.94rem;}
+  @media (max-width:760px){ .top-back,.sync,.demo-pill{display:none !important;} #saveExitTop{padding:8px;} }
+  .demo-pill{font-family:var(--display); font-weight:700; font-size:.78rem; background:var(--lime); color:var(--ink); border-radius:100px; padding:5px 12px; cursor:help; white-space:nowrap;}
+
+  /* ---------- layout ---------- */
+  .layout{max-width:1280px; margin:0 auto; min-height:calc(100vh - var(--topbar-h));}
+  /* ---------- barra de progresso (topo, desktop e celular) ---------- */
+  .mprog{position:sticky; top:var(--topbar-h); z-index:30; background:rgba(252,241,236,.96); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+  .mprog-in{max-width:884px; margin:0 auto; padding:12px 52px 14px;}
+  .mprog-top{display:flex; justify-content:space-between; align-items:center; gap:12px; font-size:.95rem; font-weight:700;}
+  .mprog-top .eyebrow{margin:0; padding:5px 14px; font-size:.85rem;}
+  .pct{font-family:var(--display); font-weight:800; font-size:1.25rem; line-height:1; color:var(--pink);}
+  .mprog-r{display:flex; align-items:baseline; gap:10px;}
+  .mprog-r .btn-quiet{font-size:.8rem; padding:2px 8px; opacity:.75;}
+  .segs{display:grid; grid-template-columns:repeat(5,1fr); gap:6px; margin-top:9px;}
+  .segs button{height:8px; padding:0; border:none; border-radius:100px; background:rgba(23,21,18,.1); transition:background .25s;}
+  .segs button:not(:disabled){cursor:pointer;}
+  .segs button:not(:disabled):hover{background:rgba(232,21,106,.45);}
+  .segs button:disabled{cursor:default;}
+  .segs button.done{background:var(--lime-dark);}
+  .segs button.cur{background:var(--pink);}
+
+  .main{padding:40px 52px 28px; max-width:884px; margin:0 auto; min-width:0; display:flex; flex-direction:column; min-height:calc(100vh - var(--topbar-h) - 58px);}
+  .stage{flex:1; width:100%; max-width:780px;}
+  .stage:focus,.stage:focus-visible{outline:none;}
+  .stage.enter{animation:stageIn .38s cubic-bezier(.2,.8,.2,1);}
+  @keyframes stageIn{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:none;}}
+  .footbar{position:sticky; bottom:0; margin-top:36px; padding:16px 0 22px; background:linear-gradient(to top,var(--cream) 72%,rgba(250,243,240,0)); max-width:780px; width:100%; z-index:20;}
+  .footbar .row{display:flex; align-items:center; justify-content:space-between; gap:14px;}
+  .foot-hint{font-size:.86rem; font-weight:600; color:var(--ink-soft); text-align:right; flex:1;}
+  .foot-actions{display:flex; align-items:center; gap:10px; flex-shrink:0;}
+  .foot-hint-m{display:none;}
+
+  /* ---------- cabeçalho de etapa ---------- */
+  .eyebrow{display:inline-block; font-family:var(--display); font-weight:700; font-size:.88rem; border-radius:100px; padding:6px 16px; margin-bottom:18px; background:var(--lime); color:var(--ink);}
+  .step-title{font-family:var(--display); font-weight:800; font-size:clamp(1.8rem,3.4vw,2.5rem); line-height:1.12; max-width:680px;}
+  .step-title .accent{color:var(--pink);}
+  .step-sub{margin-top:12px; font-size:1.05rem; color:var(--ink-soft); max-width:600px; font-weight:500;}
+  .step-body{margin-top:30px;}
+  .head-row{display:flex; justify-content:space-between; align-items:flex-start; gap:18px; flex-wrap:wrap;}
+  .avail-pill{display:inline-flex; align-items:center; gap:8px; background:var(--card); border:1px solid var(--line); border-radius:100px; padding:8px 16px; font-weight:700; font-size:.88rem; box-shadow:var(--shadow); white-space:nowrap;}
+  .avail-pill .ic{color:var(--pink);}
+  .avail-pill b{font-family:var(--display); font-weight:800; font-size:1.05rem;}
+  .section-label{font-family:var(--display); font-weight:700; font-size:1.05rem; margin:0 0 4px;}
+  .section-hint{font-size:.88rem; color:var(--ink-soft); font-weight:600; margin-bottom:12px;}
+  .block{margin-top:30px;}
+  .block:first-child{margin-top:0;}
+
+  /* ---------- objetivo ---------- */
+  .textarea-wrap{position:relative;}
+  .textarea-big{width:100%; min-height:150px; border:2px solid var(--line); border-radius:22px; padding:22px 24px 40px; font-family:var(--body); font-weight:600; font-size:1.06rem; line-height:1.6; background:var(--card); resize:vertical; outline:none; transition:border-color .2s, box-shadow .2s;}
+  .textarea-big:focus{border-color:var(--pink); box-shadow:0 0 0 5px var(--pink-soft);}
+  .textarea-big::placeholder{color:rgba(23,21,18,.38); font-weight:500;}
+  .counter{position:absolute; right:20px; bottom:14px; font-size:.78rem; font-weight:700; color:var(--ink-soft); pointer-events:none;}
+  .ai-box{margin-top:0; display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap; background:var(--lime-soft); border:1px dashed var(--lime-dark); border-radius:22px; padding:20px 24px;}
+  .ai-box > div:first-child{flex:1 1 300px; min-width:0;}
+  .ai-box h4{font-family:var(--display); font-weight:700; font-size:1.05rem;}
+  .ai-box p{font-size:.9rem; color:var(--ink-soft); font-weight:600;}
+  .ai-done{margin-top:14px; display:flex; align-items:center; gap:10px; font-weight:700; font-size:.92rem; color:var(--ink);}
+  .ai-done .ic{color:var(--lime-dark);}
+
+  /* ---------- cartões selecionáveis ---------- */
+  .opt-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(196px,1fr)); gap:14px;}
+  .opt-grid.sm{grid-template-columns:repeat(auto-fill,minmax(132px,1fr)); gap:10px;}
+  .opt{position:relative; text-align:left; background:var(--card); border:2px solid var(--line); border-radius:20px; padding:18px 16px; display:flex; flex-direction:column; align-items:flex-start; gap:12px; min-height:112px; font-family:var(--display); font-weight:700; font-size:1rem; line-height:1.25; transition:border-color .18s, background .18s, transform .18s, box-shadow .18s;}
+  .opt:hover{border-color:rgba(232,21,106,.45); transform:translateY(-2px);}
+  .opt-ic{width:42px; height:42px; border-radius:14px; background:var(--pink-soft); color:var(--pink); display:flex; align-items:center; justify-content:center; font-size:1.25rem; transition:all .18s;}
+  .opt-check{position:absolute; top:12px; right:12px; width:24px; height:24px; border-radius:50%; border:2px solid var(--line); background:#fff; color:#fff; display:flex; align-items:center; justify-content:center; font-size:.85rem; transition:all .18s;}
+  .opt-check .ic{opacity:0; transform:scale(.4); transition:all .18s;}
+  .opt[aria-checked="true"], .opt[aria-pressed="true"]{border-color:var(--pink); background:var(--pink-tint); box-shadow:0 14px 26px -16px rgba(232,21,106,.55);}
+  .opt[aria-checked="true"] .opt-check{background:var(--pink); border-color:var(--pink);}
+  .opt[aria-checked="true"] .opt-check .ic{opacity:1; transform:scale(1);}
+  .opt[aria-checked="true"] .opt-ic{background:var(--pink); color:#fff;}
+  .opt.sm{min-height:0; flex-direction:row; align-items:center; padding:13px 44px 13px 16px; font-size:.95rem; border-radius:16px;}
+  .opt.sm .opt-check{top:50%; transform:translateY(-50%); right:12px; width:22px; height:22px;}
+  .opt.dashed{border-style:dashed; color:var(--ink-soft); background:transparent; justify-content:center; align-items:center; text-align:center;}
+  .opt.dashed:hover{color:var(--pink);}
+  .toolbar{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:14px;}
+  .toolbar .count{font-size:.9rem; font-weight:700; color:var(--ink-soft);}
+  .chips{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{display:inline-flex; align-items:center; gap:6px; background:var(--card); border:1px solid var(--line); border-radius:100px; padding:6px 8px 6px 14px; font-weight:700; font-size:.88rem;}
+  .chip button{width:22px; height:22px; border-radius:50%; border:none; background:var(--pink-soft); color:var(--pink); display:flex; align-items:center; justify-content:center; font-size:.8rem;}
+  .chip.plain{padding:6px 14px; background:var(--pink-soft); border-color:transparent; color:var(--pink-dark);}
+  .inline-field{margin-top:16px; background:var(--card); border:2px solid var(--line); border-radius:20px; padding:18px 20px;}
+  .inline-field label{display:block; font-family:var(--display); font-weight:700; font-size:.92rem; margin-bottom:8px;}
+  .inline-row{display:flex; gap:10px;}
+  .field{flex:1; min-width:0; font-weight:600; font-size:.98rem; background:#fff; border:2px solid var(--line); border-radius:14px; padding:11px 14px; outline:none; transition:border-color .2s;}
+  .field:focus{border-color:var(--pink);}
+  .field.invalid{border-color:var(--pink-dark); background:rgba(232,21,106,.05);}
+  .note{margin-top:22px; display:flex; gap:10px; align-items:flex-start; font-size:.9rem; font-weight:600; color:var(--ink-soft); background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px 16px;}
+  .note .ic{color:var(--pink); margin-top:2px;}
+
+  /* ---------- material (etapa Objetivo) ---------- */
+  .choice-row{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .choice{position:relative; text-align:left; background:var(--card); border:2px solid var(--line); border-radius:18px; padding:14px 16px 14px 52px; font-family:var(--display); font-weight:700; font-size:1rem; line-height:1.25; transition:border-color .18s, background .18s, box-shadow .18s;}
+  .choice small{display:block; font-family:var(--body); font-weight:600; font-size:.82rem; color:var(--ink-soft); margin-top:2px;}
+  .choice .radio{position:absolute; left:16px; top:16px; margin:0;}
+  .choice:hover{border-color:rgba(232,21,106,.45);}
+  .choice[aria-checked="true"]{border-color:var(--pink); background:var(--pink-tint); box-shadow:0 14px 26px -18px rgba(232,21,106,.55);}
+  .choice[aria-checked="true"] .radio{border-color:var(--pink); background:var(--pink);}
+  .choice[aria-checked="true"] .radio i{transform:scale(1);}
+  .mat-panel{margin-top:14px; background:var(--card); border:1px solid var(--line); border-radius:22px; padding:20px 20px 22px; display:flex; flex-direction:column; gap:16px;}
+  .mat-panel label.lbl{display:block; font-family:var(--display); font-weight:700; font-size:.9rem; margin-bottom:6px;}
+  .mat-hint{margin-top:12px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; background:var(--lime-soft); border:1px dashed var(--lime-dark); border-radius:16px; padding:12px 16px; font-weight:700; font-size:.9rem;}
+  .mat-hint[hidden]{display:none;}
+  .drops.sm{gap:12px;}
+  .drops.sm .drop{padding:18px 14px; font-size:1rem; flex-direction:row; justify-content:center; gap:12px; text-align:left;}
+  .drops.sm .drop .big{width:44px; height:44px; font-size:1.3rem; margin:0; border-radius:14px;}
+  .drops.sm .drop span.t{display:flex; flex-direction:column;}
+  .media-grid.sm{grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); margin-top:0;}
+  .media-grid.sm .mthumb{height:112px;}
+  .mat-ai{margin-top:14px; display:flex; flex-direction:column; gap:10px;}
+  .mat-ai-row{display:flex; align-items:center; gap:12px; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:8px 12px 8px 8px;}
+  .mat-ai-row .th{width:52px; height:52px; border-radius:12px; overflow:hidden; background:var(--cream); flex-shrink:0; display:flex; align-items:center; justify-content:center; color:var(--ink-soft);}
+  .mat-ai-row .th img,.mat-ai-row .th video{width:100%; height:100%; object-fit:cover;}
+  .mat-ai-row .nm{flex:1; min-width:0; font-weight:700; font-size:.9rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .mat-ai-row .nm small{display:block; font-weight:600; font-size:.78rem; color:var(--ink-soft);}
+  .mat-ai-row .btn-ai{font-size:.82rem; padding:9px 14px;}
+
+  /* ---------- público (tela única) ---------- */
+  .card-sec{background:var(--card); border:1px solid var(--line); border-radius:24px; padding:20px 22px 22px; box-shadow:var(--shadow);}
+  .card-sec + .card-sec{margin-top:16px;}
+  .sec-head{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:14px;}
+  .sec-title{display:flex; align-items:center; gap:10px; font-family:var(--display); font-weight:800; font-size:1.12rem;}
+  .sec-num{width:28px; height:28px; border-radius:50%; background:var(--pink-soft); color:var(--pink); display:flex; align-items:center; justify-content:center; font-size:.9rem; flex-shrink:0;}
+  .sec-tag{font-family:var(--display); font-weight:700; font-size:.74rem; border-radius:100px; padding:3px 11px; background:var(--cream); color:var(--ink-soft);}
+  .sec-tag.req{background:var(--pink-soft); color:var(--pink-dark);}
+  .cchips{display:flex; flex-wrap:wrap; gap:8px;}
+  .cchip{display:inline-flex; align-items:center; gap:8px; background:#fff; border:2px solid var(--line); border-radius:100px; padding:8px 14px 8px 12px; font-family:var(--display); font-weight:700; font-size:.9rem; line-height:1.2; transition:border-color .18s, background .18s;}
+  .cchip:hover{border-color:rgba(232,21,106,.45);}
+  .cchip .cb{width:18px; height:18px; border-radius:50%; border:2px solid var(--line); background:#fff; color:#fff; display:flex; align-items:center; justify-content:center; font-size:.7rem; flex-shrink:0; transition:all .18s;}
+  .cchip .cb .ic{opacity:0; transform:scale(.4); transition:all .18s;}
+  .cchip[aria-checked="true"],.cchip.custom{border-color:var(--pink); background:var(--pink-tint);}
+  .cchip[aria-checked="true"] .cb,.cchip.custom .cb{background:var(--pink); border-color:var(--pink);}
+  .cchip[aria-checked="true"] .cb .ic,.cchip.custom .cb .ic{opacity:1; transform:scale(1);}
+  .cchip.dashed{border-style:dashed; color:var(--ink-soft); background:transparent;}
+  .cchip.dashed:hover{color:var(--pink);}
+  .cchip .x{width:20px; height:20px; border:none; border-radius:50%; background:var(--pink-soft); color:var(--pink); display:flex; align-items:center; justify-content:center; font-size:.75rem; margin-left:2px;}
+  .cchip.custom{padding-right:8px;}
+  .pf-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start;}
+  .pf{background:var(--cream); border-radius:18px; padding:16px 16px 14px; min-width:0;}
+  .pf.full{grid-column:1 / -1;}
+  .pf-head{display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:26px;}
+  .pf-label{font-family:var(--display); font-weight:700; font-size:.98rem;}
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;}
+  .pair label{display:block; font-weight:700; font-size:.78rem; color:var(--ink-soft); margin-bottom:4px;}
+  .affix{position:relative;}
+  .affix .field{width:100%; padding-left:14px;}
+  .affix.pre .field{padding-left:42px;}
+  .affix.suf .field{padding-right:52px;}
+  .affix .pre-t,.affix .suf-t{position:absolute; top:50%; transform:translateY(-50%); font-weight:700; font-size:.85rem; color:var(--ink-soft); pointer-events:none;}
+  .affix .pre-t{left:14px;}
+  .affix .suf-t{right:14px;}
+  .pf-note{font-size:.8rem; font-weight:600; color:var(--ink-soft); margin-top:8px; line-height:1.4;}
+  .pf-note b{color:var(--ink);}
+  .pf-note.err{color:var(--pink-dark); font-weight:700;}
+  .dd{position:relative; margin-top:10px;}
+  .dd-btn{width:100%; display:flex; align-items:center; justify-content:space-between; gap:8px; background:#fff; border:2px solid var(--line); border-radius:14px; padding:11px 14px; font-weight:700; font-size:.95rem; text-align:left; transition:border-color .18s;}
+  .dd-btn:hover,.dd-btn[aria-expanded="true"]{border-color:var(--pink);}
+  .dd-btn .ic{transition:transform .2s; color:var(--ink-soft);}
+  .dd-btn[aria-expanded="true"] .ic{transform:rotate(180deg);}
+  .stage:has(.dd-panel){position:relative; z-index:25;}   /* a lista aberta fica acima da barra Voltar/Continuar */
+  .dd-panel{position:absolute; left:0; right:0; top:calc(100% + 6px); z-index:15; background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:0 20px 40px -16px rgba(23,21,18,.35); padding:6px;}
+  .dd-list{max-height:250px; overflow-y:auto; display:flex; flex-direction:column;}
+  .dd-opt{display:flex; align-items:center; gap:10px; width:100%; border:none; background:none; text-align:left; padding:9px 10px; border-radius:11px; font-weight:700; font-size:.9rem;}
+  .dd-opt:hover{background:var(--pink-soft);}
+  .dd-opt .bx{width:20px; height:20px; border-radius:6px; border:2px solid rgba(23,21,18,.25); background:#fff; color:#fff; display:flex; align-items:center; justify-content:center; font-size:.8rem; flex-shrink:0; transition:all .15s;}
+  .dd-opt .bx .ic{opacity:0;}
+  .dd-opt[aria-selected="true"] .bx{background:var(--pink); border-color:var(--pink);}
+  .dd-opt[aria-selected="true"] .bx .ic{opacity:1;}
+  .dd-foot{display:flex; justify-content:space-between; align-items:center; gap:8px; padding:6px 4px 2px; border-top:1px solid var(--line); margin-top:4px;}
+  .pf .chips{margin-top:10px;}
+  .pf .chip{font-size:.82rem; padding:4px 6px 4px 12px;}
+  .pf textarea.field{width:100%; min-height:84px; resize:vertical; margin-top:10px; display:block;}
+  .kv{display:flex; flex-direction:column; gap:3px; margin-top:6px;}
+  .kv div{font-family:var(--body); font-weight:600; font-size:.95rem; color:var(--ink);}
+  .kv b{font-family:var(--display); font-weight:700; color:var(--ink-soft); margin-right:4px;}
+
+  /* ---------- amostra ---------- */
+  .modes{display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:stretch;}
+  .mode{background:var(--card); border:2px solid var(--line); border-radius:24px; padding:22px 22px 24px; display:flex; flex-direction:column; gap:14px; transition:border-color .18s, background .18s, box-shadow .18s;}
+  .mode.sel{border-color:var(--pink); background:var(--pink-tint); box-shadow:0 16px 28px -18px rgba(232,21,106,.55);}
+  .mode-head{display:flex; gap:14px; align-items:flex-start; background:none; border:none; text-align:left; width:100%; padding:0;}
+  .radio{width:24px; height:24px; border-radius:50%; border:2px solid rgba(23,21,18,.25); background:#fff; flex-shrink:0; display:flex; align-items:center; justify-content:center; margin-top:2px; transition:all .18s;}
+  .radio i{width:10px; height:10px; border-radius:50%; background:#fff; transform:scale(0); transition:transform .18s;}
+  .mode.sel .radio{border-color:var(--pink); background:var(--pink);}
+  .mode.sel .radio i{transform:scale(1);}
+  .mode-title{font-family:var(--display); font-weight:800; font-size:1.12rem; line-height:1.2;}
+  .mode-desc{font-size:.9rem; color:var(--ink-soft); font-weight:600; margin-top:4px;}
+  .stepper{display:flex; align-items:center; gap:10px;}
+  .stepper button{width:44px; height:44px; border-radius:14px; border:2px solid var(--line); background:#fff; font-size:1.3rem; font-weight:800; display:flex; align-items:center; justify-content:center;}
+  .stepper button:hover{border-color:var(--pink); color:var(--pink);}
+  .num-input{width:110px; text-align:center; font-family:var(--display); font-weight:800; font-size:1.5rem; border:2px solid var(--line); border-radius:14px; padding:6px 8px; background:#fff; outline:none;}
+  .num-input:focus{border-color:var(--pink);}
+  .num-input.invalid{border-color:var(--pink-dark);}
+  .stepper span{font-weight:700; color:var(--ink-soft);}
+  .prec{display:flex; flex-direction:column; gap:8px;}
+  .prec button{display:flex; justify-content:space-between; align-items:center; gap:10px; background:#fff; border:2px solid var(--line); border-radius:14px; padding:9px 14px; font-weight:700; font-size:.9rem; text-align:left; transition:all .18s;}
+  .prec button small{font-weight:600; color:var(--ink-soft); font-size:.8rem;}
+  .prec button[aria-checked="true"]{border-color:var(--pink); background:#fff; box-shadow:inset 0 0 0 1px var(--pink);}
+  .result{margin-top:24px; background:var(--card); border:1px solid var(--line); border-radius:26px; padding:26px 26px 24px; box-shadow:var(--shadow);}
+  .result-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .metric{border-radius:18px; padding:16px 18px; background:var(--cream);}
+  .metric.hl{background:var(--ink); color:var(--cream);}
+  .metric .lbl{font-size:.8rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; opacity:.7; font-family:var(--display);}
+  .metric .val{font-family:var(--display); font-weight:800; font-size:2.3rem; line-height:1.1; margin-top:4px;}
+  .metric.hl .val{color:var(--lime);}
+  .metric .val small{font-size:.95rem; font-weight:700; opacity:.75; margin-left:4px;}
+  .result-msg{margin-top:16px; display:flex; gap:10px; align-items:flex-start; font-weight:700; font-size:.98rem;}
+  .result-msg .ic{color:var(--lime-dark); margin-top:2px;}
+  .cmp{margin-top:18px; display:flex; flex-direction:column; gap:12px;}
+  .cmp-row .top{display:flex; justify-content:space-between; font-size:.85rem; font-weight:700; margin-bottom:5px;}
+  .cmp-row .top span:last-child{font-family:var(--display); font-weight:800;}
+  .track{height:14px; border-radius:100px; background:rgba(23,21,18,.07); overflow:hidden;}
+  .track i{display:block; height:100%; border-radius:100px; transition:width .6s cubic-bezier(.2,.8,.2,1);}
+  .track i.need{background:var(--pink);}
+  .track i.have{background:var(--lime-dark);}
+  .fine{font-size:.8rem; color:var(--ink-soft); font-weight:600; margin-top:14px;}
+  .warn{margin-top:18px; display:flex; gap:12px; align-items:flex-start; background:var(--pink-soft); border:2px solid var(--pink); border-radius:18px; padding:16px 18px;}
+  .warn > .ic{color:var(--pink); font-size:1.3rem; margin-top:1px;}
+  .warn p{font-weight:700; font-size:.95rem; flex:1;}
+  .warn-row{display:flex; gap:14px; align-items:center; flex-wrap:wrap; flex:1; justify-content:space-between;}
+
+  /* ---------- perguntas ---------- */
+  .q-section{margin-top:30px;}
+  .q-section h3{font-family:var(--display); font-weight:800; font-size:1.15rem; display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .q-section h3 .badge{font-size:.75rem; background:var(--ink); color:var(--lime); border-radius:100px; padding:3px 11px; display:inline-flex; align-items:center; gap:5px;}
+  .q-head{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px;}
+  .q-list{display:flex; flex-direction:column; gap:14px;}
+  .qcard{position:relative; background:var(--card); border:2px solid var(--line); border-radius:22px; padding:20px 20px 18px; display:flex; gap:16px; box-shadow:var(--shadow);}
+  .qcard.sug{border-style:dashed; border-color:var(--lime-dark); background:#FCFDF3; box-shadow:none;}
+  .qcard.editing{border-color:var(--pink); box-shadow:0 0 0 5px var(--pink-soft);}
+  .qnum{font-family:var(--display); font-weight:800; font-size:1.05rem; color:var(--pink); width:34px; height:34px; border-radius:50%; background:var(--pink-soft); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .qcard.sug .qnum{background:var(--lime); color:var(--ink);}
+  .qbody{flex:1; min-width:0;}
+  .qtext{font-family:var(--display); font-weight:700; font-size:1.1rem; line-height:1.3;}
+  .qtype{display:inline-flex; align-items:center; gap:6px; margin-top:8px; font-size:.8rem; font-weight:700; color:var(--ink-soft); background:var(--cream); border-radius:100px; padding:4px 12px;}
+  .qsrc{display:inline-flex; align-items:center; gap:5px; margin-left:6px; font-size:.75rem; font-weight:700; color:var(--ink); background:var(--lime-soft); border-radius:100px; padding:3px 10px;}
+  .qprev{margin-top:12px; display:flex; flex-direction:column; gap:6px; font-size:.9rem; font-weight:600; color:var(--ink-soft);}
+  .qprev .pv{display:flex; align-items:center; gap:9px;}
+  .qprev .pv i{width:15px; height:15px; border:2px solid rgba(23,21,18,.25); flex-shrink:0; border-radius:50%;}
+  .qprev .pv i.sq{border-radius:5px;}
+  .qprev .pv b{font-family:var(--display); color:var(--pink); width:16px;}
+  .qprev .more{font-size:.8rem; opacity:.75;}
+  .fake-input{border:2px dashed var(--line); border-radius:12px; padding:9px 14px; font-size:.86rem; color:rgba(23,21,18,.4);}
+  .scale-row{display:flex; gap:6px; flex-wrap:wrap;}
+  .scale-row span{min-width:30px; height:30px; padding:0 6px; border-radius:10px; border:2px solid var(--line); display:flex; align-items:center; justify-content:center; font-family:var(--display); font-weight:800; font-size:.82rem; color:var(--ink);}
+  .scale-lbl{display:flex; justify-content:space-between; font-size:.78rem; margin-top:4px;}
+  .yn{display:flex; gap:8px;}
+  .yn span{padding:6px 22px; border-radius:100px; border:2px solid var(--line); font-family:var(--display); font-weight:700; color:var(--ink);}
+  .slider{height:6px; border-radius:100px; background:rgba(23,21,18,.12); position:relative; margin:10px 6px 4px;}
+  .slider::after{content:""; position:absolute; left:40%; top:-6px; width:18px; height:18px; border-radius:50%; background:var(--pink); box-shadow:0 0 0 4px var(--pink-soft);}
+  .qact{display:flex; align-items:flex-start; gap:4px; flex-shrink:0; position:relative;}
+  .icon-btn{width:36px; height:36px; border-radius:12px; border:none; background:none; display:flex; align-items:center; justify-content:center; font-size:1.1rem; color:var(--ink-soft); transition:all .18s;}
+  .icon-btn:hover{background:var(--pink-soft); color:var(--pink);}
+  .btn-mini{display:inline-flex; align-items:center; gap:6px; font-family:var(--display); font-weight:700; font-size:.85rem; padding:7px 14px; border-radius:100px; border:2px solid var(--line); background:#fff; transition:all .18s;}
+  .btn-mini:hover{border-color:var(--pink); color:var(--pink);}
+  .btn-mini.solid{background:var(--pink); color:#fff; border-color:var(--pink);}
+  .btn-mini.solid:hover{background:var(--pink-dark); color:#fff;}
+  .btn-mini.danger:hover{border-color:var(--pink-dark); color:var(--pink-dark);}
+  .menu{position:absolute; right:0; top:40px; background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:0 20px 40px -16px rgba(23,21,18,.35); padding:6px; min-width:172px; z-index:10;}
+  .menu button{width:100%; display:flex; align-items:center; gap:10px; border:none; background:none; text-align:left; padding:9px 12px; border-radius:11px; font-weight:700; font-size:.9rem;}
+  .menu button:hover{background:var(--pink-soft); color:var(--pink);}
+  .menu button:disabled{opacity:.35; cursor:default;}
+  .menu button:disabled:hover{background:none; color:inherit;}
+  .sug-actions{display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;}
+  .add-q{width:100%; margin-top:14px; border:2px dashed rgba(232,21,106,.5); background:transparent; color:var(--pink); border-radius:20px; padding:16px; font-family:var(--display); font-weight:800; font-size:1rem; display:flex; align-items:center; justify-content:center; gap:8px; transition:background .2s;}
+  .add-q:hover{background:var(--pink-soft);}
+  .empty{border:2px dashed var(--line); border-radius:22px; padding:28px 20px; text-align:center; color:var(--ink-soft); font-weight:600;}
+  .skeleton{height:96px; border-radius:22px; background:linear-gradient(90deg,rgba(23,21,18,.05),rgba(23,21,18,.1),rgba(23,21,18,.05)); background-size:200% 100%; animation:shimmer 1.2s infinite linear;}
+  @keyframes shimmer{to{background-position:-200% 0;}}
+  .editor{margin-top:2px; display:flex; flex-direction:column; gap:14px;}
+  .editor label.lbl{display:block; font-family:var(--display); font-weight:700; font-size:.85rem; margin-bottom:6px;}
+  .editor textarea{width:100%; min-height:70px; resize:vertical; font-weight:600; font-size:1rem; border:2px solid var(--line); border-radius:14px; padding:11px 14px; outline:none; background:#fff;}
+  .editor textarea:focus{border-color:var(--pink);}
+  .type-chips{display:flex; flex-wrap:wrap; gap:8px;}
+  .tchip{display:inline-flex; align-items:center; gap:7px; padding:7px 13px; border-radius:100px; border:2px solid var(--line); background:#fff; font-weight:700; font-size:.84rem; transition:all .18s;}
+  .tchip:hover{border-color:rgba(232,21,106,.5);}
+  .tchip[aria-checked="true"]{border-color:var(--pink); background:var(--pink-tint); color:var(--pink-dark);}
+  .opt-edit{display:flex; flex-direction:column; gap:8px;}
+  .opt-edit .r{display:flex; gap:8px; align-items:center;}
+  .opt-edit .r .field{padding:9px 12px;}
+  .two{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .three{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;}
+  .ed-foot{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;}
+  .ed-err{color:var(--pink-dark); font-weight:700; font-size:.85rem;}
+  .type-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:10px; margin-top:6px;}
+  .type-grid .opt{min-height:0; padding:14px; gap:10px; font-size:.95rem;}
+  .type-grid .opt small{font-family:var(--body); font-weight:600; font-size:.8rem; color:var(--ink-soft);}
+
+  /* ---------- materiais ---------- */
+  .drops{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .drop{background:var(--card); border:2px dashed rgba(23,21,18,.22); border-radius:24px; padding:30px 20px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:8px; transition:all .18s; font-family:var(--display); font-weight:800; font-size:1.1rem;}
+  .drop:hover, .drop.over{border-color:var(--pink); background:var(--pink-tint); transform:translateY(-2px);}
+  .drop .big{width:64px; height:64px; border-radius:20px; background:var(--pink-soft); color:var(--pink); display:flex; align-items:center; justify-content:center; font-size:1.9rem; margin-bottom:4px;}
+  .drop small{font-family:var(--body); font-weight:600; font-size:.82rem; color:var(--ink-soft);}
+  .media-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:14px; margin-top:22px;}
+  .mcard{background:var(--card); border:1px solid var(--line); border-radius:20px; overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column;}
+  .mthumb{height:150px; background:var(--cream); display:flex; align-items:center; justify-content:center; color:var(--ink-soft); position:relative; overflow:hidden;}
+  .mthumb img, .mthumb video{width:100%; height:100%; object-fit:cover;}
+  .mthumb .kind{position:absolute; left:10px; top:10px; background:rgba(23,21,18,.78); color:#fff; border-radius:100px; padding:3px 10px; font-size:.72rem; font-weight:700; display:flex; align-items:center; gap:5px;}
+  .mthumb .rm{position:absolute; right:8px; top:8px; width:30px; height:30px; border-radius:50%; border:none; background:rgba(255,255,255,.92); display:flex; align-items:center; justify-content:center; font-size:.9rem;}
+  .mthumb .rm:hover{color:var(--pink);}
+  .minfo{padding:12px 14px 14px; display:flex; flex-direction:column; gap:8px;}
+  .mname{font-weight:700; font-size:.9rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .msize{font-size:.78rem; font-weight:600; color:var(--ink-soft);}
+  .mcard .btn-ai{font-size:.82rem; padding:9px 14px; justify-content:center;}
+  .mdone{font-size:.82rem; font-weight:700; display:flex; align-items:center; gap:6px;}
+  .mdone .ic{color:var(--lime-dark);}
+  .link-btn{background:none; border:none; color:var(--pink); font-weight:800; text-decoration:underline; font-size:.85rem; padding:0;}
+
+  /* ---------- revisão ---------- */
+  .sum-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px;}
+  .sum{background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px 18px; position:relative;}
+  .sum.wide{grid-column:1 / -1;}
+  .sum .k{font-family:var(--display); font-weight:700; font-size:.8rem; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft);}
+  .sum .v{font-family:var(--display); font-weight:800; font-size:1.25rem; line-height:1.25; margin-top:2px;}
+  .sum .v.txt{font-family:var(--body); font-weight:600; font-size:.96rem; color:var(--ink); display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;}
+  .sum .s{font-size:.84rem; font-weight:600; color:var(--ink-soft); margin-top:2px;}
+  .sum .edit{position:absolute; top:12px; right:14px;}
+  .price{margin-top:22px; background:var(--ink); color:var(--cream); border-radius:28px; padding:28px 28px 24px; position:relative; overflow:hidden;}
+  .price::after{content:""; position:absolute; right:-40px; top:-40px; width:170px; height:170px; border-radius:50%; background:var(--pink); opacity:.9;}
+  .price > *{position:relative; z-index:1;}
+  .price .k{font-family:var(--display); font-weight:700; font-size:.85rem; text-transform:uppercase; letter-spacing:.04em; color:rgba(252,241,236,.65);}
+  .price .amt{font-family:var(--display); font-weight:800; font-size:clamp(2.4rem,6vw,3.3rem); line-height:1.1; color:var(--lime); margin-top:4px;}
+  .price .from{display:inline-block; margin-top:8px; font-weight:700; font-size:.92rem; background:rgba(252,241,236,.12); border-radius:100px; padding:4px 14px;}
+  .price .fine{color:rgba(252,241,236,.62); max-width:480px;}
+  .price .btn-quiet{color:var(--lime); margin-left:-10px; margin-top:8px;}
+  .price .btn-quiet:hover{background:rgba(198,217,46,.15); color:var(--lime);}
+  .bd{width:100%; border-collapse:collapse; margin-top:6px;}
+  .bd td{padding:12px 0; border-bottom:1px solid var(--line); vertical-align:top; font-size:.95rem;}
+  .bd td:last-child{text-align:right; font-family:var(--display); font-weight:800; white-space:nowrap; padding-left:14px;}
+  .bd .t{font-family:var(--display); font-weight:700;}
+  .bd .d{display:block; font-size:.84rem; font-weight:600; color:var(--ink-soft);}
+  .bd tr.total td{border-bottom:none; font-size:1.15rem; padding-top:16px;}
+  .bd tr.total td:last-child{color:var(--pink); font-size:1.4rem;}
+
+  /* ---------- contratação ---------- */
+  .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .form-grid .full{grid-column:1 / -1;}
+  .ff label{display:block; font-family:var(--display); font-weight:700; font-size:.85rem; margin-bottom:6px;}
+  .ff .field{width:100%;}
+  .ff .err{display:none; color:var(--pink-dark); font-size:.78rem; font-weight:700; margin-top:4px;}
+  .ff.invalid .err{display:block;}
+  .ff.invalid .field{border-color:var(--pink-dark); background:rgba(232,21,106,.05);}
+  .consent{display:flex; gap:10px; align-items:flex-start; background:var(--pink-soft); border-radius:14px; padding:14px 16px; margin-top:16px; font-size:.86rem; font-weight:600;}
+  .consent input{margin-top:3px; width:18px; height:18px; accent-color:var(--pink); flex-shrink:0;}
+  .consent a{color:var(--pink); font-weight:700; text-decoration:underline;}
+  .done-hero{text-align:center; padding:26px 0 8px;}
+  .done-badge{width:84px; height:84px; border-radius:50%; background:var(--lime); color:var(--ink); display:flex; align-items:center; justify-content:center; font-size:2.4rem; margin:0 auto 18px; animation:pop .5s both;}
+  @keyframes pop{0%{transform:scale(.3);} 70%{transform:scale(1.12);} 100%{transform:scale(1);}}
+  .done-actions{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:24px;}
+
+  /* ---------- modal / toast ---------- */
+  .modal-overlay{position:fixed; inset:0; background:rgba(23,21,18,.55); backdrop-filter:blur(2px); display:none; align-items:center; justify-content:center; padding:20px; z-index:100;}
+  .modal-overlay.open{display:flex; animation:fade .2s both;}
+  @keyframes fade{from{opacity:0;} to{opacity:1;}}
+  .modal-card{background:var(--cream); border-radius:28px; max-width:600px; width:100%; max-height:88vh; overflow-y:auto; position:relative; padding:34px 32px 28px; box-shadow:0 40px 80px -30px rgba(23,21,18,.5); animation:stageIn .3s both;}
+  .modal-card h3{font-family:var(--display); font-weight:800; font-size:1.45rem; margin-bottom:6px; padding-right:34px;}
+  .modal-card .msub{font-size:.95rem; color:var(--ink-soft); font-weight:600; margin-bottom:18px;}
+  .modal-x{position:absolute; top:16px; right:16px; width:36px; height:36px; border-radius:50%; border:none; background:rgba(23,21,18,.06); display:flex; align-items:center; justify-content:center;}
+  .modal-x:hover{background:rgba(23,21,18,.12);}
+  .modal-actions{display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; margin-top:22px;}
+  .exp-list{display:flex; flex-direction:column; gap:10px;}
+  .exp{display:flex; align-items:center; justify-content:space-between; gap:12px; text-align:left; background:#fff; border:2px solid var(--line); border-radius:16px; padding:14px 16px; font-weight:700; transition:all .18s; width:100%;}
+  .exp:hover{border-color:var(--pink); background:var(--pink-tint);}
+  .exp small{display:block; font-weight:600; color:var(--ink-soft); font-size:.82rem;}
+  .exp b{font-family:var(--display); color:var(--pink); white-space:nowrap;}
+  .toast{position:fixed; left:50%; bottom:96px; transform:translate(-50%,20px); background:var(--ink); color:var(--cream); padding:12px 22px; border-radius:100px; font-weight:700; font-size:.92rem; opacity:0; pointer-events:none; transition:all .3s; z-index:120; display:flex; align-items:center; gap:8px; max-width:calc(100vw - 32px);}
+  .toast.show{opacity:1; transform:translate(-50%,0);}
+  .toast .ic{color:var(--lime);}
+  .sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;}
+
+  /* ---------- responsivo ---------- */
+  @media (max-width:1100px){ .main{padding:36px 36px 28px;} .mprog-in{padding-left:36px; padding-right:36px;} }
+  @media (max-width:900px){
+    .mprog-in{padding:10px 20px 12px;}
+    .mprog-top{font-size:.88rem;} .pct{font-size:1.15rem;}
+    .main{padding:28px 20px 20px;}
+    .footbar{position:fixed; left:0; right:0; bottom:0; max-width:none; margin:0; padding:12px 16px calc(12px + env(safe-area-inset-bottom)); background:rgba(250,243,240,.97); border-top:1px solid var(--line);}
+    .foot-hint{display:none;}
+    .foot-hint-m{display:block; font-size:.8rem; font-weight:700; color:var(--ink-soft); text-align:center; margin-bottom:8px;}
+    .footbar .row{justify-content:space-between;}
+    .stage{padding-bottom:96px;}
+    .toast{bottom:92px;}
+  }
+  @media (max-width:640px){
+    .topbar .in{padding:11px 16px;}
+    .logo-img{height:30px;}
+    .demo-pill{display:none;}
+    .modes,.drops,.result-grid,.sum-grid,.form-grid,.two,.choice-row,.pf-grid{grid-template-columns:1fr;}
+    .card-sec{padding:18px 16px 18px;}
+    .mat-panel{padding:16px 14px 18px;}
+    .three{grid-template-columns:1fr;}
+    .opt-grid{grid-template-columns:1fr 1fr; gap:10px;}
+    .opt{padding:14px 12px; min-height:100px;}
+    .opt.sm{grid-column:auto;}
+    .opt-grid.sm{grid-template-columns:1fr 1fr;}
+    .qcard{padding:16px 14px; gap:10px 12px; flex-wrap:wrap;}
+    .qcard .qact{order:3; width:100%; justify-content:flex-end; margin-top:2px;}
+    .qcard.editing .qnum{display:none;}
+    .menu{top:38px;}
+    .qnum{width:30px; height:30px; font-size:.95rem;}
+    .btn-primary{padding:13px 22px;}
+    .modal-card{padding:28px 20px 22px;}
+    .metric .val{font-size:2rem;}
+    .price{padding:24px 20px 20px;}
+    .ai-box{padding:16px 18px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="in">
+    <div class="top-left">
+      <a href="painel.html#pesquisas" aria-label="Saldo Alto — voltar para Minhas pesquisas"><img src="logo-saldo-alto.png" alt="Saldo Alto" class="logo-img"></a>
+      <a class="btn-quiet top-back" href="painel.html#pesquisas">← Minhas pesquisas</a>
+    </div>
+    <div class="top-right">
+      <span class="sync" id="syncState" aria-live="polite"></span>
+      <span class="demo-pill" id="demoPill" title="Nesta versão, IA, base de respondentes, preço e pagamento são simulados." hidden>Modo demonstração</span>
+      <button class="btn-quiet" type="button" id="saveExitTop" data-action="save-exit"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg><span class="lbl-save">Salvar e sair</span></button>
+      <span id="userSlot"></span>
+    </div>
+  </div>
+</header>
+
+<div class="mprog" id="mprogress" aria-label="Progresso da pesquisa"></div>
+
+<div class="layout">
+  <main class="main">
+    <div class="stage" id="stage" tabindex="-1"></div>
+    <div class="footbar" id="footbar"></div>
+  </main>
+</div>
+
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card" id="modalCard"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<noscript><p style="padding:24px;font-weight:700">Ative o JavaScript para criar sua pesquisa.</p></noscript>
+<script src="sa-app.js"></script>
+<script>
+/* =====================================================================
+   SALDO ALTO — Criar pesquisa (wizard de campanha)
+   Página estática (sem build). Tudo em um arquivo, organizado assim:
+
+   1. Utilitários e ícones
+   2. CONFIG + dados de domínio (nichos, filtros, tipos de pergunta)
+   3. SERVICES  → camada de integração. HOJE TUDO É MOCK.
+        Services.AI           → trocar por chamada a uma função de servidor (Claude API)
+        Services.Respondents  → trocar pela base real de respondentes
+        Services.Sampling     → cálculo de amostra (Cochran) — já é real, ajustar parâmetros
+        Services.Pricing      → trocar pelo mecanismo real de precificação
+        Services.Campaigns    → pagamento + criação/publicação da campanha
+      A chave da API de IA NUNCA vai para o navegador: o front chama o seu backend.
+   4. Estado + persistência (localStorage + IndexedDB para os arquivos)
+   5. Componentes (funções que devolvem HTML):
+        CampaignWizard, ProgressBar, ObjectiveStep (objetivo + MaterialSection),
+        AudienceStep (nicho + perfil numa única tela), SampleSizeStep,
+        QuestionBuilder (+ AIQuestionSuggestions), QuestionCard, QuestionTypeSelector,
+        PricingSummary, CampaignReview (+ CheckoutStep)
+   6. Controlador do wizard, ações (event delegation) e boot
+   ===================================================================== */
+
+/* ---------- 1. Utilitários e ícones ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const fmtInt = n => Math.round(n).toLocaleString('pt-BR');
+const fmtBRL = (n, d = 0) => 'R$ ' + Number(n).toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
+const uid = () => Math.random().toString(36).slice(2, 10);
+const pad2 = n => String(n).padStart(2, '0');
+const clone = o => JSON.parse(JSON.stringify(o));
+const wait = ms => new Promise(r => setTimeout(r, ms));
+const plural = (n, one, many) => `${fmtInt(n)} ${n === 1 ? one : many}`;
+const norm = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+const ICONS = {
+  check: '<path d="M20 6 9 17l-5-5"/>',
+  arrowRight: '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+  arrowLeft: '<path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>',
+  sparkles: '<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M3 5h4"/><path d="M19 17v4"/><path d="M17 19h4"/>',
+  plus: '<path d="M5 12h14"/><path d="M12 5v14"/>',
+  x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  dots: '<circle cx="12" cy="5" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><circle cx="12" cy="19" r="1.2" fill="currentColor"/>',
+  edit: '<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+  trash: '<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',
+  image: '<rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"/>',
+  video: '<rect x="2" y="4" width="20" height="16" rx="3"/><path d="m10 9 5 3-5 3z"/>',
+  upload: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/>',
+  alert: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+  users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  up: '<path d="m18 15-6-6-6 6"/>',
+  down: '<path d="m6 9 6 6 6-6"/>',
+  copy: '<rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
+  info: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
+  scissors: '<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88"/><path d="M14.47 14.48 20 20"/><path d="M8.12 8.12 12 12"/>',
+  heart: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+  cake: '<path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 1 4 1 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3"/><path d="M12 8v3"/><path d="M17 8v3"/><path d="M7 4h.01"/><path d="M12 4h.01"/><path d="M17 4h.01"/>',
+  shirt: '<path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/>',
+  book: '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+  bag: '<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>',
+  briefcase: '<rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+  radio: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="currentColor"/>',
+  listChecks: '<path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/>',
+  star: '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>',
+  toggle: '<rect width="20" height="12" x="2" y="6" rx="6"/><circle cx="8" cy="12" r="2"/>',
+  text: '<path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h10"/>',
+  sliders: '<path d="M4 8h10"/><path d="M18 8h2"/><path d="M4 16h2"/><path d="M10 16h10"/><circle cx="16" cy="8" r="2"/><circle cx="8" cy="16" r="2"/>',
+  ranking: '<path d="M10 6h11"/><path d="M10 12h11"/><path d="M10 18h11"/><path d="M4 6h1v4"/><path d="M4 10h2"/><path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"/>',
+  refresh: '<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>',
+  calc: '<rect width="16" height="20" x="4" y="2" rx="2"/><path d="M8 6h8"/><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14v4"/><path d="M8 18h.01"/><path d="M12 18h.01"/>',
+  save: '<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/>',
+  chat: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>'
+};
+const icon = (n, cls = '') => `<svg class="ic ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n] || ''}</svg>`;
+
+/* ---------- 2. CONFIG e dados de domínio ---------- */
+const CONFIG = {
+  DEMO_MODE: true,                       // mostra o selo "Modo demonstração" (IA, base, preço e pagamento simulados)
+  DRAFT_KEY: 'saldoalto:campanha:rascunho:v1',
+  WHATSAPP: '5511976026891',             // mesmo número comercial das landings
+  MIN_PRICE: 2500,                       // "A partir de R$ 2.500" — nunca apresentar como preço fixo
+  MIN_SAMPLE: 30, MAX_SAMPLE: 5000,
+  MAX_IMAGE_MB: 15, MAX_VIDEO_MB: 200,
+  BASE_ATIVA: 5015                       // base de respondentes DE DEMONSTRAÇÃO (não é o número real de usuárias)
+};
+
+const NICHES = [
+  { id: 'beleza', label: 'Serviços de Beleza / Estética', share: 0.22 },
+  { id: 'saude', label: 'Saúde / Bem-estar', share: 0.12 },
+  { id: 'alimentacao', label: 'Alimentação / Confeitaria', share: 0.18 },
+  { id: 'moda', label: 'Moda / Costura', share: 0.11 },
+  { id: 'educacao', label: 'Educação / Cursos e mentorias', share: 0.08 },
+  { id: 'revenda', label: 'Revenda de produtos', share: 0.17 },
+  { id: 'servicos', label: 'Serviços (design, marketing etc.)', share: 0.09 }
+];
+const STD_NICHES = NICHES.map(n => n.id);
+/* Perfil demográfico: idade e renda são faixas livres (mín./máx.). As "bandas" abaixo só alimentam a ESTIMATIVA de público (mock). */
+const AGE_BANDS = [{ from: 18, to: 25, share: 0.09 }, { from: 25, to: 35, share: 0.34 }, { from: 35, to: 45, share: 0.30 }, { from: 45, to: 55, share: 0.19 }, { from: 55, to: 75, share: 0.08 }];
+const INCOME_BANDS = [{ from: 0, to: 1500, share: 0.18 }, { from: 1500, to: 3000, share: 0.31 }, { from: 3000, to: 5000, share: 0.26 }, { from: 5000, to: 10000, share: 0.17 }, { from: 10000, to: 30000, share: 0.08 }];
+const AGE_LIMITS = { min: 18, max: 99 };
+const EDU = [
+  { id: 'sem', label: 'Sem escolaridade', share: 0.01 },
+  { id: 'fund_i', label: 'Ensino Fundamental incompleto', share: 0.03 },
+  { id: 'fund_c', label: 'Ensino Fundamental completo', share: 0.03 },
+  { id: 'medio_i', label: 'Ensino Médio incompleto', share: 0.04 },
+  { id: 'medio_c', label: 'Ensino Médio completo', share: 0.25 },
+  { id: 'sup_i', label: 'Ensino Superior incompleto', share: 0.12 },
+  { id: 'sup_c', label: 'Ensino Superior completo', share: 0.30 },
+  { id: 'pos', label: 'Pós-graduação', share: 0.15 },
+  { id: 'mest', label: 'Mestrado', share: 0.05 },
+  { id: 'dout', label: 'Doutorado', share: 0.02 }
+];
+const PROFILE_GROUPS = { age: 'Faixa etária', income: 'Faixa de renda', edu: 'Escolaridade', other: 'Outros critérios' };
+const QTYPES = [
+  { id: 'single', label: 'Escolha única', desc: 'Escolhe uma opção', icon: 'radio' },
+  { id: 'multiple', label: 'Múltipla escolha', desc: 'Escolhe várias opções', icon: 'listChecks' },
+  { id: 'scale', label: 'Escala', desc: 'Nota de 1 a 5 ou 0 a 10', icon: 'star' },
+  { id: 'yesno', label: 'Sim / Não', desc: 'Resposta rápida', icon: 'toggle' },
+  { id: 'open', label: 'Texto aberto', desc: 'Resposta livre', icon: 'text' },
+  { id: 'range', label: 'Faixa de valores', desc: 'Valor dentro de um intervalo', icon: 'sliders' },
+  { id: 'ranking', label: 'Ranking', desc: 'Ordenar por prioridade', icon: 'ranking' }
+];
+const qtype = id => QTYPES.find(t => t.id === id) || QTYPES[4];
+const PRECISION = {
+  rapida: { conf: 90, label: 'Rápida', hint: '90% de confiança · margem ±10%', z: 1.645, e: 0.10 },
+  padrao: { conf: 95, label: 'Padrão', hint: '95% de confiança · margem ±5%', z: 1.96, e: 0.05 },
+  alta: { conf: 95, label: 'Alta precisão', hint: '95% de confiança · margem ±3%', z: 1.96, e: 0.03 }
+};
+const STEPS = [
+  { n: 1, label: 'Objetivo', screens: ['objetivo'], hint: 'Objetivo e material' },
+  { n: 2, label: 'Público', screens: ['publico'], hint: 'Nicho e perfil' },
+  { n: 3, label: 'Amostra', screens: ['amostra'] },
+  { n: 4, label: 'Perguntas', screens: ['perguntas'] },
+  { n: 5, label: 'Revisão', screens: ['revisao', 'contratacao'], hint: 'Investimento e contratação' }
+];
+const PROGRESS_SCREENS = ['objetivo', 'publico', 'amostra', 'perguntas', 'revisao'];
+const ALL_SCREENS = [...PROGRESS_SCREENS, 'contratacao'];
+const stepOf = screen => STEPS.find(s => s.screens.includes(screen));
+
+/* ---------- 3. SERVICES (mock) ---------- */
+const Services = {
+  /* IA — produção: POST /api/campanhas/sugerir-perguntas (função de servidor que chama a Claude API) */
+  AI: {
+    async suggestFromObjective({ objective, material }) {
+      await wait(1300);
+      let topic = detectTopic(objective);
+      if (topic === 'geral' && material && material.involves) topic = 'produto';   // objetivo + material informado → perguntas de avaliação do material
+      return AI_SETS[topic].map(q => makeQuestion(q.type, { ...clone(q), source: 'ai' }));
+    },
+    async suggestFromMedia({ media }) {
+      await wait(1500);
+      const set = media.kind === 'video' ? AI_MEDIA.video : AI_MEDIA.image;
+      return set.map(q => makeQuestion(q.type, { ...clone(q), source: 'media', mediaId: media.id, mediaName: media.name }));
+    }
+  },
+  /* Base de respondentes — produção: consulta à base real (assíncrona, com debounce) */
+  Respondents: {
+    available({ niches, customNiches, profile }) {
+      const p = profile || {};
+      let share = 1;
+      if (niches.length || customNiches.length) {
+        share = niches.reduce((a, id) => a + (NICHES.find(n => n.id === id) || { share: 0 }).share, 0)
+          + (customNiches.length ? 0.03 + (customNiches.length - 1) * 0.01 : 0);
+      }
+      const overlap = (bands, a, b) => bands.reduce((acc, x) => acc + Math.max(0, Math.min(x.to, b) - Math.max(x.from, a)) / (x.to - x.from) * x.share, 0);
+      if (p.ageMin != null || p.ageMax != null) share *= overlap(AGE_BANDS, p.ageMin ?? AGE_LIMITS.min, (p.ageMax ?? AGE_LIMITS.max) + 1);
+      if (p.incMin != null || p.incMax != null) share *= overlap(INCOME_BANDS, p.incMin ?? 0, p.incMax ?? Infinity);
+      if ((p.edu || []).length) share *= EDU.filter(o => p.edu.includes(o.id)).reduce((a, o) => a + o.share, 0);
+      /* "Outros critérios" (texto livre) não entra na conta: é analisado pelo time. Em produção, vira filtro estruturado. */
+      return Math.round(CONFIG.BASE_ATIVA * Math.min(share, 1));
+    }
+  },
+  /* Amostra — Cochran (p = 0,5) para população grande. Sem correção de população finita, pois o painel não é o universo. */
+  Sampling: {
+    recommend(key) {
+      const p = PRECISION[key] || PRECISION.padrao;
+      return { n: Math.ceil((p.z * p.z * 0.25) / (p.e * p.e)), ...p };
+    }
+  },
+  /* Preço — produção: mecanismo real de precificação. Todos os coeficientes abaixo são PLACEHOLDERS de demonstração. */
+  Pricing: {
+    RULES: {
+      included: { responses: 150, questions: 10 },
+      perExtraResponse: 4, perExtraQuestion: 12, perOpenQuestion: 45, perAdvancedQuestion: 15,
+      perExtraNiche: 150, perExtraSegment: 20, perImage: 150, perVideo: 350
+    },
+    estimate(m) {
+      const R = this.RULES;
+      const sample = Math.max(0, m.sample - R.included.responses) * R.perExtraResponse;
+      const complexity = Math.max(0, m.questions - m.open - R.included.questions) * R.perExtraQuestion + m.open * R.perOpenQuestion + m.advanced * R.perAdvancedQuestion;
+      const segmentation = Math.max(0, m.niches - 1) * R.perExtraNiche + Math.max(0, m.segments - 1) * R.perExtraSegment;
+      const materials = m.images * R.perImage + m.videos * R.perVideo;
+      const subtotal = CONFIG.MIN_PRICE + sample + complexity + segmentation + materials;
+      const total = Math.max(CONFIG.MIN_PRICE, Math.round(subtotal / 10) * 10);
+      return { base: CONFIG.MIN_PRICE, sample, complexity, segmentation, materials, total };
+    }
+  },
+  /* Contratação — produção: criar checkout/pagamento e publicar a campanha */
+  Campaigns: {
+    async submit(payload) {
+      await wait(1100);
+      const d = new Date();
+      const id = `SA-${d.getFullYear()}${pad2(d.getMonth() + 1)}${pad2(d.getDate())}-${uid().slice(0, 4).toUpperCase()}`;
+      return { id, submittedAt: d.toISOString(), payload };
+    }
+  }
+};
+
+/* Conteúdo simulado da IA (produção: gerado pelo modelo a partir do objetivo/material) */
+const detectTopic = obj => {
+  const t = norm(obj);
+  if (/agenda|agendamento|sistema|aplicativo|software|plataforma|\bapp\b|ferramenta/.test(t)) return 'digital';
+  if (/preco|valor|pagar|pagaria|assinatura|mensalidade|caro|barato/.test(t)) return 'preco';
+  if (/embalagem|produto|lancamento|sabor|formula|fragrancia|cosmetico|colecao/.test(t)) return 'produto';
+  if (/campanha|anuncio|propaganda|marketing|publicidade|marca/.test(t)) return 'campanha';
+  return 'geral';
+};
+const sc = (max, low, high) => ({ max, low, high });
+const AI_SETS = {
+  digital: [
+    { text: 'Como você organiza hoje os agendamentos e compromissos do seu negócio?', type: 'single', options: ['Caderno ou agenda de papel', 'WhatsApp', 'Planilha', 'Aplicativo ou sistema', 'Não tenho uma organização definida'] },
+    { text: 'Qual é a sua principal dificuldade hoje para atrair e manter clientes?', type: 'open' },
+    { text: 'Em uma escala de 1 a 5, quanto você teria interesse em usar uma solução que resolvesse isso?', type: 'scale', scale: sc(5, 'Nenhum interesse', 'Muito interesse') },
+    { text: 'Ordene os recursos que seriam mais importantes para você.', type: 'ranking', options: ['Lembretes automáticos por WhatsApp', 'Agenda online para clientes', 'Pagamento antecipado', 'Relatório de faturamento', 'Integração com redes sociais'] },
+    { text: 'Quanto você estaria disposta a pagar por mês por uma ferramenta assim?', type: 'range', range: { min: 0, max: 300, unit: 'R$' } },
+    { text: 'Você já usou algum sistema parecido?', type: 'yesno' }
+  ],
+  produto: [
+    { text: 'Qual é a sua primeira impressão sobre este produto?', type: 'open' },
+    { text: 'Em uma escala de 1 a 5, quanto ele atende ao que você procura?', type: 'scale', scale: sc(5, 'Nada', 'Totalmente') },
+    { text: 'Você compraria este produto?', type: 'yesno' },
+    { text: 'O que mais chama a sua atenção nele?', type: 'multiple', options: ['Preço', 'Qualidade', 'Marca', 'Praticidade', 'Design', 'Diferenciais'] },
+    { text: 'Quanto você pagaria por ele?', type: 'range', range: { min: 0, max: 500, unit: 'R$' } },
+    { text: 'Com que frequência você compra produtos como este?', type: 'single', options: ['Toda semana', 'Todo mês', 'A cada 2 ou 3 meses', 'Poucas vezes ao ano', 'Nunca'] }
+  ],
+  preco: [
+    { text: 'A partir de qual valor você acharia este produto barato demais, a ponto de desconfiar da qualidade?', type: 'range', range: { min: 0, max: 500, unit: 'R$' } },
+    { text: 'A partir de qual valor você acharia caro, mas ainda pensaria em comprar?', type: 'range', range: { min: 0, max: 500, unit: 'R$' } },
+    { text: 'A partir de qual valor seria caro demais para você?', type: 'range', range: { min: 0, max: 500, unit: 'R$' } },
+    { text: 'O preço é o principal critério na sua decisão de compra?', type: 'single', options: ['Sim, é o mais importante', 'É importante, mas não o único', 'Pesa pouco', 'Não pesa'] },
+    { text: 'O que justificaria pagar mais por esta solução?', type: 'open' },
+    { text: 'Você compraria com o valor apresentado?', type: 'yesno' }
+  ],
+  campanha: [
+    { text: 'Qual foi a sua primeira impressão sobre esta campanha?', type: 'open' },
+    { text: 'De 0 a 10, o quanto você recomendaria esta marca a outra empreendedora?', type: 'scale', scale: sc(10, 'Não recomendaria', 'Recomendaria muito') },
+    { text: 'O que mais chamou a sua atenção?', type: 'multiple', options: ['Imagem', 'Mensagem', 'Oferta', 'Marca', 'Nada em especial'] },
+    { text: 'A mensagem ficou clara para você?', type: 'yesno' },
+    { text: 'Depois de ver isso, você buscaria mais informações?', type: 'scale', scale: sc(5, 'Com certeza não', 'Com certeza sim') },
+    { text: 'Em qual canal você gostaria de ver esta campanha?', type: 'multiple', options: ['Instagram', 'WhatsApp', 'TikTok', 'Facebook', 'E-mail', 'Indicação de outras empreendedoras'] }
+  ],
+  geral: [
+    { text: 'Qual é a sua principal dificuldade hoje em relação a este tema?', type: 'open' },
+    { text: 'Em uma escala de 1 a 5, quanto este tema é importante para o seu negócio?', type: 'scale', scale: sc(5, 'Nada importante', 'Muito importante') },
+    { text: 'Você já buscou alguma solução para isso?', type: 'yesno' },
+    { text: 'Quais destes fatores mais pesam na sua decisão?', type: 'multiple', options: ['Preço', 'Praticidade', 'Confiança na marca', 'Indicação de outras empreendedoras', 'Suporte'] },
+    { text: 'Quanto você investiria em uma solução para isso?', type: 'range', range: { min: 0, max: 1000, unit: 'R$' } },
+    { text: 'Se pudesse mudar uma coisa hoje, o que seria?', type: 'open' }
+  ]
+};
+const AI_MEDIA = {
+  image: [
+    { text: 'Qual é a sua primeira impressão sobre este material?', type: 'open' },
+    { text: 'Em uma escala de 1 a 5, quanto ele transmite qualidade?', type: 'scale', scale: sc(5, 'Nenhuma qualidade', 'Muita qualidade') },
+    { text: 'Você compraria um produto com esta aparência?', type: 'yesno' },
+    { text: 'O que mais chamou a sua atenção?', type: 'multiple', options: ['Cores', 'Nome ou marca', 'Formato', 'Informações', 'Nada em especial'] }
+  ],
+  video: [
+    { text: 'Qual é a sua primeira impressão sobre este vídeo?', type: 'open' },
+    { text: 'De 0 a 10, o quanto você recomendaria o que viu a outra empreendedora?', type: 'scale', scale: sc(10, 'Não recomendaria', 'Recomendaria muito') },
+    { text: 'A mensagem do vídeo ficou clara para você?', type: 'yesno' },
+    { text: 'Qual parte mais chamou a sua atenção?', type: 'single', options: ['O início', 'O meio', 'O final', 'Nenhuma parte em especial'] }
+  ]
+};
+
+/* ---------- 4. Estado e persistência ---------- */
+const initialState = () => ({
+  v: 2, surveyId: null, name: '', screen: 'objetivo', completed: [], objective: '',
+  material: { involves: null, desc: '' },            // involves: null (não respondeu) | true | false — os arquivos ficam em S.media
+  niches: [], customNiches: [],
+  profile: { ageMin: null, ageMax: null, incMin: null, incMax: null, edu: [], otherOn: false, other: '' },
+  sample: { mode: null, manual: 500, precision: 'padrao', calcDone: false },
+  questions: [], suggestions: [], aiAutoRan: false,
+  media: [],
+  contact: { name: '', company: '', email: '', whatsapp: '', consent: false },
+  contracted: null
+});
+let S = initialState();
+const UI = { eduOpen: false, customOpen: false, editingId: null, menuId: null, sugLoading: false, calcLoading: false, mediaLoading: {}, submitting: false, contactErr: false, drag: null };
+
+/* Rascunho local: cópia de segurança por usuária e pesquisa. A conta (servidor) é a fonte principal. */
+const Draft = {
+  key(id) { const u = (SA.session() || {}).user; return `${CONFIG.DRAFT_KEY}:${u ? u.id : 'anon'}:${id || 'novo'}`; },
+  load(id) { try { const raw = localStorage.getItem(this.key(id)); if (raw) return JSON.parse(raw); } catch (e) { /* storage indisponível */ } return null; },
+  save(state) { if (state.contracted) return; try { localStorage.setItem(this.key(state.surveyId), JSON.stringify({ at: new Date().toISOString(), state })); } catch (e) { /* sem persistência local */ } },
+  clear(id) { try { localStorage.removeItem(this.key(id)); } catch (e) {} }
+};
+let saveTimer = null;
+const persist = () => { clearTimeout(saveTimer); saveTimer = setTimeout(() => { Draft.save(S); Sync.schedule(); }, 200); };
+const persistNow = () => { clearTimeout(saveTimer); Draft.save(S); Sync.schedule(600); };
+function mutate(fn, { render: doRender = true } = {}) { fn(S); persist(); if (doRender) render(); }
+
+/* Sincronização com a conta da empresa: salva sozinho o rascunho no servidor (vinculado à empresa logada). */
+const surveyName = () => (S.name || '').trim() || S.objective.trim().slice(0, 60) || 'Pesquisa sem nome';
+const surveySummary = () => {
+  let preco = 0; try { preco = priceNow().total; } catch (e) { /* estimativa indisponível */ }
+  return { objetivo: S.objective.trim(), amostra: sampleSize(), preco, perguntas: S.questions.length, nichos: nicheLabels().join(', ') };
+};
+const Sync = {
+  timer: null, running: false, dirty: false,
+  status(k) { const el = $('#syncState'); if (!el) return; el.dataset.k = k; el.textContent = { saving: 'Salvando…', saved: 'Salvo na sua conta', offline: 'Sem conexão · salvo neste navegador', idle: '' }[k] || ''; },
+  hasContent() { return !!S.surveyId || S.objective.trim().length > 0 || (S.name || '').trim().length > 0; },
+  schedule(ms = 1800) { if (S.contracted || !this.hasContent()) return; this.dirty = true; clearTimeout(this.timer); this.timer = setTimeout(() => this.push(), ms); },
+  async push() {
+    clearTimeout(this.timer);
+    if (S.contracted || !this.hasContent()) return true;
+    if (this.running) { this.dirty = true; return false; }
+    this.running = true; this.dirty = false; this.status('saving');
+    let ok = false;
+    try {
+      const hadId = !!S.surveyId;
+      const d = await SA.api('surveys.save', { id: S.surveyId || undefined, nome: surveyName(), progresso: percentDone(), resumo: surveySummary(), dados: S });
+      if (!hadId && !S.surveyId) { Draft.clear(null); S.surveyId = d.pesquisa.id; Draft.save(S); history.replaceState(null, '', 'criar-pesquisa.html?id=' + encodeURIComponent(S.surveyId)); }
+      this.status('saved'); ok = true;
+    } catch (e) {
+      if (e.code === 'status') { this.status('idle'); toast('Esta pesquisa já foi enviada e não pode mais ser editada.', 'alert'); }
+      else this.status('offline');
+    }
+    this.running = false;
+    if (this.dirty && ok) this.schedule(800);
+    return ok;
+  },
+  async flush() { while (this.running) await wait(80); return this.push(); },
+  async idle() { while (this.running) await wait(80); }
+};
+
+/* Arquivos (imagem/vídeo) ficam no IndexedDB; se indisponível, só na memória da aba. */
+const MediaStore = {
+  urls: new Map(), blobs: new Map(), db: null,
+  open() {
+    if (this.db) return Promise.resolve(this.db);
+    return new Promise(res => {
+      try {
+        const rq = indexedDB.open('saldoalto-campanha', 1);
+        rq.onupgradeneeded = () => rq.result.createObjectStore('files');
+        rq.onsuccess = () => { this.db = rq.result; res(this.db); };
+        rq.onerror = () => res(null);
+      } catch (e) { res(null); }
+    });
+  },
+  async put(id, blob) {
+    this.blobs.set(id, blob); this.urls.set(id, URL.createObjectURL(blob));
+    const db = await this.open(); if (!db) return;
+    await new Promise(r => { const tx = db.transaction('files', 'readwrite'); tx.objectStore('files').put(blob, id); tx.oncomplete = tx.onerror = () => r(); });
+  },
+  async restore(id) {
+    if (this.urls.has(id)) return true;
+    const db = await this.open(); if (!db) return false;
+    const blob = await new Promise(r => { const rq = db.transaction('files').objectStore('files').get(id); rq.onsuccess = () => r(rq.result); rq.onerror = () => r(null); });
+    if (!blob) return false;
+    this.blobs.set(id, blob); this.urls.set(id, URL.createObjectURL(blob)); return true;
+  },
+  async del(id) {
+    if (this.urls.has(id)) URL.revokeObjectURL(this.urls.get(id));
+    this.urls.delete(id); this.blobs.delete(id);
+    const db = await this.open(); if (!db) return;
+    db.transaction('files', 'readwrite').objectStore('files').delete(id);
+  },
+  async clear() { for (const id of [...this.urls.keys()]) await this.del(id); const db = await this.open(); if (db) db.transaction('files', 'readwrite').objectStore('files').clear(); }
+};
+
+/* ---------- Seletores derivados do estado ---------- */
+const nicheLabels = () => [...NICHES.filter(n => S.niches.includes(n.id)).map(n => n.label), ...S.customNiches];
+const profileActive = g => { const p = S.profile; return g === 'age' ? p.ageMin != null || p.ageMax != null : g === 'income' ? p.incMin != null || p.incMax != null : g === 'edu' ? p.edu.length > 0 : !!(p.otherOn && p.other.trim()); };
+const profileGroupsActive = () => Object.keys(PROFILE_GROUPS).filter(profileActive);
+const availableNow = (over = {}) => Services.Respondents.available({ niches: S.niches, customNiches: S.customNiches, profile: S.profile, ...over });
+const sampleSize = () => {
+  if (S.sample.mode === 'manual') return Math.floor(Number(S.sample.manual) || 0);
+  if (S.sample.mode === 'calc' && S.sample.calcDone) return Services.Sampling.recommend(S.sample.precision).n;
+  return 0;
+};
+const questionCounts = () => {
+  const q = S.questions;
+  return { total: q.length, open: q.filter(x => x.type === 'open').length, advanced: q.filter(x => x.type === 'ranking' || x.type === 'range').length };
+};
+const mediaCounts = () => ({ images: S.media.filter(m => m.kind === 'image').length, videos: S.media.filter(m => m.kind === 'video').length });
+const metrics = () => {
+  const qc = questionCounts(), mc = mediaCounts(), niches = Math.max(1, nicheLabels().length);
+  return { sample: sampleSize(), questions: qc.total, open: qc.open, advanced: qc.advanced, niches, filterGroups: profileGroupsActive().length,
+    segments: niches + Math.max(0, S.profile.edu.length - 1), images: mc.images, videos: mc.videos };
+};
+const priceNow = () => Services.Pricing.estimate(metrics());
+const percentDone = () => S.contracted ? 100 : Math.min(95, Math.floor(PROGRESS_SCREENS.filter(s => S.completed.includes(s)).length / PROGRESS_SCREENS.length * 100)); // 100% só depois de contratar
+</script>
+<script>
+/* ---------- 5. Componentes ---------- */
+const eyebrowFor = screen => { const st = stepOf(screen); return `Etapa ${pad2(st.n)} · ${st.label}`; };
+
+/* Blocos reutilizáveis */
+const StepHeader = ({ screen, title, sub, right = '' }) => `
+  <div class="head-row"><div>
+    <h1 class="step-title" id="stepTitle">${title}</h1>
+    ${sub ? `<p class="step-sub">${sub}</p>` : ''}
+  </div>${right}</div>`;
+
+const OptionCard = ({ id, label, ic, selected, action, small = false, fk }) => `
+  <button type="button" class="opt${small ? ' sm' : ''}" role="checkbox" aria-checked="${selected}" data-action="${action}" data-id="${esc(id)}" data-fk="${esc(fk || action + '-' + id)}">
+    ${ic ? `<span class="opt-ic">${icon(ic)}</span>` : ''}<span>${esc(label)}</span><span class="opt-check">${icon('check')}</span>
+  </button>`;
+
+const AudiencePreview = () => {
+  const n = availableNow();
+  return `<span class="avail-pill" title="Base de demonstração">${icon('users')}<span>≈ <b class="count" data-key="avail" data-to="${n}">${fmtInt(n)}</b> empreendedoras</span></span>`;
+};
+
+/* ===== ProgressBar (topo): etapa atual, % concluído e segmentos clicáveis das etapas já liberadas ===== */
+function ProgressBar() {
+  const cur = stepOf(S.screen), pct = percentDone(), frontier = frontierIndex();
+  const segs = STEPS.map(st => {
+    const done = S.contracted || st.screens.every(s => S.completed.includes(s)), isCur = !S.contracted && cur.n === st.n;
+    const reachable = !S.contracted && ALL_SCREENS.indexOf(st.screens[0]) <= frontier;
+    return `<button type="button" class="${done ? 'done' : ''} ${isCur ? 'cur' : ''}" data-action="go-step" data-screen="${st.screens[0]}" data-fk="step-${st.n}" aria-label="Etapa ${st.n}: ${st.label}" title="${st.label}" ${isCur ? 'aria-current="step"' : ''} ${!reachable || isCur ? 'disabled' : ''}></button>`;
+  }).join('');
+  return `<div class="mprog-in"><div class="mprog-top"><span class="eyebrow">${S.contracted ? 'Pesquisa enviada' : `Etapa ${pad2(cur.n)} · ${cur.label}`}</span>
+    <span class="mprog-r">${S.contracted ? '' : `<button type="button" class="btn-quiet" data-action="restart">Começar do zero</button>`}<span class="pct" aria-label="${pct}% concluído">${pct}%</span></span></div>
+    <div class="segs" role="group" aria-label="Etapas da pesquisa">${segs}</div></div>`;
+}
+
+
+/* Formatação do perfil (uso na tela, na revisão e no payload) */
+const fmtNum = n => Number(n).toLocaleString('pt-BR');
+const ageText = p => p.ageMin != null && p.ageMax != null ? `${p.ageMin} a ${p.ageMax} anos` : p.ageMin != null ? `${p.ageMin}+ anos` : p.ageMax != null ? `Até ${p.ageMax} anos` : '';
+const incomeText = p => p.incMin != null && p.incMax != null ? `R$ ${fmtNum(p.incMin)} a R$ ${fmtNum(p.incMax)}` : p.incMin != null ? `A partir de R$ ${fmtNum(p.incMin)}` : p.incMax != null ? `Até R$ ${fmtNum(p.incMax)}` : '';
+const eduLabels = ids => EDU.filter(o => ids.includes(o.id)).map(o => o.label);
+const eduText = ids => { const l = eduLabels(ids); return l.length <= 2 ? l.join(' e ') : `${l[0]}, ${l[1]} e +${l.length - 2}`; };
+const ageError = (p = S.profile) => p.ageMin != null && p.ageMin < AGE_LIMITS.min ? `A idade mínima é ${AGE_LIMITS.min} anos.`
+  : p.ageMax != null && p.ageMax > AGE_LIMITS.max ? `A idade máxima é ${AGE_LIMITS.max} anos.`
+  : p.ageMax != null && p.ageMax < AGE_LIMITS.min ? `A idade máxima precisa ser de ${AGE_LIMITS.min} anos ou mais.`
+  : p.ageMin != null && p.ageMax != null && p.ageMin > p.ageMax ? 'A idade mínima não pode ser maior que a máxima.' : '';
+const incomeError = (p = S.profile) => p.incMin != null && p.incMax != null && p.incMin > p.incMax ? 'A renda mínima não pode ser maior que a máxima.' : '';
+const profileSummary = (p = S.profile) => [
+  ['Faixa etária', ageText(p)], ['Faixa de renda', incomeText(p)], ['Escolaridade', p.edu.length ? eduText(p.edu) : ''], ['Outros critérios', p.otherOn && p.other.trim() ? p.other.trim() : '']
+].filter(x => x[1]);
+
+/* ===== ObjectiveStep (objetivo do estudo + material) ===== */
+const MAT_RE = /embalag|rotulo|logo|layout|prototip|anuncio|video|imagem|folder|banner|catalogo|cardapio|campanha|design|landing|site\b|peca/;
+function MaterialSection() {
+  const M = S.material, yes = M.involves === true, no = M.involves === false;
+  const guess = M.involves === null && MAT_RE.test(norm(S.objective));
+  const cards = S.media.map(m => {
+    const url = MediaStore.urls.get(m.id);
+    const thumb = url ? (m.kind === 'image' ? `<img src="${url}" alt="Prévia de ${esc(m.name)}">` : `<video src="${url}#t=0.5" controls muted playsinline preload="metadata"></video>`)
+      : `<div style="text-align:center;padding:10px;font-size:.78rem;font-weight:600">${icon(m.kind === 'image' ? 'image' : 'video')}<br>Reenvie para ver a prévia</div>`;
+    return `<div class="mcard"><div class="mthumb">${thumb}<span class="kind">${icon(m.kind)}${m.kind === 'image' ? 'Imagem' : 'Vídeo'}</span><button type="button" class="rm" data-action="media-remove" data-id="${m.id}" aria-label="Remover ${esc(m.name)}">${icon('x')}</button></div>
+      <div class="minfo"><div class="mname" title="${esc(m.name)}">${esc(m.name)}</div><div class="msize">${fmtSize(m.size)}</div></div></div>`;
+  }).join('');
+  const choice = (val, on, title, sub) => `<button type="button" class="choice" role="radio" aria-checked="${on}" data-action="set-material" data-val="${val}" data-fk="mat-${val}"><span class="radio"><i></i></span>${title}<small>${sub}</small></button>`;
+  return `<div class="block" id="materialBlock">
+    <div class="section-label">Material</div>
+    <div class="section-hint">Sua pesquisa envolve validar um material específico, como embalagem, anúncio, vídeo ou protótipo?</div>
+    <div class="choice-row" role="radiogroup" aria-label="Envolve validar algum material?">
+      ${choice('yes', yes, 'Sim, quero informar o material', 'As empreendedoras vão avaliar algo que você mostrar.')}
+      ${choice('no', no, 'Não, é uma pesquisa geral', 'Só perguntas, sem material para avaliar.')}
+    </div>
+    <div class="mat-hint" id="matHint" ${guess ? '' : 'hidden'}><span>Pelo seu objetivo, parece que você quer validar um material.</span><button type="button" class="btn-mini solid" data-action="set-material" data-val="yes" data-fk="mat-hint">${icon('plus')}Informar material</button></div>
+    ${yes ? `<div class="mat-panel">
+      <div><label class="lbl" for="matDesc">Qual material será avaliado?</label><input class="field" style="width:100%" id="matDesc" data-input="mat-desc" data-fk="mat-desc" maxlength="160" value="${esc(M.desc)}" placeholder="Ex.: nova embalagem do produto, vídeo da campanha de verão, link do protótipo…" autocomplete="off"></div>
+      <div><label class="lbl" style="margin-bottom:8px">Anexar o material <span style="font-weight:600;color:var(--ink-soft)">(opcional se descrever acima)</span></label>
+        <div class="drops sm">
+          <button type="button" class="drop" data-action="media-pick" data-kind="image" data-fk="drop-image"><span class="big">${icon('image')}</span><span class="t">Adicionar imagem<small>JPG, PNG, WEBP ou GIF · até ${CONFIG.MAX_IMAGE_MB} MB</small></span></button>
+          <button type="button" class="drop" data-action="media-pick" data-kind="video" data-fk="drop-video"><span class="big">${icon('video')}</span><span class="t">Adicionar vídeo<small>MP4, MOV ou WEBM · até ${CONFIG.MAX_VIDEO_MB} MB</small></span></button>
+        </div>
+        <input type="file" id="file-image" hidden multiple accept="image/jpeg,image/png,image/webp,image/gif" data-change="media-files">
+        <input type="file" id="file-video" hidden multiple accept="video/mp4,video/quicktime,video/webm" data-change="media-files">
+        <p class="fine" style="margin-top:10px">Você também pode arrastar os arquivos para cá. Dá para enviar mais de um. Nesta versão os arquivos ficam guardados só neste navegador; se precisar, o time pede o material pelo WhatsApp na revisão.</p></div>
+      ${S.media.length ? `<div class="media-grid sm">${cards}</div>` : ''}
+    </div>` : ''}
+  </div>`;
+}
+const fmtSize = b => b > 1048576 ? (b / 1048576).toFixed(1).replace('.', ',') + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB';
+function ObjectiveStep() {
+  return `${StepHeader({ screen: 'objetivo', title: 'Qual é o <span class="accent">objetivo</span> da sua pesquisa?', sub: 'Conte o que você quer descobrir ou validar e, se for o caso, informe o material que será avaliado.' })}
+  <div class="step-body">
+    <div class="block" style="margin-top:0">
+      <label class="section-label" for="surveyName">Nome da pesquisa <span style="font-weight:600;color:var(--ink-soft)">(opcional)</span></label>
+      <div class="section-hint">Só para a sua equipe identificar esta pesquisa na lista.</div>
+      <input class="field" style="width:100%" id="surveyName" data-input="survey-name" data-fk="survey-name" maxlength="80" value="${esc(S.name)}" placeholder="Ex.: Teste da nova embalagem" autocomplete="off">
+    </div>
+    <div class="block">
+      <label class="section-label" for="objective" id="objLabel">Objetivo do estudo</label>
+      <div class="section-hint">O que você quer descobrir ou validar com esta pesquisa?</div>
+      <div class="textarea-wrap">
+        <textarea class="textarea-big" id="objective" data-input="objective" data-fk="objective" maxlength="800" placeholder="Ex.: Quero entender se mulheres empreendedoras do setor de beleza teriam interesse em um novo sistema de agendamento.">${esc(S.objective)}</textarea>
+        <span class="counter" id="objCounter">${S.objective.length}/800</span>
+      </div>
+    </div>
+    ${MaterialSection()}
+  </div>`;
+}
+
+/* ===== AudienceStep (Público: nicho + perfil em uma única tela) ===== */
+const ChoiceChip = ({ id, label, selected, action, fk }) => `<button type="button" class="cchip" role="checkbox" aria-checked="${selected}" data-action="${action}" data-id="${esc(id)}" data-fk="${esc(fk || action + '-' + id)}"><span class="cb">${icon('check')}</span>${esc(label)}</button>`;
+const ProfileNote = g => {
+  const p = S.profile;
+  if (g === 'age') { const e = ageError(); return e ? `<div class="pf-note err" id="note-age">${e}</div>` : `<div class="pf-note" id="note-age">${profileActive('age') ? `Exibido como <b>${ageText(p)}</b>` : 'Em branco: todas as idades. Para “55+”, preencha só a mínima.'}</div>`; }
+  const e = incomeError(); return e ? `<div class="pf-note err" id="note-income">${e}</div>` : `<div class="pf-note" id="note-income">${profileActive('income') ? `Renda mensal · <b>${incomeText(p)}</b>` : 'Renda mensal. Em branco: todas as faixas.'}</div>`;
+};
+const clearBtn = g => profileActive(g) || (g === 'other' && S.profile.otherOn) ? `<button type="button" class="btn-quiet btn-sm" style="padding:2px 8px" data-action="clear-profile" data-group="${g}" data-fk="clear-${g}">Limpar</button>` : '';
+function AudienceStep() {
+  const P = S.profile, total = nicheLabels().length, allOn = STD_NICHES.every(id => S.niches.includes(id));
+  const nicheChips = NICHES.map(n => ChoiceChip({ id: n.id, label: n.label, selected: S.niches.includes(n.id), action: 'toggle-niche' })).join('')
+    + S.customNiches.map((c, i) => `<span class="cchip custom"><span class="cb">${icon('check')}</span>${esc(c)}<button type="button" class="x" data-action="remove-custom-niche" data-i="${i}" aria-label="Remover ${esc(c)}">${icon('x')}</button></span>`).join('')
+    + `<button type="button" class="cchip dashed" data-action="open-custom-niche" data-fk="more-niche" aria-expanded="${UI.customOpen}">${icon('plus')}Selecionar outro nicho</button>`;
+  const eduN = P.edu.length;
+  const eduChips = !eduN ? '' : eduN > 3 ? `<div class="chips"><span class="chip plain">${eduN} níveis selecionados</span></div>`
+    : `<div class="chips">${eduLabels(P.edu).map((l, i) => { const id = EDU.find(o => o.label === l).id; return `<span class="chip">${esc(l)}<button type="button" data-action="remove-edu" data-id="${id}" aria-label="Remover ${esc(l)}">${icon('x')}</button></span>`; }).join('')}</div>`;
+  const eduPanel = UI.eduOpen ? `<div class="dd-panel"><div class="dd-list" id="eduList" role="listbox" aria-multiselectable="true" aria-label="Escolaridade">${EDU.map(o => `<button type="button" class="dd-opt" role="option" aria-selected="${P.edu.includes(o.id)}" data-action="toggle-edu" data-id="${o.id}" data-fk="edu-${o.id}"><span class="bx">${icon('check')}</span>${o.label}</button>`).join('')}</div>
+    <div class="dd-foot"><button type="button" class="btn-quiet btn-sm" data-action="clear-profile" data-group="edu" data-fk="edu-clear">Limpar</button><button type="button" class="btn-mini solid" data-action="toggle-edu-dd" data-fk="edu-done">${icon('check')}Concluir</button></div></div>` : '';
+  return `${StepHeader({ screen: 'publico', title: 'Qual <span class="accent">público</span> você quer ouvir?', sub: 'Defina nicho e perfil nesta tela. Só o nicho é obrigatório.', right: AudiencePreview() })}
+  <div class="step-body">
+    <section class="card-sec" aria-labelledby="secNicho">
+      <div class="sec-head"><div class="sec-title" id="secNicho"><span class="sec-num">1</span>Nicho de atuação<span class="sec-tag req">Obrigatório</span></div>
+        <button type="button" class="btn-mini" data-action="toggle-all-niches" data-fk="all-niches">${icon('listChecks')}${allOn ? 'Limpar seleção' : 'Selecionar todos'}</button></div>
+      <div class="cchips" role="group" aria-label="Nichos">${nicheChips}</div>
+      ${UI.customOpen ? `<div class="inline-field"><label for="customNiche">Qual nicho?</label>
+        <div class="inline-row"><input class="field" id="customNiche" data-fk="custom-niche" maxlength="60" placeholder="Ex.: Pet shop, Fotografia, Artesanato…" autocomplete="off">
+        <button type="button" class="btn-mini solid" data-action="add-custom-niche">${icon('plus')}Adicionar</button></div></div>` : ''}
+      <div class="pf-note" style="margin-top:12px">${total ? `<b>${plural(total, 'nicho selecionado', 'nichos selecionados')}</b>` : 'Nenhum nicho selecionado ainda.'}</div>
+    </section>
+    <section class="card-sec" aria-labelledby="secPerfil">
+      <div class="sec-head"><div class="sec-title" id="secPerfil"><span class="sec-num">2</span>Perfil das empreendedoras<span class="sec-tag">Opcional</span></div></div>
+      <div class="pf-grid">
+        <div class="pf"><div class="pf-head"><span class="pf-label">Faixa etária</span>${clearBtn('age')}</div>
+          <div class="pair">
+            <div><label for="ageMin">Idade mínima</label><div class="affix suf"><input class="field" id="ageMin" inputmode="numeric" maxlength="3" data-input="age-min" data-fk="age-min" value="${P.ageMin ?? ''}" placeholder="Ex.: 25" autocomplete="off"><span class="suf-t">anos</span></div></div>
+            <div><label for="ageMax">Idade máxima</label><div class="affix suf"><input class="field" id="ageMax" inputmode="numeric" maxlength="3" data-input="age-max" data-fk="age-max" value="${P.ageMax ?? ''}" placeholder="Ex.: 40" autocomplete="off"><span class="suf-t">anos</span></div></div>
+          </div>${ProfileNote('age')}</div>
+        <div class="pf"><div class="pf-head"><span class="pf-label">Faixa de renda</span>${clearBtn('income')}</div>
+          <div class="pair">
+            <div><label for="incMin">Renda mínima</label><div class="affix pre"><span class="pre-t">R$</span><input class="field" id="incMin" inputmode="numeric" maxlength="9" data-input="inc-min" data-change="inc-format" data-fk="inc-min" value="${P.incMin != null ? fmtNum(P.incMin) : ''}" placeholder="Ex.: 3.000" autocomplete="off"></div></div>
+            <div><label for="incMax">Renda máxima</label><div class="affix pre"><span class="pre-t">R$</span><input class="field" id="incMax" inputmode="numeric" maxlength="9" data-input="inc-max" data-change="inc-format" data-fk="inc-max" value="${P.incMax != null ? fmtNum(P.incMax) : ''}" placeholder="Ex.: 8.000" autocomplete="off"></div></div>
+          </div>${ProfileNote('income')}</div>
+        <div class="pf"><div class="pf-head"><span class="pf-label">Escolaridade</span>${clearBtn('edu')}</div>
+          <div class="dd"><button type="button" class="dd-btn" id="eduBtn" data-action="toggle-edu-dd" data-fk="edu-dd" aria-haspopup="listbox" aria-expanded="${UI.eduOpen}"><span>${eduN ? `Escolaridade (${eduN})` : 'Selecionar escolaridade'}</span>${icon('down')}</button>${eduPanel}</div>
+          ${eduChips}<div class="pf-note">${eduN ? 'Pode marcar mais de um nível.' : 'Em branco: todos os níveis. Pode marcar mais de um.'}</div></div>
+        <div class="pf"><div class="pf-head"><span class="pf-label">Outros critérios</span>${clearBtn('other')}</div>
+          <div class="cchips" style="margin-top:10px">${ChoiceChip({ id: 'other', label: 'Outros', selected: P.otherOn, action: 'toggle-other', fk: 'other-on' })}</div>
+          ${P.otherOn ? `<label class="sr" for="otherText">Descreva outros critérios importantes para o público</label><textarea class="field" id="otherText" data-input="other-text" data-fk="other-text" maxlength="300" placeholder="Descreva outros critérios importantes para o público">${esc(P.other)}</textarea>
+          <div class="pf-note">Esses critérios são analisados pelo time do Saldo Alto e podem reduzir o público disponível.</div>` : `<div class="pf-note">Algo mais que defina quem deve responder? Marque “Outros” e descreva.</div>`}</div>
+      </div>
+    </section>
+  </div>`;
+}
+function refreshAudienceLive() {
+  const n = availableNow(), c = $('.avail-pill .count'); if (c) { c.dataset.to = n; animateCounters(); }
+  ['age', 'income'].forEach(g => { const el = $('#note-' + g); if (el) el.outerHTML = ProfileNote(g); });
+  renderFooter();
+}
+
+/* ===== SampleSizeStep ===== */
+function SampleSizeStep() {
+  const m = S.sample.mode;
+  const prec = Object.keys(PRECISION).map(k => `<button type="button" role="radio" aria-checked="${S.sample.precision === k}" data-action="set-precision" data-key="${k}" data-fk="prec-${k}"><span>${PRECISION[k].label}<br><small>${PRECISION[k].hint}</small></span><b style="font-family:var(--display)">${fmtInt(Services.Sampling.recommend(k).n)}</b></button>`).join('');
+  const invalid = m === 'manual' && (sampleSize() < CONFIG.MIN_SAMPLE || sampleSize() > CONFIG.MAX_SAMPLE);
+  return `${StepHeader({ screen: 'amostra', title: 'Quantas <span class="accent">empreendedoras</span> você quer ouvir?', sub: 'Escolha como prefere definir o tamanho da sua amostra.', right: AudiencePreview() })}
+  <div class="step-body">
+    <div class="modes">
+      <div class="mode ${m === 'manual' ? 'sel' : ''}" data-mode="manual">
+        <button type="button" class="mode-head" role="radio" aria-checked="${m === 'manual'}" data-action="set-mode" data-mode="manual" data-fk="mode-manual"><span class="radio"><i></i></span><span><span class="mode-title">Já sei o tamanho da minha amostra</span><span class="mode-desc" style="display:block">Informe quantas respostas você deseja coletar.</span></span></button>
+        <div class="stepper"><button type="button" data-action="sample-step" data-dir="-1" aria-label="Diminuir" data-fk="s-minus">−</button>
+          <input class="num-input ${invalid ? 'invalid' : ''}" id="sampleManual" inputmode="numeric" data-input="sample-manual" data-fk="sample-manual" value="${S.sample.manual}" aria-label="Número de respostas">
+          <button type="button" data-action="sample-step" data-dir="1" aria-label="Aumentar" data-fk="s-plus">+</button><span>respostas</span></div>
+      </div>
+      <div class="mode ${m === 'calc' ? 'sel' : ''}" data-mode="calc">
+        <button type="button" class="mode-head" role="radio" aria-checked="${m === 'calc'}" data-action="set-mode" data-mode="calc" data-fk="mode-calc"><span class="radio"><i></i></span><span><span class="mode-title">Quero que o Saldo Alto calcule</span><span class="mode-desc" style="display:block">Vamos estimar a quantidade de respostas necessária com base no público da sua pesquisa.</span></span></button>
+        <div class="prec" role="radiogroup" aria-label="Nível de precisão">${prec}</div>
+        <button type="button" class="btn-primary btn-sm" style="align-self:flex-start;padding:11px 22px" data-action="calc-sample" data-fk="calc-sample" ${UI.calcLoading ? 'disabled' : ''}>${UI.calcLoading ? '<span class="spin"></span>Calculando…' : `${icon('calc')}${S.sample.calcDone ? 'Calcular novamente' : 'Calcular amostra'}`}</button>
+      </div>
+    </div>
+    <div id="sampleResult">${SampleResult()}</div>
+  </div>`;
+}
+function SampleResult() {
+  const m = S.sample.mode;
+  if (UI.calcLoading) return `<div class="result"><div class="skeleton" style="height:120px"></div><p class="fine">Analisando o público disponível para os critérios escolhidos…</p></div>`;
+  const n = sampleSize();
+  if (!m || (m === 'calc' && !S.sample.calcDone) || n <= 0) return '';
+  const avail = availableNow(), fits = n <= avail && avail > 0, max = Math.max(n, avail, 1);
+  const p = PRECISION[S.sample.precision];
+  return `<div class="result">
+    <div class="result-grid">
+      <div class="metric hl"><div class="lbl">${m === 'calc' ? 'Amostra recomendada' : 'Sua amostra'}</div><div class="val">${fmtInt(n)}<small>respostas</small></div></div>
+      <div class="metric"><div class="lbl">Empreendedoras disponíveis</div><div class="val">${fmtInt(avail)}</div></div>
+    </div>
+    ${fits ? `<div class="result-msg">${icon('check')}<span>Encontramos ${fmtInt(avail)} empreendedoras que correspondem aos critérios selecionados.</span></div>` : ''}
+    <div class="cmp">
+      <div class="cmp-row"><div class="top"><span>Respostas necessárias</span><span>${fmtInt(n)}</span></div><div class="track"><i class="need" style="width:${(n / max * 100).toFixed(1)}%"></i></div></div>
+      <div class="cmp-row"><div class="top"><span>Público disponível</span><span>${fmtInt(avail)}</span></div><div class="track"><i class="have" style="width:${(avail / max * 100).toFixed(1)}%"></i></div></div>
+    </div>
+    ${fits ? `<p class="fine">Você vai precisar de cerca de ${Math.max(1, Math.round(n / avail * 100))}% do público disponível.${m === 'calc' ? ` Estimativa com ${p.conf}% de confiança e margem de erro de ±${Math.round(p.e * 100)}%.` : ''}</p>` : `
+    <div class="warn">${icon('alert')}<div class="warn-row"><p>Seu público atual não possui empreendedoras suficientes para atingir essa amostra.</p>
+      <button type="button" class="btn-mini solid" data-action="expand-audience" data-fk="expand">${icon('users')}Ampliar público</button></div></div>`}
+  </div>`;
+}
+
+/* ===== QuestionTypeSelector ===== */
+function QuestionTypeSelector({ mode = 'grid', action, selected = null, qid = '' }) {
+  if (mode === 'chips') {
+    return `<div class="type-chips" role="radiogroup" aria-label="Tipo de pergunta">${QTYPES.map(t => `<button type="button" class="tchip" role="radio" aria-checked="${selected === t.id}" data-action="${action}" data-type="${t.id}" data-qid="${qid}" data-fk="tc-${qid}-${t.id}">${icon(t.icon)}${t.label}</button>`).join('')}</div>`;
+  }
+  return `<div class="type-grid">${QTYPES.map(t => `<button type="button" class="opt" role="radio" aria-checked="false" data-action="${action}" data-type="${t.id}"><span class="opt-ic">${icon(t.icon)}</span><span>${t.label}<br><small>${t.desc}</small></span></button>`).join('')}</div>`;
+}
+
+/* ===== QuestionCard ===== */
+function QuestionPreview(q) {
+  const opts = (q.options || []).filter(o => o.trim());
+  const list = (cls, mark) => opts.slice(0, 4).map((o, i) => `<div class="pv">${mark === 'n' ? `<b>${i + 1}</b>` : `<i class="${cls}"></i>`}<span>${esc(o)}</span></div>`).join('') + (opts.length > 4 ? `<div class="more">+ ${opts.length - 4} opções</div>` : '');
+  switch (q.type) {
+    case 'single': return `<div class="qprev">${list('', 'r')}</div>`;
+    case 'multiple': return `<div class="qprev">${list('sq', 'c')}</div>`;
+    case 'ranking': return `<div class="qprev">${list('', 'n')}</div>`;
+    case 'yesno': return `<div class="yn qprev" style="flex-direction:row"><span>Sim</span><span>Não</span></div>`;
+    case 'scale': { const lo = q.scale.max === 10 ? 0 : 1; const dots = Array.from({ length: q.scale.max - lo + 1 }, (_, i) => `<span>${lo + i}</span>`).join('');
+      return `<div class="qprev"><div class="scale-row">${dots}</div><div class="scale-lbl"><span>${esc(q.scale.low)}</span><span>${esc(q.scale.high)}</span></div></div>`; }
+    case 'range': return `<div class="qprev"><div class="slider"></div><div class="scale-lbl"><span>${esc(q.range.unit)} ${fmtInt(q.range.min)}</span><span>${esc(q.range.unit)} ${fmtInt(q.range.max)}</span></div></div>`;
+    default: return `<div class="qprev"><div class="fake-input">Resposta em texto livre</div></div>`;
+  }
+}
+function QuestionCard(q, idx, mode = 'own') {
+  const t = qtype(q.type), sug = mode === 'sug';
+  if (!sug && UI.editingId === q.id) return QuestionEditor(q, idx);
+  const src = q.source === 'media' && q.mediaName ? `<span class="qsrc">${icon('image')}${esc(q.mediaName.length > 22 ? q.mediaName.slice(0, 20) + '…' : q.mediaName)}</span>` : '';
+  const actions = sug ? `<div class="sug-actions"><button type="button" class="btn-mini solid" data-action="sug-add" data-qid="${q.id}" data-fk="sa-${q.id}">${icon('check')}Adicionar</button>
+      <button type="button" class="btn-mini" data-action="sug-edit" data-qid="${q.id}">${icon('edit')}Editar</button>
+      <button type="button" class="btn-mini danger" data-action="sug-del" data-qid="${q.id}">${icon('trash')}Excluir</button></div>` : '';
+  const own = sug ? '' : `<div class="qact"><button type="button" class="btn-mini" data-action="q-edit" data-qid="${q.id}" data-fk="qe-${q.id}">${icon('edit')}Editar</button>
+      <button type="button" class="icon-btn" data-action="q-menu" data-qid="${q.id}" aria-label="Mais opções" aria-haspopup="menu" aria-expanded="${UI.menuId === q.id}">${icon('dots')}</button>
+      ${UI.menuId === q.id ? `<div class="menu" role="menu">
+        <button type="button" role="menuitem" data-action="q-edit" data-qid="${q.id}">${icon('edit')}Editar</button>
+        <button type="button" role="menuitem" data-action="q-dup" data-qid="${q.id}">${icon('copy')}Duplicar</button>
+        <button type="button" role="menuitem" data-action="q-up" data-qid="${q.id}" ${idx === 0 ? 'disabled' : ''}>${icon('up')}Subir</button>
+        <button type="button" role="menuitem" data-action="q-down" data-qid="${q.id}" ${idx === S.questions.length - 1 ? 'disabled' : ''}>${icon('down')}Descer</button>
+        <button type="button" role="menuitem" data-action="q-delete" data-qid="${q.id}">${icon('trash')}Excluir</button></div>` : ''}</div>`;
+  return `<article class="qcard ${sug ? 'sug' : ''}" data-qid="${q.id}">
+    <div class="qnum">${sug ? icon('sparkles') : pad2(idx + 1)}</div>
+    <div class="qbody"><p class="qtext">${esc(q.text)}</p><span class="qtype">${icon(t.icon)}${t.label}</span>${src}${QuestionPreview(q)}${actions}</div>${own}</article>`;
+}
+function QuestionEditor(q, idx) {
+  const opts = ['single', 'multiple', 'ranking'].includes(q.type);
+  let cfg = '';
+  if (opts) cfg = `<div><span class="lbl">${q.type === 'ranking' ? 'Itens para ordenar' : 'Opções de resposta'}</span><div class="opt-edit">${q.options.map((o, i) => `<div class="r"><input class="field" data-input="q-opt" data-qid="${q.id}" data-i="${i}" data-fk="qo-${q.id}-${i}" value="${esc(o)}" placeholder="Opção ${i + 1}" maxlength="90"><button type="button" class="icon-btn" data-action="q-opt-del" data-qid="${q.id}" data-i="${i}" aria-label="Remover opção" ${q.options.length <= 2 ? 'disabled' : ''}>${icon('x')}</button></div>`).join('')}
+    <div><button type="button" class="btn-mini" data-action="q-opt-add" data-qid="${q.id}" data-fk="qoadd-${q.id}">${icon('plus')}Adicionar opção</button></div></div></div>`;
+  if (q.type === 'scale') cfg = `<div><span class="lbl">Escala</span><div class="type-chips">${[5, 10].map(mx => `<button type="button" class="tchip" role="radio" aria-checked="${q.scale.max === mx}" data-action="q-scale-max" data-qid="${q.id}" data-max="${mx}" data-fk="sm-${q.id}-${mx}">${mx === 5 ? '1 a 5' : '0 a 10'}</button>`).join('')}</div>
+    <div class="two" style="margin-top:10px"><input class="field" data-input="q-scale-low" data-qid="${q.id}" value="${esc(q.scale.low)}" placeholder="Rótulo do mínimo" maxlength="40" aria-label="Rótulo do mínimo"><input class="field" data-input="q-scale-high" data-qid="${q.id}" value="${esc(q.scale.high)}" placeholder="Rótulo do máximo" maxlength="40" aria-label="Rótulo do máximo"></div></div>`;
+  if (q.type === 'range') cfg = `<div><span class="lbl">Faixa de valores</span><div class="three"><input class="field" inputmode="numeric" data-input="q-range-min" data-qid="${q.id}" value="${q.range.min}" aria-label="Valor mínimo" placeholder="Mínimo"><input class="field" inputmode="numeric" data-input="q-range-max" data-qid="${q.id}" value="${q.range.max}" aria-label="Valor máximo" placeholder="Máximo">
+    <div class="type-chips" role="radiogroup" aria-label="Unidade">${['R$', '%', 'un.'].map(u => `<button type="button" class="tchip" role="radio" aria-checked="${q.range.unit === u}" data-action="q-range-unit" data-qid="${q.id}" data-unit="${u}" data-fk="ru-${q.id}-${u}">${u}</button>`).join('')}</div></div></div>`;
+  return `<article class="qcard editing" data-qid="${q.id}"><div class="qnum">${pad2(idx + 1)}</div>
+    <div class="qbody"><div class="editor">
+      <div><label class="lbl" for="qt-${q.id}">Pergunta</label><textarea id="qt-${q.id}" data-input="q-text" data-qid="${q.id}" data-fk="qt-${q.id}" maxlength="240" placeholder="Escreva a pergunta que as empreendedoras vão responder">${esc(q.text)}</textarea></div>
+      <div><span class="lbl">Tipo de pergunta</span>${QuestionTypeSelector({ mode: 'chips', action: 'q-set-type', selected: q.type, qid: q.id })}</div>
+      ${cfg}
+      <div class="ed-foot"><span class="ed-err" id="edErr">${esc(UI.editErr || '')}</span>
+        <div style="display:flex;gap:8px"><button type="button" class="btn-mini danger" data-action="q-delete" data-qid="${q.id}">${icon('trash')}Excluir</button><button type="button" class="btn-mini solid" data-action="q-done" data-qid="${q.id}" data-fk="qdone-${q.id}">${icon('check')}Concluir</button></div></div>
+    </div></div></article>`;
+}
+
+/* ===== AIQuestionSuggestions (recurso da criação de perguntas) ===== */
+function AIQuestionSuggestions() {
+  const list = S.suggestions, hasObj = S.objective.trim().length >= 15, loading = UI.sugLoading;
+  const box = `<div class="ai-box"><div><h4>Não sabe quais perguntas fazer?</h4><p>A IA lê seu objetivo e monta uma primeira versão da pesquisa para você revisar.</p></div>
+    <button type="button" class="btn-ai" id="aiGenBtn" data-action="ai-generate" data-fk="ai-generate" ${!hasObj || loading ? 'disabled' : ''}>
+      ${loading ? '<span class="spin"></span>Analisando seu objetivo…' : `${icon(S.aiAutoRan ? 'refresh' : 'sparkles')}${S.aiAutoRan ? 'Gerar novas perguntas' : 'Gerar perguntas com IA'}`}</button></div>
+    ${hasObj ? '' : `<p class="fine" style="margin-top:8px">Volte à etapa Objetivo e conte o que você quer descobrir para receber sugestões.</p>`}`;
+  const mats = S.media.length ? `<div class="mat-ai"><div class="section-hint" style="margin:14px 0 0">Material informado no objetivo · a IA também pode sugerir perguntas sobre ele</div>${S.media.map(m => {
+    const url = MediaStore.urls.get(m.id), n = S.suggestions.filter(x => x.mediaId === m.id).length + S.questions.filter(q => q.mediaId === m.id).length;
+    const th = url ? (m.kind === 'image' ? `<img src="${url}" alt="">` : `<video src="${url}#t=0.5" muted playsinline preload="metadata"></video>`) : icon(m.kind);
+    const act = UI.mediaLoading[m.id] ? `<button type="button" class="btn-ai" disabled><span class="spin"></span>Analisando…</button>`
+      : m.aiDone ? `<span class="mdone">${icon('check')}${plural(n, 'sugerida', 'sugeridas')}</span>` : `<button type="button" class="btn-ai" data-action="media-ai" data-id="${m.id}" data-fk="mai-${m.id}">${icon('sparkles')}Gerar perguntas sobre este material</button>`;
+    return `<div class="mat-ai-row"><div class="th">${th}</div><div class="nm">${esc(m.name)}<small>${m.kind === 'image' ? 'Imagem' : 'Vídeo'} · ${fmtSize(m.size)}</small></div>${act}</div>`;
+  }).join('')}</div>` : '';
+  const body = loading ? `<div class="q-list" style="margin-top:20px"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div><p class="fine">Lendo o seu objetivo e montando a primeira versão das perguntas…</p>`
+    : list.length ? `<div class="q-head" style="margin:24px 0 14px"><h3 style="font-family:var(--display);font-weight:800;font-size:1.15rem;display:flex;align-items:center;gap:8px">Perguntas sugeridas pela IA <span class="badge" style="font-size:.75rem;background:var(--ink);color:var(--lime);border-radius:100px;padding:3px 11px;display:inline-flex;align-items:center;gap:5px">${icon('sparkles')}${list.length}</span></h3>
+      <button type="button" class="btn-mini solid" data-action="sug-add-all" data-fk="sug-all">${icon('check')}Adicionar todas</button></div>
+      <div class="q-list">${list.map(q => QuestionCard(q, 0, 'sug')).join('')}</div>` : '';
+  return `<div class="ai-block">${box}${mats}${body}</div>`;
+}
+
+/* ===== QuestionBuilder ===== */
+function QuestionBuilder() {
+  const qs = S.questions;
+  return `${StepHeader({ screen: 'perguntas', title: 'Agora vamos <span class="accent">montar sua pesquisa</span>', sub: 'Peça uma primeira versão à IA, edite o que quiser e crie suas próprias perguntas.' })}
+  <div class="step-body">
+    ${AIQuestionSuggestions()}
+    <section class="q-section"><div class="q-head"><h3>Suas perguntas <span class="badge" style="background:var(--pink);color:#fff">${qs.length}</span></h3></div>
+      ${qs.length ? `<div class="q-list">${qs.map((q, i) => QuestionCard(q, i)).join('')}</div>` : `<div class="empty">Sua pesquisa ainda não tem perguntas.<br>Adicione as sugestões da IA ou crie a sua.</div>`}
+      <button type="button" class="add-q" data-action="q-add" data-fk="q-add">${icon('plus')}Adicionar pergunta</button>
+    </section>
+  </div>`;
+}
+
+/* ===== PricingSummary ===== */
+function PricingSummary() {
+  const p = priceNow();
+  return `<div class="price"><div class="k">Investimento estimado</div><div class="amt">${fmtBRL(p.total)}</div>
+    <span class="from">A partir de ${fmtBRL(CONFIG.MIN_PRICE)}</span>
+    <p class="fine" style="margin-top:12px">Estimativa com base nas escolhas desta pesquisa. O valor final é confirmado pelo time do Saldo Alto antes da contratação.</p>
+    <button type="button" class="btn-quiet" data-action="pricing-how" data-fk="pricing-how">${icon('info')}Como calculamos?</button></div>`;
+}
+function PricingBreakdown() {
+  const m = metrics(), p = priceNow(), R = Services.Pricing.RULES;
+  const money = v => v > 0 ? '+ ' + fmtBRL(v) : 'Incluído';
+  const mat = m.images + m.videos ? [m.images ? plural(m.images, 'imagem', 'imagens') : '', m.videos ? plural(m.videos, 'vídeo', 'vídeos') : ''].filter(Boolean).join(' + ') : 'Nenhum material';
+  const row = (t, d, v) => `<tr><td><span class="t">${t}</span><span class="d">${d}</span></td><td>${v}</td></tr>`;
+  return `<h3 id="modalTitle">Como calculamos</h3>
+    <p class="msub">O valor mínimo de uma campanha é ${fmtBRL(CONFIG.MIN_PRICE)}. A partir daí, o preço varia conforme o que a sua pesquisa exige.</p>
+    <table class="bd"><tbody>
+      ${row('Campanha base', `Inclui até ${R.included.responses} respostas, ${R.included.questions} perguntas objetivas, 1 nicho e os critérios de perfil`, fmtBRL(p.base))}
+      ${row('Tamanho da amostra', plural(m.sample, 'respondente', 'respondentes'), money(p.sample))}
+      ${row('Perguntas', `${plural(m.questions, 'pergunta', 'perguntas')}${m.open ? ` · ${plural(m.open, 'aberta', 'abertas')} (cobradas à parte)` : ''}${m.advanced ? ` · ${plural(m.advanced, 'avançada', 'avançadas')}` : ''}`, money(p.complexity))}
+      ${row('Segmentação', `${plural(m.niches, 'nicho', 'nichos')}${m.filterGroups ? ` + ${plural(m.filterGroups, 'critério de perfil', 'critérios de perfil')} (incluídos)` : ''}${m.segments > 1 ? ` · ${plural(m.segments, 'corte de análise', 'cortes de análise')}` : ''}`, money(p.segmentation))}
+      ${row('Análise de materiais', mat, money(p.materials))}
+      <tr class="total"><td><span class="t">Investimento estimado</span></td><td>${fmtBRL(p.total)}</td></tr>
+    </tbody></table>
+    <p class="fine">${CONFIG.DEMO_MODE ? 'Valores de demonstração. ' : ''}O valor final é confirmado pelo time do Saldo Alto antes da contratação.</p>
+    <div class="modal-actions"><button type="button" class="btn-primary btn-sm" data-action="modal-close">Entendi</button></div>`;
+}
+
+/* ===== CampaignReview ===== */
+function CampaignReview() {
+  const qc = questionCounts(), mc = mediaCounts(), n = sampleSize(), avail = availableNow();
+  const labels = nicheLabels(), prof = profileSummary();
+  const M = S.material, files = mc.images + mc.videos ? [mc.images ? plural(mc.images, 'imagem', 'imagens') : '', mc.videos ? plural(mc.videos, 'vídeo', 'vídeos') : ''].filter(Boolean).join(' + ') : '';
+  const bad = firstInvalid();
+  const tile = (k, v, s, screen, wide = false, txt = false) => `<div class="sum ${wide ? 'wide' : ''}"><div class="k">${k}</div><div class="v ${txt ? 'txt' : ''}">${v}</div>${s ? `<div class="s">${s}</div>` : ''}<button type="button" class="link-btn edit" data-action="edit-step" data-screen="${screen}">Editar</button></div>`;
+  const perfilTile = `<div class="sum wide"><div class="k">Perfil</div>${prof.length
+    ? `<div class="kv">${prof.map(([k, v]) => `<div><b>${k}:</b> ${esc(k === 'Escolaridade' ? eduText(S.profile.edu) : v)}</div>`).join('')}</div>`
+    : `<div class="v">Sem filtros</div><div class="s">Todas as empreendedoras dos nichos escolhidos</div>`}<button type="button" class="link-btn edit" data-action="edit-step" data-screen="publico">Editar</button></div>`;
+  return `${StepHeader({ screen: 'revisao', title: 'Sua <span class="accent">pesquisa está pronta</span>', sub: 'Confira o resumo. Dá para voltar em qualquer etapa e ajustar o que quiser.' })}
+  <div class="step-body">
+    ${bad ? `<div class="warn" style="margin:0 0 16px">${icon('alert')}<div class="warn-row"><p>Falta ajustar algo em “${stepOf(bad).label}” antes de contratar.</p><button type="button" class="btn-mini solid" data-action="edit-step" data-screen="${bad}">Corrigir</button></div></div>` : ''}
+    <div class="sum-grid">
+      ${tile('Objetivo', esc(S.objective.trim()), '', 'objetivo', true, true)}
+      ${tile('Material', M.involves ? (files || 'Descrito por texto') : 'Sem material', M.involves ? esc(M.desc.trim()) : 'Pesquisa geral, sem material para validar', 'objetivo')}
+      ${tile('Público', plural(labels.length, 'nicho selecionado', 'nichos selecionados'), esc(labels.join(' · ')), 'publico')}
+      ${perfilTile}
+      ${tile('Amostra', plural(n, 'resposta', 'respostas'), `${fmtInt(avail)} empreendedoras disponíveis`, 'amostra')}
+      ${tile('Perguntas', fmtInt(qc.total), qc.open ? plural(qc.open, 'aberta', 'abertas') : '', 'perguntas')}
+    </div>
+    ${PricingSummary()}
+  </div>`;
+}
+
+/* ===== CheckoutStep (contratação) ===== */
+function CheckoutStep() {
+  if (S.contracted) return CheckoutDone();
+  const c = S.contact, e = UI.contactErr ? contactErrors() : {};
+  const f = (key, label, ph, type = 'text', full = false) => `<div class="ff ${e[key] ? 'invalid' : ''} ${full ? 'full' : ''}"><label for="c-${key}">${label}</label><input class="field" id="c-${key}" type="${type}" data-input="contact-${key}" data-fk="c-${key}" value="${esc(c[key])}" placeholder="${ph}" autocomplete="${key === 'email' ? 'email' : key === 'whatsapp' ? 'tel' : key === 'name' ? 'name' : 'organization'}"><span class="err">${e[key] || ''}</span></div>`;
+  return `${StepHeader({ screen: 'contratacao', title: 'Últimos detalhes para <span class="accent">contratar</span>', sub: 'Deixe seus dados de contato. Nosso time confirma o escopo e o valor final antes do pagamento.' })}
+  <div class="step-body">
+    <div class="form-grid">${f('name', 'Seu nome *', 'Nome e sobrenome')}${f('company', 'Empresa *', 'Nome da empresa')}${f('email', 'E-mail *', 'voce@empresa.com.br', 'email')}${f('whatsapp', 'WhatsApp *', '(11) 90000-0000', 'tel')}</div>
+    <label class="consent ${UI.contactErr && !c.consent ? 'invalid' : ''}" style="${UI.contactErr && !c.consent ? 'outline:2px solid var(--pink-dark);outline-offset:2px' : ''}"><input type="checkbox" data-change="contact-consent" ${c.consent ? 'checked' : ''}><span>Li e concordo com o uso dos meus dados para contato comercial, conforme a <a href="politica-privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>. *</span></label>
+    ${SA.can('financeiro') ? '' : '<div class="perm-note">Só quem tem acesso financeiro (o titular da conta ou o titular financeiro) pode contratar. Salve o rascunho e peça para essa pessoa concluir a contratação.</div>'}
+    <div class="price" style="margin-top:22px"><div class="k">Investimento estimado</div><div class="amt">${fmtBRL(priceNow().total)}</div><span class="from">A partir de ${fmtBRL(CONFIG.MIN_PRICE)}</span>
+      <button type="button" class="btn-quiet" data-action="pricing-how">${icon('info')}Como calculamos?</button></div>
+  </div>`;
+}
+function CheckoutDone() {
+  const c = S.contracted;
+  return `<div class="done-hero"><div class="done-badge">${icon('check')}</div>
+    <span class="eyebrow">Pesquisa enviada</span>
+    <h1 class="step-title" style="margin:0 auto">Recebemos a sua <span class="accent">pesquisa!</span></h1>
+    <p class="step-sub" style="margin:12px auto 0">Código <b>${esc(c.id)}</b>. Ela já aparece em <b>Minhas pesquisas</b> com o status “Em revisão”. Nosso time vai revisar tudo e falar com você pelo WhatsApp em até 1 dia útil para confirmar o escopo e o valor final.</p>
+    <div class="done-actions"><a class="btn-primary" href="painel.html#pesquisas">Ver em Minhas pesquisas</a>
+      <a class="btn-ghost" target="_blank" rel="noopener" href="${whatsappLink()}">${icon('chat')}Falar com o time agora</a>
+      <button type="button" class="btn-quiet" data-action="new-campaign">Criar outra pesquisa</button></div></div>`;
+}
+function whatsappLink() {
+  const c = S.contracted || {}, qc = questionCounts();
+  const msg = `Olá! Acabei de montar uma pesquisa no Saldo Alto (código ${c.id || ''}).\nObjetivo: ${S.objective.trim().slice(0, 240)}\n${S.material.involves ? `Material a validar: ${S.material.desc.trim() || 'arquivo anexado'}\n` : ''}Amostra: ${fmtInt(sampleSize())} respostas · ${plural(qc.total, 'pergunta', 'perguntas')}\nInvestimento estimado: ${fmtBRL(c.total || priceNow().total)} (a partir de ${fmtBRL(CONFIG.MIN_PRICE)}).`;
+  return `https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(msg)}`;
+}
+function contactErrors() {
+  const c = S.contact, e = {};
+  if (c.name.trim().length < 2) e.name = 'Informe seu nome.';
+  if (c.company.trim().length < 2) e.company = 'Informe o nome da empresa.';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(c.email.trim())) e.email = 'Informe um e-mail válido.';
+  if (c.whatsapp.replace(/\D/g, '').length < 10) e.whatsapp = 'Informe um WhatsApp com DDD.';
+  return e;
+}
+</script>
+<script>
+/* ---------- 6. CampaignWizard: controlador, validações e ações ---------- */
+const SCREENS = {
+  objetivo: { render: ObjectiveStep }, publico: { render: AudienceStep },
+  amostra: { render: SampleSizeStep }, perguntas: { render: QuestionBuilder },
+  revisao: { render: CampaignReview }, contratacao: { render: CheckoutStep }
+};
+const OK = { ok: true, hint: '' };
+const VALID = {
+  objetivo: () => S.objective.trim().length < 15 ? { ok: false, hint: 'Conte um pouco mais sobre o que você quer descobrir.' }
+    : S.material.involves === null ? { ok: false, hint: 'Diga se sua pesquisa envolve validar algum material.' }
+    : S.material.involves && !S.material.desc.trim() && !S.media.length ? { ok: false, hint: 'Descreva ou anexe o material que será avaliado.' } : OK,
+  publico: () => !nicheLabels().length ? { ok: false, hint: 'Escolha ao menos um nicho.' }
+    : ageError() || incomeError() ? { ok: false, hint: ageError() || incomeError() }
+    : S.profile.otherOn && !S.profile.other.trim() ? { ok: false, hint: 'Descreva os outros critérios ou desmarque “Outros”.' } : OK,
+  amostra: () => {
+    const m = S.sample.mode, n = sampleSize();
+    if (!m) return { ok: false, hint: 'Escolha como definir a amostra.' };
+    if (m === 'calc' && !S.sample.calcDone) return { ok: false, hint: 'Clique em “Calcular amostra” para continuar.' };
+    if (n < CONFIG.MIN_SAMPLE || n > CONFIG.MAX_SAMPLE) return { ok: false, hint: `Informe entre ${fmtInt(CONFIG.MIN_SAMPLE)} e ${fmtInt(CONFIG.MAX_SAMPLE)} respostas.` };
+    if (n > availableNow()) return { ok: false, hint: 'Ajuste a amostra ou amplie o público para continuar.' };
+    return OK;
+  },
+  perguntas: () => UI.editingId ? { ok: false, hint: 'Conclua a edição da pergunta para continuar.' }
+    : !S.questions.length ? { ok: false, hint: 'Adicione ao menos uma pergunta.' } : OK,
+  revisao: () => OK, contratacao: () => SA.can('financeiro') ? OK : { ok: false, hint: 'Só quem tem acesso financeiro pode contratar. Salve o rascunho.' }
+};
+const frontierIndex = () => { const i = ALL_SCREENS.findIndex(s => !S.completed.includes(s)); return i < 0 ? ALL_SCREENS.length - 1 : i; };
+const firstInvalid = () => ['objetivo', 'publico', 'amostra', 'perguntas'].find(s => !VALID[s]().ok);
+
+const lastCounts = {};
+function animateCounters() {
+  $$('.count[data-to]').forEach(el => {
+    const to = +el.dataset.to, key = el.dataset.key, from = lastCounts[key] ?? to;
+    lastCounts[key] = to;
+    if (from === to) { el.textContent = fmtInt(to); return; }
+    const t0 = performance.now(), dur = 450;
+    const tick = now => { const p = Math.min(1, (now - t0) / dur); el.textContent = fmtInt(from + (to - from) * (1 - Math.pow(1 - p, 3))); if (p < 1 && el.isConnected) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+  });
+}
+
+function renderFooter() {
+  const el = $('#footbar');
+  if (S.contracted) { el.innerHTML = ''; return; }
+  const v = VALID[S.screen](), busy = UI.submitting;
+  const backToReview = UI.returnToReview && !['revisao', 'contratacao'].includes(S.screen);
+  const label = backToReview ? 'Voltar à revisão' : S.screen === 'revisao' ? 'Contratar pesquisa' : S.screen === 'contratacao' ? 'Confirmar contratação' : 'Continuar';
+  el.innerHTML = `${!v.ok ? `<div class="foot-hint-m">${esc(v.hint)}</div>` : ''}<div class="row">
+    <div class="foot-actions">${S.screen === 'objetivo' ? '' : `<button type="button" class="btn-ghost" data-action="go-back" data-fk="back">${icon('arrowLeft')}Voltar</button>`}</div>
+    <span class="foot-hint">${!v.ok ? esc(v.hint) : ''}</span>
+    <div class="foot-actions"><button type="button" class="btn-primary" id="nextBtn" data-action="go-next" data-fk="next" ${!v.ok || busy ? 'disabled' : ''}>${busy ? '<span class="spin"></span>Enviando…' : `${label}${icon('arrowRight')}`}</button></div></div>`;
+}
+function renderChrome() { const st = $('#saveExitTop'); if (st) st.hidden = !!S.contracted; $('#mprogress').innerHTML = ProgressBar(); renderFooter(); }
+
+function render({ enter = false } = {}) {
+  const a = document.activeElement, fk = a && a.getAttribute ? a.getAttribute('data-fk') : null, y = window.scrollY;
+  const stage = $('#stage');
+  const dd = $('.dd-list'), ddTop = dd ? dd.scrollTop : 0;
+  stage.innerHTML = SCREENS[S.screen].render();
+  const dd2 = $('.dd-list'); if (dd2) dd2.scrollTop = ddTop;
+  renderChrome();
+  if (enter) { stage.classList.remove('enter'); void stage.offsetWidth; stage.classList.add('enter'); window.scrollTo({ top: 0, behavior: 'instant' }); stage.focus({ preventScroll: true }); }
+  else window.scrollTo({ top: y, behavior: 'instant' });
+  const key = UI.focusKey || (!enter ? fk : null); UI.focusKey = null;
+  if (key) { const el = document.querySelector(`[data-fk="${CSS.escape(key)}"]`); if (el && !el.disabled) { el.focus({ preventScroll: !UI.scrollToFocus }); } }
+  UI.scrollToFocus = false;
+  animateCounters();
+}
+
+let toastTimer;
+function toast(msg, ic = 'check') { const t = $('#toast'); t.innerHTML = icon(ic) + '<span>' + esc(msg) + '</span>'; t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 3400); }
+const Modal = {
+  open(html) { UI.opener = document.activeElement; $('#modalCard').innerHTML = `<button type="button" class="modal-x" data-action="modal-close" aria-label="Fechar">${icon('x')}</button>${html}`; $('#modal').classList.add('open'); setTimeout(() => { const f = $('#modalCard .btn-primary, #modalCard .exp, #modalCard .opt, #modalCard .btn-ghost'); if (f) f.focus(); }, 30); },
+  close() { $('#modal').classList.remove('open'); if (UI.opener && UI.opener.focus && document.contains(UI.opener)) UI.opener.focus({ preventScroll: true }); }
+};
+
+/* Navegação */
+function goTo(screen) {
+  if (!SCREENS[screen] || ALL_SCREENS.indexOf(screen) > frontierIndex()) return;
+  S.screen = screen; UI.menuId = null; UI.editingId = null; UI.editErr = ''; UI.eduOpen = false;
+  if (screen === 'revisao') UI.returnToReview = false;
+  persist(); render({ enter: true });
+}
+function next() {
+  const v = VALID[S.screen]();
+  if (!v.ok) { toast(v.hint, 'alert'); return; }
+  if (S.screen === 'contratacao') return submit();
+  if (S.screen === 'revisao') { const bad = firstInvalid(); if (bad) { toast(`Ajuste “${stepOf(bad).label}” antes de contratar.`, 'alert'); return; } }
+  mutate(s => { if (!s.completed.includes(s.screen)) s.completed.push(s.screen); }, { render: false });
+  if (UI.returnToReview && S.screen !== 'revisao') return goTo('revisao');
+  goTo(ALL_SCREENS[ALL_SCREENS.indexOf(S.screen) + 1]);
+}
+function back() { const i = ALL_SCREENS.indexOf(S.screen); if (i > 0) { UI.returnToReview = false; goTo(ALL_SCREENS[i - 1]); } }
+
+async function submit() {
+  const errs = contactErrors();
+  if (Object.keys(errs).length || !S.contact.consent) { UI.contactErr = true; render(); toast('Confira os campos destacados.', 'alert'); return; }
+  UI.submitting = true; renderFooter();
+  try {
+    clearTimeout(Sync.timer); await Sync.idle();
+    const c = S.contact, pricing = priceNow();
+    const res = await SA.api('surveys.submit', { id: S.surveyId || undefined, nome: surveyName(), resumo: { ...surveySummary(), preco: pricing.total },
+      contato: { name: c.name.trim(), company: c.company.trim(), email: c.email.trim(), whatsapp: c.whatsapp.replace(/\D/g, '') }, dados: { ...S, pricing } });
+    const p = res.pesquisa;
+    mutate(s => { s.contracted = { id: p.codigo, at: p.enviadaEm, total: pricing.total, surveyId: p.id }; s.surveyId = p.id;
+      ['revisao', 'contratacao'].forEach(x => { if (!s.completed.includes(x)) s.completed.push(x); });
+      s.contact = { name: '', company: '', email: '', whatsapp: '', consent: false }; }, { render: false });
+    Draft.clear(p.id); Draft.clear(null); Sync.status('idle');
+    history.replaceState(null, '', 'criar-pesquisa.html?id=' + encodeURIComponent(p.id));
+  } catch (e) { toast(e.message || 'Não foi possível enviar agora. Tente novamente.', 'alert'); }
+  UI.submitting = false; UI.contactErr = false; render({ enter: true });
+}
+
+/* IA (mock) */
+async function runAISuggestions() {
+  if (UI.sugLoading) return;
+  UI.sugLoading = true; render();
+  try {
+    const list = await Services.AI.suggestFromObjective({ objective: S.objective, material: S.material, niches: nicheLabels(), profile: S.profile });
+    S.suggestions = [...S.suggestions.filter(s => s.source === 'media'), ...list]; S.aiAutoRan = true; persist();
+    toast(`${list.length} perguntas sugeridas pela IA.`, 'sparkles');
+  } catch (e) { toast('Não foi possível gerar as sugestões agora.', 'alert'); }
+  UI.sugLoading = false; render();
+}
+async function runMediaAI(id) {
+  const m = S.media.find(x => x.id === id); if (!m || UI.mediaLoading[id]) return;
+  UI.mediaLoading[id] = true; render();
+  try {
+    const list = await Services.AI.suggestFromMedia({ media: m });
+    S.suggestions = [...S.suggestions.filter(s => s.mediaId !== id), ...list]; m.aiDone = true; persist();
+    toast(`${list.length} perguntas sugeridas sobre o material.`, 'sparkles');
+  } catch (e) { toast('Não foi possível analisar o material agora.', 'alert'); }
+  UI.mediaLoading[id] = false; render();
+}
+
+/* Perguntas */
+function makeQuestion(type, extra = {}) {
+  const q = { text: '', type, options: [], scale: { max: 5, low: 'Nada', high: 'Muito' }, range: { min: 0, max: 500, unit: 'R$' }, source: 'manual', ...extra, id: uid() };
+  ensureTypeDefaults(q); return q;
+}
+function ensureTypeDefaults(q) { if (['single', 'multiple', 'ranking'].includes(q.type) && (q.options || []).filter(o => o.trim()).length < 2) q.options = ['Opção 1', 'Opção 2', 'Opção 3']; }
+const qById = id => S.questions.find(q => q.id === id);
+function finishEdit(id) {
+  const q = qById(id); if (!q) return;
+  const clean = q.options.map(o => o.trim()).filter(Boolean);
+  let err = '';
+  if (!q.text.trim()) err = 'Escreva a pergunta.';
+  else if (['single', 'multiple', 'ranking'].includes(q.type) && clean.length < 2) err = 'Adicione pelo menos 2 opções.';
+  else if (q.type === 'range' && !(q.range.min < q.range.max)) err = 'O valor máximo precisa ser maior que o mínimo.';
+  if (err) { UI.editErr = err; const el = $('#edErr'); if (el) el.textContent = err; return; }
+  q.text = q.text.trim(); if (['single', 'multiple', 'ranking'].includes(q.type)) q.options = clean;
+  UI.editErr = ''; UI.editingId = null; persist(); UI.focusKey = `qe-${id}`; render();
+}
+const moveToQuestions = (qid, edit = false) => {
+  const i = S.suggestions.findIndex(s => s.id === qid); if (i < 0) return;
+  const [q] = S.suggestions.splice(i, 1); S.questions.push(q);
+  if (edit) { UI.editingId = q.id; UI.focusKey = `qt-${q.id}`; UI.scrollToFocus = true; }
+};
+
+/* Público: sugestões para ampliar */
+function clearedProfile(p, g) {
+  const c = { ...p, edu: [...p.edu] };
+  if (g === 'age') { c.ageMin = null; c.ageMax = null; } else if (g === 'income') { c.incMin = null; c.incMax = null; } else if (g === 'edu') c.edu = []; else { c.otherOn = false; c.other = ''; }
+  return c;
+}
+function openExpander() {
+  const cur = availableNow(), need = sampleSize(), opts = [];
+  ['income', 'edu', 'age'].forEach(g => { if (profileActive(g)) { const n = availableNow({ profile: clearedProfile(S.profile, g) }); if (n > cur) opts.push({ kind: 'f:' + g, title: `Remover o filtro de ${PROFILE_GROUPS[g].toLowerCase()}`, sub: `${fmtInt(cur)} → ${fmtInt(n)} empreendedoras`, gain: n - cur }); } });
+  const allN = [...new Set([...S.niches, ...STD_NICHES])], nn = availableNow({ niches: allN });
+  if (nn > cur) opts.push({ kind: 'niches', title: 'Incluir todos os nichos', sub: `${fmtInt(cur)} → ${fmtInt(nn)} empreendedoras`, gain: nn - cur });
+  opts.sort((a, b) => b.gain - a.gain);
+  Modal.open(`<h3 id="modalTitle">Ampliar público</h3>
+    <p class="msub">Sua amostra pede ${fmtInt(need)} respostas e há ${fmtInt(cur)} empreendedoras disponíveis. ${opts.length ? 'Escolha como ampliar:' : 'Seu público já inclui todas as empreendedoras da base, então o caminho é reduzir a amostra.'}</p>
+    ${opts.length ? `<div class="exp-list">${opts.map(o => `<button type="button" class="exp" data-action="apply-expander" data-kind="${o.kind}"><span>${o.title}<small>${o.sub}</small></span><b>+${fmtInt(o.gain)}</b></button>`).join('')}</div>` : ''}
+    <div class="modal-actions"><button type="button" class="btn-ghost btn-sm" data-action="modal-close">${opts.length ? 'Ajustar manualmente' : 'Ajustar a amostra'}</button></div>`);
+}
+
+/* Materiais */
+const EXT_MIME = { jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', gif: 'image/gif', mp4: 'video/mp4', mov: 'video/quicktime', webm: 'video/webm' };
+const IMG_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'], VID_TYPES = ['video/mp4', 'video/quicktime', 'video/webm'];
+const mimeOf = f => f.type || EXT_MIME[(f.name.split('.').pop() || '').toLowerCase()] || '';
+async function handleFiles(list) {
+  let added = 0; const rejected = [];
+  for (const f of [...list]) {
+    const mt = mimeOf(f), isImg = IMG_TYPES.includes(mt), isVid = VID_TYPES.includes(mt);
+    if (!isImg && !isVid) { rejected.push(`${f.name}: formato não suportado`); continue; }
+    const lim = isImg ? CONFIG.MAX_IMAGE_MB : CONFIG.MAX_VIDEO_MB;
+    if (f.size > lim * 1048576) { rejected.push(`${f.name}: passa de ${lim} MB`); continue; }
+    const id = uid(); await MediaStore.put(id, f);
+    S.media.push({ id, kind: isImg ? 'image' : 'video', name: f.name, size: f.size, type: mt, aiDone: false }); added++;
+  }
+  persist(); render();
+  if (rejected.length) toast(rejected[0] + (rejected.length > 1 ? ` (+${rejected.length - 1})` : ''), 'alert');
+  else if (added) toast(added === 1 ? 'Arquivo adicionado.' : `${added} arquivos adicionados.`);
+}
+
+/* Ações (event delegation via data-action) */
+const toggleIn = (arr, id) => { const i = arr.indexOf(id); i < 0 ? arr.push(id) : arr.splice(i, 1); };
+const Actions = {
+  'go-next': () => next(), 'go-back': () => back(),
+  'go-step': el => { UI.returnToReview = false; goTo(el.dataset.screen); },
+  'edit-step': el => { UI.returnToReview = el.dataset.screen !== 'revisao'; goTo(el.dataset.screen); },
+  'go-questions': () => goTo('perguntas'),
+  'modal-close': () => Modal.close(),
+  'save-exit': async () => {
+    if (!Sync.hasContent()) { location.href = 'painel.html#pesquisas'; return; }
+    const btn = $('#saveExitTop'); btn.disabled = true;
+    const ok = await Sync.flush(); btn.disabled = false;
+    Modal.open(ok
+      ? `<h3 id="modalTitle">Rascunho salvo na sua conta</h3><p class="msub">Você encontra esta pesquisa em <b>Minhas pesquisas</b> e continua de onde parou, em qualquer dispositivo.</p>
+    <div class="modal-actions"><button type="button" class="btn-ghost btn-sm" data-action="modal-close">Continuar editando</button><a class="btn-primary btn-sm" href="painel.html#pesquisas">Ir para Minhas pesquisas</a></div>`
+      : `<h3 id="modalTitle">Não conseguimos salvar na conta</h3><p class="msub">Sem conexão com o servidor agora. O rascunho ficou guardado neste navegador: abra esta pesquisa de novo quando a conexão voltar e ele será enviado para a sua conta.</p>
+    <div class="modal-actions"><button type="button" class="btn-ghost btn-sm" data-action="modal-close">Continuar editando</button><button type="button" class="btn-primary btn-sm" data-action="save-exit">Tentar de novo</button></div>`); },
+  'restart': () => Modal.open(`<h3 id="modalTitle">Começar do zero?</h3><p class="msub">Isso apaga o rascunho atual, com objetivo, público, perguntas e materiais.</p>
+    <div class="modal-actions"><button type="button" class="btn-ghost btn-sm" data-action="modal-close">Cancelar</button><button type="button" class="btn-primary btn-sm" data-action="confirm-restart">Apagar e recomeçar</button></div>`),
+  'confirm-restart': async () => { Modal.close(); await resetAll(true); toast('Tudo limpo. Vamos começar de novo.'); },
+  'new-campaign': async () => { await resetAll(false); history.replaceState(null, '', 'criar-pesquisa.html'); Sync.status('idle'); },
+
+  /* objetivo + material */
+  'set-material': el => {
+    const yes = el.dataset.val === 'yes';
+    if (!yes && (S.media.length || S.material.desc.trim())) { Modal.open(`<h3 id="modalTitle">Remover o material informado?</h3><p class="msub">Ao escolher “Não”, a descrição e os arquivos anexados serão removidos da pesquisa.</p>
+      <div class="modal-actions"><button type="button" class="btn-ghost btn-sm" data-action="modal-close">Cancelar</button><button type="button" class="btn-primary btn-sm" data-action="confirm-no-material">Remover e continuar</button></div>`); return; }
+    UI.focusKey = 'mat-' + el.dataset.val; mutate(s => { s.material.involves = yes; });
+  },
+  'confirm-no-material': () => { Modal.close(); S.media.forEach(m => MediaStore.del(m.id)); UI.focusKey = 'mat-no';
+    mutate(s => { s.media = []; s.suggestions = s.suggestions.filter(q => !q.mediaId); s.questions.forEach(q => { if (q.mediaId) { q.mediaId = null; q.mediaName = ''; q.source = 'ai'; } }); s.material = { involves: false, desc: '' }; }); },
+
+  /* perguntas: IA */
+  'ai-generate': () => runAISuggestions(),
+
+  /* público: nichos */
+  'toggle-niche': el => mutate(s => toggleIn(s.niches, el.dataset.id)),
+  'toggle-all-niches': () => mutate(s => { const all = STD_NICHES.every(id => s.niches.includes(id)); s.niches = all ? [] : [...STD_NICHES]; }),
+  'open-custom-niche': () => { UI.customOpen = !UI.customOpen; UI.focusKey = UI.customOpen ? 'custom-niche' : 'more-niche'; UI.scrollToFocus = UI.customOpen; render(); },
+  'add-custom-niche': () => {
+    const inp = $('#customNiche'), v = (inp.value || '').trim();
+    if (!v) { toast('Escreva o nome do nicho.', 'alert'); inp.focus(); return; }
+    if (S.customNiches.some(c => norm(c) === norm(v)) || NICHES.some(n => norm(n.label) === norm(v))) { toast('Esse nicho já está na lista.', 'alert'); return; }
+    UI.focusKey = 'custom-niche'; mutate(s => s.customNiches.push(v));
+  },
+  'remove-custom-niche': el => { UI.focusKey = 'more-niche'; mutate(s => s.customNiches.splice(+el.dataset.i, 1)); },
+
+  /* público: perfil */
+  'toggle-edu-dd': () => { UI.eduOpen = !UI.eduOpen; UI.focusKey = 'edu-dd'; render();
+    const pn = $('.dd-panel'); if (pn) { const over = pn.getBoundingClientRect().bottom - (window.innerHeight - 16); if (over > 0) window.scrollBy({ top: over, behavior: 'smooth' }); } },
+  'toggle-edu': el => mutate(s => toggleIn(s.profile.edu, el.dataset.id)),
+  'remove-edu': el => { UI.focusKey = 'edu-dd'; mutate(s => { s.profile.edu = s.profile.edu.filter(id => id !== el.dataset.id); }); },
+  'toggle-other': () => { UI.focusKey = S.profile.otherOn ? 'other-on' : 'other-text'; mutate(s => { s.profile.otherOn = !s.profile.otherOn; }); },
+  'clear-profile': el => { const g = el.dataset.group; UI.focusKey = g === 'age' ? 'age-min' : g === 'income' ? 'inc-min' : g === 'edu' ? 'edu-dd' : 'other-on'; mutate(s => { s.profile = clearedProfile(s.profile, g); }); },
+
+  /* amostra */
+  'set-mode': el => mutate(s => { s.sample.mode = el.dataset.mode; }),
+  'set-precision': el => mutate(s => { s.sample.precision = el.dataset.key; s.sample.mode = 'calc'; }),
+  'sample-step': el => mutate(s => { const cur = Math.floor(Number(s.sample.manual) || 0), step = cur < 100 ? 10 : 50, dir = +el.dataset.dir;
+    s.sample.manual = Math.min(CONFIG.MAX_SAMPLE, Math.max(CONFIG.MIN_SAMPLE, cur + dir * step)); s.sample.mode = 'manual'; }),
+  'calc-sample': async () => { S.sample.mode = 'calc'; UI.calcLoading = true; render(); await wait(950); UI.calcLoading = false; S.sample.calcDone = true; persist(); UI.focusKey = 'calc-sample'; render(); const r = $('#sampleResult'); if (r) r.scrollIntoView({ behavior: 'smooth', block: 'center' }); },
+  'expand-audience': () => openExpander(),
+  'apply-expander': el => {
+    const k = el.dataset.kind;
+    mutate(s => { if (k === 'niches') s.niches = [...new Set([...s.niches, ...STD_NICHES])]; else s.profile = clearedProfile(s.profile, k.split(':')[1]); });
+    Modal.close(); toast(`Público ampliado: ${fmtInt(availableNow())} empreendedoras.`, 'users');
+  },
+
+  /* perguntas */
+  'sug-add': el => mutate(() => moveToQuestions(el.dataset.qid)),
+  'sug-edit': el => mutate(() => moveToQuestions(el.dataset.qid, true)),
+  'sug-del': el => mutate(s => { s.suggestions = s.suggestions.filter(q => q.id !== el.dataset.qid); }),
+  'sug-add-all': () => { const n = S.suggestions.length; mutate(s => { s.questions.push(...s.suggestions); s.suggestions = []; }); toast(`${n} perguntas adicionadas à sua pesquisa.`); },
+  'q-add': () => Modal.open(`<h3 id="modalTitle">Que tipo de pergunta você quer fazer?</h3><p class="msub">Escolha o formato da resposta. Dá para mudar depois.</p>${QuestionTypeSelector({ mode: 'grid', action: 'q-pick-type' })}`),
+  'q-pick-type': el => { Modal.close(); const q = makeQuestion(el.dataset.type); UI.editingId = q.id; UI.focusKey = `qt-${q.id}`; UI.scrollToFocus = true; mutate(s => s.questions.push(q)); },
+  'q-edit': el => { UI.editingId = el.dataset.qid; UI.menuId = null; UI.editErr = ''; UI.focusKey = `qt-${el.dataset.qid}`; UI.scrollToFocus = true; render(); },
+  'q-done': el => finishEdit(el.dataset.qid),
+  'q-menu': el => { UI.menuId = UI.menuId === el.dataset.qid ? null : el.dataset.qid; render(); },
+  'q-dup': el => { UI.menuId = null; mutate(s => { const i = s.questions.findIndex(q => q.id === el.dataset.qid); const c = clone(s.questions[i]); c.id = uid(); s.questions.splice(i + 1, 0, c); }); toast('Pergunta duplicada.'); },
+  'q-up': el => { UI.menuId = null; mutate(s => { const i = s.questions.findIndex(q => q.id === el.dataset.qid); if (i > 0) [s.questions[i - 1], s.questions[i]] = [s.questions[i], s.questions[i - 1]]; }); },
+  'q-down': el => { UI.menuId = null; mutate(s => { const i = s.questions.findIndex(q => q.id === el.dataset.qid); if (i < s.questions.length - 1) [s.questions[i + 1], s.questions[i]] = [s.questions[i], s.questions[i + 1]]; }); },
+  'q-delete': el => { UI.menuId = null; if (UI.editingId === el.dataset.qid) UI.editingId = null; mutate(s => { s.questions = s.questions.filter(q => q.id !== el.dataset.qid); }); },
+  'q-set-type': el => mutate(() => { const q = qById(el.dataset.qid); q.type = el.dataset.type; ensureTypeDefaults(q); }),
+  'q-opt-add': el => { const q = qById(el.dataset.qid); UI.focusKey = `qo-${q.id}-${q.options.length}`; mutate(() => q.options.push('')); },
+  'q-opt-del': el => mutate(() => qById(el.dataset.qid).options.splice(+el.dataset.i, 1)),
+  'q-scale-max': el => mutate(() => { qById(el.dataset.qid).scale.max = +el.dataset.max; }),
+  'q-range-unit': el => mutate(() => { qById(el.dataset.qid).range.unit = el.dataset.unit; }),
+
+  /* material (anexos) */
+  'media-pick': el => $('#file-' + el.dataset.kind).click(),
+  'media-remove': el => { const id = el.dataset.id; MediaStore.del(id); mutate(s => { s.media = s.media.filter(m => m.id !== id); s.suggestions = s.suggestions.filter(q => q.mediaId !== id); }); },
+  'media-ai': el => runMediaAI(el.dataset.id),
+
+  /* revisão */
+  'pricing-how': () => Modal.open(PricingBreakdown())
+};
+async function resetAll(keepId = false) { const oldId = S.surveyId; await MediaStore.clear(); Draft.clear(oldId); Draft.clear(null); S = initialState(); if (keepId) S.surveyId = oldId; Object.assign(UI, { eduOpen: false, customOpen: false, editingId: null, menuId: null, sugLoading: false, calcLoading: false, mediaLoading: {}, submitting: false, contactErr: false, returnToReview: false }); render({ enter: true }); if (keepId) persistNow(); }
+
+/* Inputs (não re-renderizam a tela, para não perder o cursor) */
+const setQ = (el, fn) => { const q = qById(el.dataset.qid); if (q) { fn(q); persist(); } };
+const digits = v => Number(String(v).replace(/\D/g, '')) || 0;
+const Inputs = {
+  'survey-name': el => { S.name = el.value; persist(); },
+  objective: el => { S.objective = el.value; persist(); $('#objCounter').textContent = el.value.length + '/800'; const h = $('#matHint'); if (h) h.hidden = !(S.material.involves === null && MAT_RE.test(norm(el.value))); renderFooter(); },
+  'mat-desc': el => { S.material.desc = el.value; persist(); renderFooter(); },
+  'age-min': el => { const c = el.value.replace(/\D/g, '').slice(0, 3); if (el.value !== c) el.value = c; S.profile.ageMin = c === '' ? null : Number(c); persist(); refreshAudienceLive(); },
+  'age-max': el => { const c = el.value.replace(/\D/g, '').slice(0, 3); if (el.value !== c) el.value = c; S.profile.ageMax = c === '' ? null : Number(c); persist(); refreshAudienceLive(); },
+  'inc-min': el => { if (/[^\d.]/.test(el.value)) el.value = el.value.replace(/[^\d.]/g, ''); const c = el.value.replace(/\D/g, ''); S.profile.incMin = c === '' ? null : Number(c); persist(); refreshAudienceLive(); },
+  'inc-max': el => { if (/[^\d.]/.test(el.value)) el.value = el.value.replace(/[^\d.]/g, ''); const c = el.value.replace(/\D/g, ''); S.profile.incMax = c === '' ? null : Number(c); persist(); refreshAudienceLive(); },
+  'other-text': el => { S.profile.other = el.value; persist(); renderFooter(); },
+  'sample-manual': el => { const clean = el.value.replace(/\D/g, '').slice(0, 5); if (el.value !== clean) el.value = clean; S.sample.manual = Number(clean) || 0; persist();
+    const n = S.sample.manual; el.classList.toggle('invalid', n < CONFIG.MIN_SAMPLE || n > CONFIG.MAX_SAMPLE); $('#sampleResult').innerHTML = SampleResult(); renderFooter(); },
+  'q-text': el => setQ(el, q => { q.text = el.value; }),
+  'q-opt': el => setQ(el, q => { q.options[+el.dataset.i] = el.value; }),
+  'q-scale-low': el => setQ(el, q => { q.scale.low = el.value; }),
+  'q-scale-high': el => setQ(el, q => { q.scale.high = el.value; }),
+  'q-range-min': el => setQ(el, q => { q.range.min = digits(el.value); }),
+  'q-range-max': el => setQ(el, q => { q.range.max = digits(el.value); })
+};
+['name', 'company', 'email', 'whatsapp'].forEach(k => { Inputs['contact-' + k] = el => { S.contact[k] = el.value; persist(); }; });
+const Changes = {
+  'inc-format': el => { const c = el.value.replace(/\D/g, ''); el.value = c === '' ? '' : fmtNum(Number(c)); },
+  'media-files': el => { handleFiles(el.files); el.value = ''; },
+  'contact-consent': el => { S.contact.consent = el.checked; persist(); }
+};
+
+/* Listeners globais */
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-action]');
+  if (e.target.id === 'modal') { Modal.close(); return; }
+  if (UI.eduOpen && !e.target.closest('.dd')) { UI.eduOpen = false; render(); }
+  if (!t) { if (UI.menuId && !e.target.closest('.menu')) { UI.menuId = null; render(); } return; }
+  const fn = Actions[t.dataset.action];
+  if (fn) { if (t.tagName !== 'A') e.preventDefault(); fn(t, e); }
+});
+document.addEventListener('input', e => { const k = e.target.dataset && e.target.dataset.input; if (k && Inputs[k]) Inputs[k](e.target, e); });
+document.addEventListener('change', e => { const k = e.target.dataset && e.target.dataset.change; if (k && Changes[k]) Changes[k](e.target, e); });
+document.addEventListener('focusin', e => { if (e.target.id === 'sampleManual' && S.sample.mode !== 'manual') mutate(s => { s.sample.mode = 'manual'; }); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { if ($('#modal').classList.contains('open')) Modal.close(); else if (UI.eduOpen) { UI.eduOpen = false; UI.focusKey = 'edu-dd'; render(); } else if (UI.menuId) { UI.menuId = null; render(); } }
+  if (e.key === 'Enter' && e.target.id === 'customNiche') { e.preventDefault(); Actions['add-custom-niche'](e.target); }
+  if (e.key === 'Enter' && e.target.id === 'sampleManual') e.target.blur();
+});
+const hasFiles = e => e.dataTransfer && [...(e.dataTransfer.types || [])].includes('Files');
+document.addEventListener('dragover', e => { if (!hasFiles(e)) return; e.preventDefault(); const d = e.target.closest && e.target.closest('.drop'); $$('.drop').forEach(x => x.classList.toggle('over', x === d)); });
+document.addEventListener('dragleave', e => { if (!e.relatedTarget) $$('.drop').forEach(x => x.classList.remove('over')); });
+document.addEventListener('drop', e => { if (!hasFiles(e)) return; e.preventDefault(); $$('.drop').forEach(x => x.classList.remove('over')); if (S.screen === 'objetivo' && S.material.involves) handleFiles(e.dataTransfer.files); });
+window.addEventListener('pagehide', persistNow);
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') persistNow(); });
+
+/* Boot: retoma o rascunho salvo, se existir */
+/* Compatibilidade: rascunhos da v1 (filtros por faixas, nicho "Outro", etapa Materiais) */
+function migrateDraft(d) {
+  const base = initialState();
+  const out = { ...base, ...d, v: 2, sample: { ...base.sample, ...d.sample }, contact: { ...base.contact, ...d.contact },
+    material: { ...base.material, ...(d.material || {}) }, profile: { ...base.profile, ...(d.profile || {}) } };
+  if (d.v === 1) {
+    const f = d.filters || {}, pick = (map, ids) => (ids || []).map(id => map[id]).filter(Boolean);
+    const ages = pick({ '18-24': [18, 24], '25-34': [25, 34], '35-44': [35, 44], '45-54': [45, 54], '55+': [55, null] }, f.age);
+    if (ages.length) { out.profile.ageMin = Math.min(...ages.map(a => a[0])); out.profile.ageMax = ages.some(a => a[1] == null) ? null : Math.max(...ages.map(a => a[1])); }
+    const inc = pick({ r1: [0, 1500], r2: [1501, 3000], r3: [3001, 5000], r4: [5001, 10000], r5: [10001, null] }, f.income);
+    if (inc.length) { const lo = Math.min(...inc.map(a => a[0])); out.profile.incMin = lo || null; out.profile.incMax = inc.some(a => a[1] == null) ? null : Math.max(...inc.map(a => a[1])); }
+    const eduMap = { fund: ['fund_i', 'fund_c'], medio: ['medio_i', 'medio_c'], tec: ['medio_c'], sup: ['sup_i', 'sup_c'], pos: ['pos'] };
+    out.profile.edu = [...new Set((f.edu || []).flatMap(id => eduMap[id] || []))];
+    out.niches = (d.niches || []).filter(id => id !== 'outro');
+    out.material = { involves: (d.media || []).length ? true : null, desc: '' };
+    const scr = { nichos: 'publico', perfil: 'publico', materiais: 'perguntas' };
+    out.screen = scr[d.screen] || d.screen;
+    out.completed = [...new Set((d.completed || []).map(x => x === 'materiais' ? null : (scr[x] || x)).filter(Boolean))];
+    if (!(d.completed || []).includes('nichos')) out.completed = out.completed.filter(x => x !== 'publico');
+    delete out.filters;
+  }
+  return out;
+}
+
+function fatal(msg, href = 'painel.html#pesquisas', label = 'Voltar para Minhas pesquisas') {
+  $('#stage').innerHTML = `<div class="done-hero"><h1 class="step-title" style="margin:0 auto">Não foi possível abrir a pesquisa</h1><p class="step-sub" style="margin:12px auto 0">${esc(msg)}</p><div class="done-actions"><a class="btn-primary" href="${href}">${esc(label)}</a></div></div>`;
+  $('#footbar').innerHTML = ''; $('#mprogress').innerHTML = '';
+}
+
+(async function boot() {
+  if (CONFIG.DEMO_MODE) $('#demoPill').hidden = false;
+  let me;
+  try { me = await SA.guard(); } catch (e) { fatal(e.message); return; }
+  if (!SA.can('pesquisas_criar')) { location.replace('painel.html#pesquisas'); return; }
+  $('#userSlot').innerHTML = SA.userMenuHTML(); SA.bindUserMenu($('#userSlot'));
+  const qid = new URLSearchParams(location.search).get('id');
+  let resumed = false, recovered = false;
+  if (qid) {
+    try {
+      const d = await SA.api('surveys.get', { id: qid }), p = d.pesquisa;
+      if (p.status !== 'rascunho') { location.replace('painel.html#pesquisa/' + encodeURIComponent(qid)); return; }
+      let st = p.dados; const local = Draft.load(qid);
+      if (local && local.state && (!st || local.at > p.atualizadaEm)) { st = local.state; recovered = true; }
+      S = migrateDraft(st || {}); S.surveyId = qid; if (!S.name && p.nome && p.nome !== 'Pesquisa sem nome') S.name = p.nome;
+      if (!SCREENS[S.screen]) S.screen = 'objetivo';
+      resumed = S.completed.length > 0 || S.objective.trim().length > 0;
+    } catch (e) { fatal(e.code === 'nao_encontrado' ? 'Esta pesquisa não existe ou não pertence à sua empresa.' : e.message); return; }
+  }
+  // dados de contato já vêm da conta
+  const u = me.user, a = me.account, c = S.contact;
+  if (!c.name) c.name = u.nome || ''; if (!c.company) c.company = a.empresa || ''; if (!c.email) c.email = u.email || ''; if (!c.whatsapp) c.whatsapp = SA.maskPhone(u.telefone || '');
+  for (const m of S.media) await MediaStore.restore(m.id);
+  render({ enter: true });
+  if (recovered) { toast('Recuperamos alterações que não tinham sido enviadas.'); Sync.schedule(400); }
+  else if (resumed && !S.contracted) toast('Continuamos de onde você parou.');
+  if (S.surveyId && !recovered) Sync.status('saved');
+})();
+</script>
+</body>
+</html>

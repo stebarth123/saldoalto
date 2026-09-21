@@ -4,7 +4,7 @@
 (function () {
   'use strict';
 
-  var API_URL = 'https://script.google.com/macros/s/AKfycbwBAhem3EsiCO14pLdLooRACzjPeTgYTWmqC6es8sTZ76WKZuMQm0iMmsqW1HX5a_Do/exec';
+  var API_URL = 'https://script.google.com/macros/s/AKfycbzrsPxkZ62kq-V6MgDhrv1d209InW-6NMGrcXSEjR-f4CWyATA8521BYZegTN6pyBG_/exec';
   var SESSION_KEY = 'sa.sessao.v1';
   var API_OK_KEY = 'sa.api.ok';
   var API_MIN = 2;
@@ -269,6 +269,8 @@
     bar.innerHTML = '<span class="sa-demo-dot" aria-hidden="true"></span><span class="sa-demo-txt"><b>Ambiente de demonstração</b><span> · empresa fictícia “Demo Saldo Alto” · nada aqui é real e nada afeta contas cadastradas</span></span>' +
       '<span class="sa-demo-actions"><button type="button" data-sa-demo-reset>Reiniciar demo</button><button type="button" data-sa-demo-exit>Sair da demo</button></span>';
     document.body.insertBefore(bar, document.body.firstChild);
+    var fit = function () { document.documentElement.style.setProperty('--demo-h', bar.offsetHeight + 'px'); };
+    fit(); window.addEventListener('resize', fit);
   }
   document.addEventListener('click', function (e) {
     if (e.target.closest('[data-sa-demo-reset]')) { e.preventDefault(); resetDemo(); }
@@ -276,17 +278,26 @@
   });
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mountDemoBar); else mountDemoBar();
 
-  /* Cabeçalho completo do painel */
+  /* Barra lateral do painel (no celular vira uma faixa no topo) */
+  var NAVIC = {
+    pesquisas: '<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9z"/><path d="M9 12h6M9 16h4"/>',
+    base: '<path d="M4 19V9M10 19V5M16 19v-8M22 19H2"/>',
+    config: IC.gear,
+    plus: '<path d="M12 5v14M5 12h14"/>'
+  };
+  function nsvg(n) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + NAVIC[n] + '</svg>'; }
   function mountHeader(target, active) {
     var s = session();
     var links = [{ r: 'pesquisas', t: 'Minhas pesquisas', href: 'painel.html#pesquisas' }];
     if (can('dashboard')) links.push({ r: 'base', t: 'Inteligência da Base', href: 'painel.html#base' });
-    var html = '<header class="sa-top"><div class="sa-top-in">' +
+    links.push({ r: 'config', t: 'Configurações', href: 'painel.html#config' });
+    document.body.classList.add('sa-has-side');
+    var html = '<aside class="sa-side">' +
       '<a class="sa-logo" href="painel.html#pesquisas" aria-label="Saldo Alto — Minhas pesquisas"><img src="logo-saldo-alto.png" alt="Saldo Alto"></a>' +
       '<nav class="sa-nav" aria-label="Navegação principal">' +
-      links.map(function (l) { return '<a data-route="' + l.r + '" href="' + l.href + '"' + (l.r === active ? ' class="on" aria-current="page"' : '') + '>' + l.t + '</a>'; }).join('') +
-      (can('pesquisas_criar') ? '<a class="sa-nav-cta" href="criar-pesquisa.html">+ Criar pesquisa</a>' : '') +
-      '</nav>' + userMenuHTML() + '</div></header>';
+      links.map(function (l) { return '<a data-route="' + l.r + '" href="' + l.href + '"' + (l.r === active ? ' class="on" aria-current="page"' : '') + '>' + nsvg(l.r) + '<span>' + l.t + '</span></a>'; }).join('') +
+      (can('pesquisas_criar') ? '<a class="sa-nav-cta" href="criar-pesquisa.html">' + nsvg('plus') + '<span>Criar pesquisa</span></a>' : '') +
+      '</nav><div class="sa-side-foot">' + userMenuHTML() + '</div></aside>';
     target.innerHTML = html;
     bindUserMenu(target);
     return s;

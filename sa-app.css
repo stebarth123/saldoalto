@@ -55,3 +55,37 @@
 .sa-demo-actions button:hover{background:#E8156A;}
 .sa-demo-tag{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.72rem; letter-spacing:.04em; text-transform:uppercase; background:#C6D92E; color:#171512; border-radius:100px; padding:2px 9px;}
 @media (max-width:820px){ .sa-demo-txt span{display:none;} .sa-demo-bar{padding:7px 12px; gap:8px;} }
+
+
+/* ---------- barra lateral (painel) ---------- */
+body.sa-has-side{display:flex; flex-wrap:wrap; align-items:flex-start;}
+body.sa-has-side > .sa-demo-bar{flex:0 0 100%;}
+body.sa-has-side #shell{flex:0 0 252px; min-width:0; max-width:100%; position:sticky; top:0; align-self:flex-start; height:calc(100vh - var(--demo-h, 0px)); z-index:60;}
+body.sa-has-side .page{flex:1 1 0; min-width:0; max-width:1320px; margin:0 auto;}
+.sa-side{height:100%; min-width:0; box-sizing:border-box; background:#fff; border-right:1px solid rgba(23,21,18,0.08); padding:26px 16px 20px; display:flex; flex-direction:column; gap:26px; overflow-y:auto;}
+.sa-side .sa-logo{padding:0 10px;}
+.sa-side .sa-logo img{height:36px;}
+.sa-side .sa-nav{flex-direction:column; align-items:stretch; gap:4px; flex:0 0 auto;}
+.sa-side .sa-nav a{display:flex; align-items:center; gap:12px; padding:11px 14px; border-radius:14px; font-size:1rem; white-space:normal;}
+.sa-side .sa-nav a svg{width:20px; height:20px; flex-shrink:0;}
+.sa-side .sa-nav a.sa-nav-cta{margin:14px 0 0; justify-content:center;}
+.sa-side-foot{margin-top:auto;}
+.sa-side .sa-user{display:block;}
+.sa-side .sa-avatar{width:100%; box-sizing:border-box; border-color:transparent; background:rgba(23,21,18,0.04); border-radius:16px; padding:6px 10px 6px 6px;}
+.sa-side .sa-uname{max-width:none; flex:1; text-align:left;}
+.sa-side .sa-menu{top:auto; bottom:calc(100% + 10px); left:0; right:auto; width:100%; min-width:230px;}
+@media (max-width:900px){
+  body.sa-has-side #shell{flex:0 0 100%; height:auto; border-bottom:1px solid rgba(23,21,18,0.08);}
+  .sa-side{flex-direction:row; flex-wrap:wrap; align-items:center; gap:8px 12px; padding:10px 16px; border-right:0; overflow:visible;}
+  .sa-side .sa-logo{padding:0;}
+  .sa-side .sa-logo img{height:32px;}
+  .sa-side-foot{margin:0 0 0 auto;}
+  .sa-side .sa-avatar{width:auto; padding:3px; background:#fff; border-color:rgba(23,21,18,0.1); border-radius:100px;}
+  .sa-side .sa-uname,.sa-side .sa-chev{display:none;}
+  .sa-side .sa-menu{top:calc(100% + 10px); bottom:auto; left:auto; right:0; width:auto;}
+  .sa-side .sa-nav{order:3; flex:1 0 100%; flex-direction:row; overflow-x:auto; padding-bottom:2px; scrollbar-width:none;}
+  .sa-side .sa-nav::-webkit-scrollbar{display:none;}
+  .sa-side .sa-nav a{padding:8px 14px; white-space:nowrap; flex:none;}
+  .sa-side .sa-nav a svg{width:18px; height:18px;}
+  .sa-side .sa-nav a.sa-nav-cta{margin:0 0 0 auto;}
+}

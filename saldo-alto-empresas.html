@@ -41,8 +41,6 @@
   .nav-links a:hover{color:var(--pink);}
   .nav-cta{background:var(--pink); color:#fff !important; font-weight:700; padding:11px 22px; border-radius:100px; text-decoration:none; font-size:0.92rem; transition:transform .15s, background .2s;}
   .nav-cta:hover{background:var(--pink-dark); transform:translateY(-1px);}
-  .nav-login{border:2px solid var(--ink); color:var(--ink) !important; font-family:var(--display); font-weight:700 !important; padding:8px 20px; border-radius:100px; text-decoration:none; font-size:0.92rem; transition:background .2s, color .2s;}
-  .nav-login:hover{background:var(--ink); color:var(--cream) !important;}
   .nav-toggle{display:none; background:none; border:none; font-size:1.6rem; cursor:pointer; color:var(--ink);}
   @media (max-width:860px){
     .nav-links{position:absolute; top:100%; left:0; right:0; background:var(--cream); flex-direction:column; align-items:flex-start; padding:18px 28px 26px; gap:16px; border-bottom:1px solid rgba(23,21,18,0.08); display:none;}
@@ -141,7 +139,7 @@
   /* dois compradores: pesquisas sob demanda + painel de inteligência */
   .buyers{display:grid; grid-template-columns:1fr 1.12fr; gap:24px; margin-top:44px; align-items:stretch;}
   @media (max-width:960px){ .buyers{grid-template-columns:1fr;} }
-  .buyer{display:flex; flex-direction:column; border-radius:28px; padding:34px 32px;}
+  .buyer{display:flex; flex-direction:column; border-radius:28px; padding:34px 32px; border:2px solid transparent;}
   .buyer.light{background:var(--cream); border:2px solid rgba(23,21,18,0.1);}
   .buyer.dark{background:var(--ink); color:var(--cream);}
   .buyer-head{display:flex; align-items:center; gap:12px; margin-bottom:18px;}
@@ -183,8 +181,24 @@
   .tier-desc{margin-top:10px; font-size:0.86rem; font-weight:600; color:rgba(252,241,236,0.78);}
   .tier.best .tier-desc{color:rgba(23,21,18,0.78);}
   .buyer .btn-primary{align-self:flex-start; margin-top:28px;}
-  .buyer-spacer{flex:1 1 auto;}
+  /* Alinhamento entre os dois cards: em telas largas cada card herda as linhas do grid pai (subgrid),
+     então título, linha divisória, valor, lista, caixa inferior e botão ficam sempre na mesma altura. */
+  @media (min-width:961px){
+    @supports (grid-template-rows: subgrid){
+      .buyers{grid-template-columns:1fr 1fr; grid-template-rows:auto auto auto auto 1fr auto auto auto; row-gap:0; column-gap:24px;}
+      .buyer{display:grid; grid-row:1 / span 8; grid-template-rows:subgrid; row-gap:0;}
+      .buyer > *{grid-column:1; min-width:0;}
+      .buyer-head{grid-row:1;} .buyer h3{grid-row:2;} .buyer-lead{grid-row:3;}
+      .buyer-from{grid-row:4; align-self:stretch;}
+      .buyer-list{grid-row:5; align-content:start;}
+      .calc, .tiers{grid-row:6; margin-top:22px; align-self:stretch;}
+      .calc{justify-content:center;}
+      .buyer .btn-primary{grid-row:7; align-self:end; justify-self:start; margin-top:28px;}
+      .buyer-fine{grid-row:8;}
+    }
+  }
   .buyer-fine{margin-top:16px; font-size:0.8rem; color:rgba(252,241,236,0.6); font-weight:600;}
+  .buyer.light .buyer-fine{color:var(--ink-soft);}
   .buyer-fine a{color:var(--lime); font-weight:700; text-decoration:underline;}
   .model-caption{text-align:center; margin:56px auto 0; max-width:620px; font-size:1rem; font-weight:600; color:var(--ink-soft);}
   .model-caption + .model-diagram{margin-top:24px;}
@@ -306,8 +320,7 @@
       <a href="#planos">Planos</a>
       <a href="#faq">FAQ</a>
       <a href="index.html">Sou empreendedora</a>
-      <a class="nav-login" href="entrar.html" id="navLogin">Entrar</a>
-      <a class="nav-cta js-open-form" href="#">Falar com o time</a>
+      <a class="nav-cta" href="entrar.html" id="navLogin">Entrar / Cadastrar-se</a>
     </div>
   </div>
 </nav>
@@ -467,8 +480,8 @@
           <div class="calc-row"><span>3</span>Investimento necessário</div>
         </div>
 
-        <div class="buyer-spacer"></div>
-        <a href="#" class="btn-primary js-open-form" data-plan="Pesquisa sob demanda (a partir de R$ 2.500)">Criar uma pesquisa →</a>
+        <a href="criar-pesquisa.html" class="btn-primary">Criar uma pesquisa →</a>
+        <p class="buyer-fine">Você monta a pesquisa e cria a conta no caminho. O time confirma o escopo e o valor final antes do pagamento.</p>
       </article>
 
       <!-- 02 · Painel de Inteligência -->
@@ -503,7 +516,6 @@
           </div>
         </div>
 
-        <div class="buyer-spacer"></div>
         <a href="#" class="btn-primary js-open-form" data-plan="Painel de Inteligência (quero conhecer os planos)">Conhecer os planos →</a>
         <p class="buyer-fine">Planos renovam automaticamente. Consulte nossa <a href="politica-cancelamento.html">Política de Cancelamento e Renovação →</a></p>
       </article>
@@ -581,7 +593,7 @@
 <footer>
   <div class="wrap">
     <div class="f-logo">Saldo Alto para Empresas</div>
-    <div style="display:flex; gap:22px; font-size:0.85rem;">
+    <div style="display:flex; flex-wrap:wrap; gap:8px 22px; font-size:0.85rem;">
       <a href="#problema">O problema</a>
       <a href="#como-funciona">Como funciona</a>
       <a href="politica-cancelamento.html">Política de cancelamento</a>
@@ -725,7 +737,7 @@
   const form = document.getElementById('signupForm');
   const formError = document.getElementById('formError');
   const WHATSAPP_NUMBER = '5511976026891';
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzna3zsTVsMpw91g9GGNQWe7tuWhCtWBYvSkSeZy3lZiBsJQcg_YW8vyufLRN3CiE0H/exec';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwBAhem3EsiCO14pLdLooRACzjPeTgYTWmqC6es8sTZ76WKZuMQm0iMmsqW1HX5a_Do/exec';
 
   function openModal(e){
     if (e) e.preventDefault();

@@ -277,6 +277,56 @@
   .warn p{font-weight:700; font-size:.95rem; flex:1;}
   .warn-row{display:flex; gap:14px; align-items:center; flex-wrap:wrap; flex:1; justify-content:space-between;}
 
+  /* ---------- público-alvo, universo e calculadora ---------- */
+  .aud-uni{margin-top:22px;}
+  .aud-uni .affix{max-width:340px;}
+  .aud-uni .field{width:100%;}
+  .tag-opt{font-weight:600; color:var(--ink-soft);}
+  .uni-note{margin-top:10px; font-size:.85rem; font-weight:600; color:var(--ink-soft); line-height:1.45; background:var(--cream); border-radius:12px; padding:9px 13px;}
+  .uni-note b{color:var(--ink);}
+  .uni-note.err{background:var(--pink-soft); color:var(--pink-dark); font-weight:700;}
+  .recap p{font-weight:600; font-size:.98rem; line-height:1.5; margin-top:2px;}
+  .ai-hints{display:flex; flex-direction:column; gap:8px; margin-top:12px;}
+  .ai-hint{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; background:var(--lime-soft); border:1px dashed var(--lime-dark); border-radius:14px; padding:10px 14px; font-weight:700; font-size:.88rem; line-height:1.4;}
+  .ai-hint > span{flex:1; min-width:220px;}
+  .ai-hint .tagline{display:block; font-size:.74rem; font-weight:700; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em; margin-bottom:2px; font-family:var(--display);}
+  .adv-toggle{align-self:flex-start;}
+  .adv-panel{display:grid; grid-template-columns:1fr 1fr; gap:10px; background:#fff; border:2px solid var(--line); border-radius:14px; padding:12px 14px;}
+  .adv-panel label{display:block; font-size:.78rem; font-weight:700; color:var(--ink-soft); margin-bottom:5px;}
+  .adv-panel select.field{width:100%; padding:8px 12px; font-size:.92rem; appearance:auto;}
+  .chk{display:flex; gap:10px; align-items:flex-start; font-weight:700; font-size:.9rem; line-height:1.35; cursor:pointer;}
+  .chk input{width:18px; height:18px; margin-top:2px; accent-color:var(--pink); flex-shrink:0;}
+  .chk small{display:block; font-weight:600; color:var(--ink-soft); font-size:.8rem; margin-top:2px;}
+  .chk.off{opacity:.55; cursor:not-allowed;}
+  .uses{display:flex; flex-direction:column; border:1px solid var(--line); border-radius:18px; overflow:hidden; margin-bottom:18px;}
+  .uses-row{display:grid; grid-template-columns:118px 1fr auto; gap:12px; align-items:start; padding:11px 16px; font-size:.9rem; font-weight:600; background:#fff;}
+  .uses-row + .uses-row{border-top:1px solid var(--line);}
+  .uses-row .k{font-family:var(--display); font-weight:700; font-size:.74rem; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); padding-top:2px;}
+  .uses-row .v{line-height:1.45; overflow-wrap:anywhere;}
+  .uses-row .v small{display:block; color:var(--ink-soft); font-weight:600; font-size:.8rem;}
+  .result-grid.four{grid-template-columns:repeat(4,1fr);}
+  .result-grid.four .metric{padding:14px 15px;}
+  .result-grid.four .metric .val{font-size:1.75rem;}
+  .metric .val.txt{font-size:1.05rem; line-height:1.25; padding-top:6px;}
+  .metric .sub{font-size:.76rem; font-weight:600; opacity:.7; margin-top:3px; line-height:1.3;}
+  .rec-line{margin-top:16px; font-family:var(--display); font-weight:800; font-size:1.05rem; line-height:1.4;}
+  .rec-line small{display:block; font-family:var(--body); font-weight:600; font-size:.85rem; color:var(--ink-soft); margin-top:3px;}
+  .cost-line{margin-top:16px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; background:var(--ink); color:var(--cream); border-radius:18px; padding:14px 18px;}
+  .cost-line .amt{font-family:var(--display); font-weight:800; font-size:1.6rem; color:var(--lime); line-height:1.1;}
+  .cost-line .d{font-size:.8rem; font-weight:600; opacity:.75; margin-top:3px; max-width:420px;}
+  .cost-line .btn-quiet{color:var(--cream);}
+  .disclaimer{margin-top:16px; display:flex; gap:10px; align-items:flex-start; background:var(--cream); border-radius:16px; padding:13px 16px; font-size:.84rem; font-weight:600; line-height:1.5; color:var(--ink);}
+  .disclaimer .ic{margin-top:2px; color:var(--pink); flex-shrink:0;}
+  .how{margin-top:14px; border:1px solid var(--line); border-radius:16px; overflow:hidden;}
+  .how-btn{display:flex; justify-content:space-between; align-items:center; width:100%; background:#fff; border:none; padding:12px 16px; font-family:var(--display); font-weight:800; font-size:.92rem; text-align:left;}
+  .how-body{padding:4px 18px 16px; background:#fff; font-size:.88rem; font-weight:600; line-height:1.55;}
+  .how-body ol{margin:8px 0 0; padding-left:20px; display:flex; flex-direction:column; gap:10px;}
+  .how-body code{display:block; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.82rem; font-weight:600; background:var(--cream); border-radius:10px; padding:7px 10px; margin-top:5px; overflow-wrap:anywhere;}
+  .how-body .note{color:var(--ink-soft); font-size:.82rem; margin-top:12px;}
+  .result-grid.four > *{min-width:0;}
+  @media (max-width:560px){ .result-grid.four{grid-template-columns:1fr;} .result-grid.four .metric .val{font-size:1.9rem;} }
+  @media (max-width:900px){ .result-grid.four{grid-template-columns:1fr 1fr;} .uses-row{grid-template-columns:1fr auto;} .uses-row .k{grid-column:1 / -1; padding:0;} .adv-panel{grid-template-columns:1fr;} }
+
   /* ---------- perguntas ---------- */
   .q-section{margin-top:30px;}
   .q-section h3{font-family:var(--display); font-weight:800; font-size:1.15rem; display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
@@ -396,6 +446,14 @@
   .form-grid .full{grid-column:1 / -1;}
   .ff label{display:block; font-family:var(--display); font-weight:700; font-size:.85rem; margin-bottom:6px;}
   .ff .field{width:100%;}
+  .ff select.field{appearance:none; -webkit-appearance:none; padding-right:38px; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23171512' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center;}
+  .reg-note{margin-top:14px; font-size:.9rem; font-weight:600; color:var(--ink-soft);}
+  .reg-note a{color:var(--pink); font-weight:800; text-decoration:underline; text-underline-offset:3px;}
+  .reg-reqs{list-style:none; display:flex; flex-wrap:wrap; gap:4px 14px; margin-top:6px;}
+  .reg-reqs li{font-size:.78rem; font-weight:700; color:var(--ink-soft); display:flex; align-items:center; gap:6px;}
+  .reg-reqs li::before{content:""; width:12px; height:12px; border-radius:50%; border:2px solid rgba(23,21,18,.25);}
+  .reg-reqs li.ok{color:#5b6a08;} .reg-reqs li.ok::before{background:var(--lime); border-color:var(--lime-dark);}
+  .reg-sec{grid-column:1 / -1; font-family:var(--display); font-weight:800; font-size:.8rem; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); margin-top:6px;}
   .ff .err{display:none; color:var(--pink-dark); font-size:.78rem; font-weight:700; margin-top:4px;}
   .ff.invalid .err{display:block;}
   .ff.invalid .field{border-color:var(--pink-dark); background:rgba(232,21,106,.05);}
@@ -470,8 +528,8 @@
 <header class="topbar">
   <div class="in">
     <div class="top-left">
-      <a href="painel.html#pesquisas" aria-label="Saldo Alto — voltar para Minhas pesquisas"><img src="logo-saldo-alto.png" alt="Saldo Alto" class="logo-img"></a>
-      <a class="btn-quiet top-back" href="painel.html#pesquisas">← Minhas pesquisas</a>
+      <a href="painel.html#pesquisas" id="topLogo" aria-label="Saldo Alto — voltar para Minhas pesquisas"><img src="logo-saldo-alto.png" alt="Saldo Alto" class="logo-img"></a>
+      <a class="btn-quiet top-back" id="topBack" href="painel.html#pesquisas">← Minhas pesquisas</a>
     </div>
     <div class="top-right">
       <span class="sync" id="syncState" aria-live="polite"></span>
@@ -495,6 +553,7 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <noscript><p style="padding:24px;font-weight:700">Ative o JavaScript para criar sua pesquisa.</p></noscript>
 <script src="sa-app.js"></script>
+<script src="sa-demo.js"></script>
 <script>
 /* =====================================================================
    SALDO ALTO — Criar pesquisa (wizard de campanha)
@@ -608,7 +667,19 @@ const EDU = [
   { id: 'mest', label: 'Mestrado', share: 0.05 },
   { id: 'dout', label: 'Doutorado', share: 0.02 }
 ];
-const PROFILE_GROUPS = { age: 'Faixa etária', income: 'Faixa de renda', edu: 'Escolaridade', other: 'Outros critérios' };
+/* Momento do negócio e região: opções fixas. As "shares" só alimentam a ESTIMATIVA de público de demonstração (não são dados reais). */
+const MOMENTOS = [
+  { id: 'ideia', label: 'Só a ideia (ainda não abriu)', share: 0.10 },
+  { id: 'comecando', label: 'Começando (até 1 ano)', share: 0.30 },
+  { id: 'crescimento', label: 'Em crescimento (1 a 3 anos)', share: 0.35 },
+  { id: 'consolidado', label: 'Consolidado (mais de 3 anos)', share: 0.25 }
+];
+const REGIOES = [
+  { id: 'norte', label: 'Norte', share: 0.06 }, { id: 'nordeste', label: 'Nordeste', share: 0.22 },
+  { id: 'centro_oeste', label: 'Centro-Oeste', share: 0.08 }, { id: 'sudeste', label: 'Sudeste', share: 0.48 }, { id: 'sul', label: 'Sul', share: 0.16 }
+];
+const PROFILE_GROUPS = { age: 'Faixa etária', income: 'Faixa de renda', edu: 'Escolaridade', momento: 'Momento do negócio', regiao: 'Região', other: 'Outros critérios' };
+const CONF_OPTS = [90, 95, 99], MARGIN_OPTS = [2, 3, 4, 5, 7, 10];
 const QTYPES = [
   { id: 'single', label: 'Escolha única', desc: 'Escolhe uma opção', icon: 'radio' },
   { id: 'multiple', label: 'Múltipla escolha', desc: 'Escolhe várias opções', icon: 'listChecks' },
@@ -645,6 +716,33 @@ const Services = {
       if (topic === 'geral' && material && material.involves) topic = 'produto';   // objetivo + material informado → perguntas de avaliação do material
       return AI_SETS[topic].map(q => makeQuestion(q.type, { ...clone(q), source: 'ai' }));
     },
+    /* Leitura do objetivo + descrição do público: sugere o nível de precisão e ajustes de filtros.
+       Regras simples nesta versão de demonstração (produção: Claude API). Só sugere parâmetros — NUNCA estima o tamanho do universo. */
+    readAudience({ objective, desc, niches, profile }) {
+      const t = norm(objective + ' ' + desc), td = norm(desc), hints = [], P = profile || {};
+      const goal = /monitor|acompanhar|indicador|benchmark|reposicionamento|grande investimento|alta precisao/.test(t)
+        ? { key: 'alta', why: 'Pelo objetivo (acompanhar/medir ou decidir um investimento grande), vale uma margem de erro menor.' }
+        : /explorat|explorar|sondar|hipotese|teste rapido|primeira impressao/.test(t)
+          ? { key: 'rapida', why: 'Pelo objetivo (explorar ou sondar uma hipótese), uma leitura mais rápida costuma bastar.' }
+          : { key: 'padrao', why: 'Para validar uma ideia ou apoiar uma decisão, 95% de confiança e ±5% é o nível mais usado.' };
+      const NICHE_KW = { beleza: /beleza|estetic|cabelei|manicure|salao|maquiagem|sobrancelha|depila/, saude: /saude|bem-estar|terapeut|nutri|fisioterap|psicolog|pilates|yoga/,
+        alimentacao: /aliment|confeit|doce|bolo|marmita|padaria|culinar|salgad|brigadeiro/, moda: /moda|costur|roupa|vestuari|ateli|acessori/,
+        educacao: /educa|curso|mentoria|professora|aula|escola/, revenda: /revend|catalogo|sacoleira/, servicos: /design|marketing|consultoria|social media|fotograf/ };
+      NICHES.forEach(n => { if (NICHE_KW[n.id].test(td) && !niches.includes(n.id)) hints.push({ text: `Sua descrição fala de “${n.label}”, mas esse nicho ainda não está selecionado.`, btn: 'Selecionar nicho', act: 'niche', val: n.id }); });
+      const REG_KW = { sudeste: /sudeste|sao paulo|rio de janeiro|minas gerais|espirito santo|\bsp\b/, sul: /\bsul\b|parana|santa catarina|rio grande do sul|curitiba|porto alegre/,
+        nordeste: /nordeste|bahia|pernambuco|ceara|recife|salvador|fortaleza/, norte: /\bnorte\b|amazonas|manaus|belem|amazonia/, centro_oeste: /centro-oeste|centro oeste|goias|brasilia|mato grosso|distrito federal/ };
+      REGIOES.forEach(r => { if (REG_KW[r.id].test(td) && !(P.regiao || []).includes(r.id)) hints.push({ text: `Você citou a região ${r.label}. Quer filtrar por ela?`, btn: `Filtrar: ${r.label}`, act: 'regiao', val: r.id }); });
+      const MOM_KW = { ideia: /so a ideia|ideia de negocio|ainda nao abr|pensando em abrir|pretend\w+ abrir/, comecando: /comecando|iniciante|iniciando|recem|acabaram de abrir|primeiro ano|abrindo/,
+        crescimento: /em crescimento|crescendo|escalando|expandindo/, consolidado: /consolidad|estabelecid|mais de \d+ anos|ha \d+ anos/ };
+      MOMENTOS.forEach(m => { if (MOM_KW[m.id].test(td) && !(P.momento || []).includes(m.id)) hints.push({ text: `Pela descrição, o momento do negócio parece ser “${m.label}”. Quer filtrar por ele?`, btn: 'Filtrar por momento', act: 'momento', val: m.id }); });
+      const fi = td.indexOf('fatur');
+      if (fi >= 0 && !(P.otherOn && (P.other || '').trim())) {
+        const snip = String(desc).slice(fi).split(/[.;\n]/)[0].trim().slice(0, 80);
+        hints.push({ text: 'Você citou faturamento. O filtro de renda é a renda pessoal, não o faturamento do negócio; podemos registrar isso em “Outros critérios” para o time aplicar.', btn: 'Registrar em Outros critérios', act: 'other', val: snip.charAt(0).toUpperCase() + snip.slice(1) });
+      }
+      const compare = /compar|diferenc|por nicho|por regiao|por segmento|cada nicho|entre nichos|entre regioes/.test(t);
+      return { goal, hints, compare };
+    },
     async suggestFromMedia({ media }) {
       await wait(1500);
       const set = media.kind === 'video' ? AI_MEDIA.video : AI_MEDIA.image;
@@ -664,15 +762,52 @@ const Services = {
       if (p.ageMin != null || p.ageMax != null) share *= overlap(AGE_BANDS, p.ageMin ?? AGE_LIMITS.min, (p.ageMax ?? AGE_LIMITS.max) + 1);
       if (p.incMin != null || p.incMax != null) share *= overlap(INCOME_BANDS, p.incMin ?? 0, p.incMax ?? Infinity);
       if ((p.edu || []).length) share *= EDU.filter(o => p.edu.includes(o.id)).reduce((a, o) => a + o.share, 0);
+      if ((p.momento || []).length) share *= MOMENTOS.filter(o => p.momento.includes(o.id)).reduce((a, o) => a + o.share, 0);
+      if ((p.regiao || []).length) share *= REGIOES.filter(o => p.regiao.includes(o.id)).reduce((a, o) => a + o.share, 0);
       /* "Outros critérios" (texto livre) não entra na conta: é analisado pelo time. Em produção, vira filtro estruturado. */
       return Math.round(CONFIG.BASE_ATIVA * Math.min(share, 1));
     }
   },
-  /* Amostra — Cochran (p = 0,5) para população grande. Sem correção de população finita, pois o painel não é o universo. */
+  /* Amostra — cálculo estatístico de verdade (roda no navegador, sem dados inventados):
+       z    = inversa da normal padrão para o nível de confiança
+       n0   = z² · p(1−p) / e²                    (Cochran; p = 0,5 é o caso mais conservador)
+       n    = n0 / (1 + (n0 − 1) / N)              (correção de população finita, só quando o universo N foi informado)
+     Sem N informado, usamos o cenário de população grande/desconhecida (n = n0). Arredondamos sempre para cima.
+     Atenção: o painel do Saldo Alto é voluntário (amostra não probabilística); a margem de erro é uma referência, não uma garantia. */
   Sampling: {
-    recommend(key) {
-      const p = PRECISION[key] || PRECISION.padrao;
-      return { n: Math.ceil((p.z * p.z * 0.25) / (p.e * p.e)), ...p };
+    /* Inversa da normal padrão (algoritmo de Acklam, erro relativo < 1,2e-9) */
+    invNorm(p) {
+      const a = [-39.69683028665376, 220.9460984245205, -275.9285104469687, 138.357751867269, -30.66479806614716, 2.506628277459239],
+        b = [-54.47609879822406, 161.5858368580409, -155.6989798598866, 66.80131188771972, -13.28068155288572],
+        c = [-0.007784894002430293, -0.3223964580411365, -2.400758277161838, -2.549732539343734, 4.374664141464968, 2.938163982698783],
+        d = [0.007784695709041462, 0.3224671290700398, 2.445134137142996, 3.754408661907416], pl = 0.02425;
+      if (p <= 0 || p >= 1) return NaN;
+      if (p < pl) { const q = Math.sqrt(-2 * Math.log(p)); return (((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1); }
+      if (p > 1 - pl) { const q = Math.sqrt(-2 * Math.log(1 - p)); return -(((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1); }
+      const q = p - 0.5, r = q * q;
+      return (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q / (((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1);
+    },
+    zScore(conf) { return Math.round(this.invNorm(1 - (1 - conf / 100) / 2) * 1000) / 1000; },   // 3 casas, como nas tabelas (1,645 · 1,960 · 2,576)
+    /* Parâmetros escolhidos na tela: um dos 3 níveis prontos ou "personalizado" */
+    params(sm) {
+      const pr = PRECISION[sm.precision];
+      const conf = pr ? pr.conf : (CONF_OPTS.includes(Number(sm.conf)) ? Number(sm.conf) : 95);
+      const e = pr ? pr.e : (MARGIN_OPTS.includes(Number(sm.margin)) ? Number(sm.margin) : 5) / 100;
+      return { conf, e };
+    },
+    compute({ conf, e, N = null, groups = 1 }) {
+      const z = this.zScore(conf), n0 = z * z * 0.25 / (e * e), finite = Number.isFinite(N) && N > 0;
+      const nRaw = finite ? n0 / (1 + (n0 - 1) / N) : n0;
+      let per = Math.ceil(nRaw - 1e-9); if (finite) per = Math.min(per, N);
+      let total = per * groups, capped = false; if (finite && total > N) { total = N; capped = true; }
+      return { conf, e, z, p: 0.5, n0, nRaw, per, groups, total, N: finite ? N : null, finite, capped, frac: finite ? total / N : null };
+    },
+    /* Margem de erro aproximada de uma amostra de tamanho n (usada quando a empresa define o número na mão) */
+    marginFor(n, { conf = 95, N = null } = {}) {
+      if (!(n > 0)) return null;
+      const finite = Number.isFinite(N) && N > 1;
+      if (finite && n >= N) return 0;
+      return this.zScore(conf) * Math.sqrt(0.25 / n * (finite ? (N - n) / (N - 1) : 1));
     }
   },
   /* Preço — produção: mecanismo real de precificação. Todos os coeficientes abaixo são PLACEHOLDERS de demonstração. */
@@ -775,23 +910,28 @@ const AI_MEDIA = {
 const initialState = () => ({
   v: 2, surveyId: null, name: '', screen: 'objetivo', completed: [], objective: '',
   material: { involves: null, desc: '' },            // involves: null (não respondeu) | true | false — os arquivos ficam em S.media
+  audience: { desc: '', universe: null },            // público-alvo (texto) e universo (nº de pessoas) — universe null = a empresa não sabe
   niches: [], customNiches: [],
-  profile: { ageMin: null, ageMax: null, incMin: null, incMax: null, edu: [], otherOn: false, other: '' },
-  sample: { mode: null, manual: 500, precision: 'padrao', calcDone: false },
+  profile: { ageMin: null, ageMax: null, incMin: null, incMax: null, edu: [], momento: [], regiao: [], otherOn: false, other: '' },
+  sample: { mode: null, manual: 500, precision: 'padrao', conf: 95, margin: 5, compare: false },
   questions: [], suggestions: [], aiAutoRan: false,
   media: [],
-  contact: { name: '', company: '', email: '', whatsapp: '', consent: false },
+  contact: { name: '', company: '', cnpj: '', setor: '', email: '', whatsapp: '', consent: false },
   contracted: null
 });
 let S = initialState();
-const UI = { eduOpen: false, customOpen: false, editingId: null, menuId: null, sugLoading: false, calcLoading: false, mediaLoading: {}, submitting: false, contactErr: false, drag: null };
+const isVisitor = () => !SA.session();   // sem conta: monta a pesquisa e cria a conta na última etapa
+const UI = { reg: { senha: '', senha2: '' }, srv: {}, justRegistered: null, advOpen: false, howOpen: false, eduOpen: false, customOpen: false, editingId: null, menuId: null, sugLoading: false, calcLoading: false, mediaLoading: {}, submitting: false, contactErr: false, drag: null };
 
 /* Rascunho local: cópia de segurança por usuária e pesquisa. A conta (servidor) é a fonte principal. */
 const Draft = {
   key(id) { const u = (SA.session() || {}).user; return `${CONFIG.DRAFT_KEY}:${u ? u.id : 'anon'}:${id || 'novo'}`; },
   load(id) { try { const raw = localStorage.getItem(this.key(id)); if (raw) return JSON.parse(raw); } catch (e) { /* storage indisponível */ } return null; },
   save(state) { if (state.contracted) return; try { localStorage.setItem(this.key(state.surveyId), JSON.stringify({ at: new Date().toISOString(), state })); } catch (e) { /* sem persistência local */ } },
-  clear(id) { try { localStorage.removeItem(this.key(id)); } catch (e) {} }
+  clear(id) { try { localStorage.removeItem(this.key(id)); } catch (e) {} },
+  anonKey() { return `${CONFIG.DRAFT_KEY}:anon:novo`; },
+  loadAnon() { try { const raw = localStorage.getItem(this.anonKey()); if (raw) return JSON.parse(raw); } catch (e) { /* storage indisponível */ } return null; },
+  clearAnon() { try { localStorage.removeItem(this.anonKey()); } catch (e) {} }
 };
 let saveTimer = null;
 const persist = () => { clearTimeout(saveTimer); saveTimer = setTimeout(() => { Draft.save(S); Sync.schedule(); }, 200); };
@@ -806,12 +946,12 @@ const surveySummary = () => {
 };
 const Sync = {
   timer: null, running: false, dirty: false,
-  status(k) { const el = $('#syncState'); if (!el) return; el.dataset.k = k; el.textContent = { saving: 'Salvando…', saved: 'Salvo na sua conta', offline: 'Sem conexão · salvo neste navegador', idle: '' }[k] || ''; },
+  status(k) { const el = $('#syncState'); if (!el) return; el.dataset.k = k; el.textContent = { saving: 'Salvando…', saved: 'Salvo na sua conta', offline: 'Sem conexão · salvo neste navegador', local: 'Rascunho salvo neste navegador', idle: '' }[k] || ''; },
   hasContent() { return !!S.surveyId || S.objective.trim().length > 0 || (S.name || '').trim().length > 0; },
-  schedule(ms = 1800) { if (S.contracted || !this.hasContent()) return; this.dirty = true; clearTimeout(this.timer); this.timer = setTimeout(() => this.push(), ms); },
+  schedule(ms = 1800) { if (S.contracted || !this.hasContent()) return; if (isVisitor()) { this.status('local'); return; } this.dirty = true; clearTimeout(this.timer); this.timer = setTimeout(() => this.push(), ms); },
   async push() {
     clearTimeout(this.timer);
-    if (S.contracted || !this.hasContent()) return true;
+    if (S.contracted || !this.hasContent() || isVisitor()) return true;
     if (this.running) { this.dirty = true; return false; }
     this.running = true; this.dirty = false; this.status('saving');
     let ok = false;
@@ -869,12 +1009,17 @@ const MediaStore = {
 
 /* ---------- Seletores derivados do estado ---------- */
 const nicheLabels = () => [...NICHES.filter(n => S.niches.includes(n.id)).map(n => n.label), ...S.customNiches];
-const profileActive = g => { const p = S.profile; return g === 'age' ? p.ageMin != null || p.ageMax != null : g === 'income' ? p.incMin != null || p.incMax != null : g === 'edu' ? p.edu.length > 0 : !!(p.otherOn && p.other.trim()); };
+const profileActive = g => { const p = S.profile; return g === 'age' ? p.ageMin != null || p.ageMax != null : g === 'income' ? p.incMin != null || p.incMax != null : g === 'edu' ? p.edu.length > 0
+  : g === 'momento' ? p.momento.length > 0 : g === 'regiao' ? p.regiao.length > 0 : !!(p.otherOn && p.other.trim()); };
 const profileGroupsActive = () => Object.keys(PROFILE_GROUPS).filter(profileActive);
 const availableNow = (over = {}) => Services.Respondents.available({ niches: S.niches, customNiches: S.customNiches, profile: S.profile, ...over });
+/* Cálculo estatístico da amostra (modo "calcular"): universo → parâmetros → n. Alimenta o preço via sampleSize(). */
+const universeN = () => { const u = Number(S.audience.universe); return Number.isFinite(u) && u > 0 ? u : null; };
+const compareGroups = () => S.sample.compare && nicheLabels().length > 1 ? nicheLabels().length : 1;
+const sampleCalc = (over = {}) => Services.Sampling.compute({ ...Services.Sampling.params(S.sample), N: universeN(), groups: compareGroups(), ...over });
 const sampleSize = () => {
   if (S.sample.mode === 'manual') return Math.floor(Number(S.sample.manual) || 0);
-  if (S.sample.mode === 'calc' && S.sample.calcDone) return Services.Sampling.recommend(S.sample.precision).n;
+  if (S.sample.mode === 'calc') return sampleCalc().total;
   return 0;
 };
 const questionCounts = () => {
@@ -937,7 +1082,9 @@ const ageError = (p = S.profile) => p.ageMin != null && p.ageMin < AGE_LIMITS.mi
   : p.ageMin != null && p.ageMax != null && p.ageMin > p.ageMax ? 'A idade mínima não pode ser maior que a máxima.' : '';
 const incomeError = (p = S.profile) => p.incMin != null && p.incMax != null && p.incMin > p.incMax ? 'A renda mínima não pode ser maior que a máxima.' : '';
 const profileSummary = (p = S.profile) => [
-  ['Faixa etária', ageText(p)], ['Faixa de renda', incomeText(p)], ['Escolaridade', p.edu.length ? eduText(p.edu) : ''], ['Outros critérios', p.otherOn && p.other.trim() ? p.other.trim() : '']
+  ['Faixa etária', ageText(p)], ['Faixa de renda', incomeText(p)], ['Escolaridade', p.edu.length ? eduText(p.edu) : ''],
+  ['Momento do negócio', p.momento.length ? MOMENTOS.filter(o => p.momento.includes(o.id)).map(o => o.label).join(' · ') : ''],
+  ['Região', p.regiao.length ? REGIOES.filter(o => p.regiao.includes(o.id)).map(o => o.label).join(' · ') : ''], ['Outros critérios', p.otherOn && p.other.trim() ? p.other.trim() : '']
 ].filter(x => x[1]);
 
 /* ===== ObjectiveStep (objetivo do estudo + material) ===== */
@@ -992,7 +1139,31 @@ function ObjectiveStep() {
         <span class="counter" id="objCounter">${S.objective.length}/800</span>
       </div>
     </div>
+    ${AudienceBlock()}
     ${MaterialSection()}
+  </div>`;
+}
+const uniNoteHTML = () => {
+  const U = S.audience.universe, N = universeN();
+  if (U != null && !(U >= CONFIG.MIN_SAMPLE)) return `<div class="uni-note err" id="uniNote">Esse número é menor que o mínimo de ${CONFIG.MIN_SAMPLE} respostas de uma pesquisa. Confira o valor ou deixe em branco.</div>`;
+  if (N) { const c = sampleCalc({ groups: 1 }); return `<div class="uni-note" id="uniNote">Universo informado por você: <b>${fmtInt(N)}</b> pessoas. Com ${c.conf}% de confiança e ±${fmtPct(c.e)}%, a amostra de referência seria de <b>${fmtInt(c.total)}</b> respostas.</div>`; }
+  return `<div class="uni-note" id="uniNote">Em branco é uma resposta válida. Não vamos inventar um número: a amostra será calculada para uma população grande, que é o cenário mais conservador.</div>`;
+};
+function AudienceBlock() {
+  const A = S.audience;
+  return `<div class="block" id="audienceBlock">
+    <label class="section-label" for="audDesc">Qual é o público que você quer pesquisar?</label>
+    <div class="section-hint">Descreva quem deve responder: setor, momento do negócio, faturamento, região… Quanto mais claro, melhor a recomendação de amostra.</div>
+    <div class="textarea-wrap">
+      <textarea class="textarea-big" style="min-height:104px" id="audDesc" data-input="aud-desc" data-fk="aud-desc" maxlength="500" placeholder="Ex.: Mulheres empreendedoras do setor de beleza, que possuem um negócio próprio e faturam até R$ 20 mil por mês.">${esc(A.desc)}</textarea>
+      <span class="counter" id="audCounter">${A.desc.length}/500</span>
+    </div>
+    <div class="aud-uni">
+      <label class="section-label" for="audUni">Você sabe aproximadamente quantas pessoas fazem parte desse público? <span class="tag-opt">(opcional)</span></label>
+      <div class="section-hint">Se souber, informe o número. Ele entra no cálculo da amostra.</div>
+      <div class="affix suf"><input class="field" id="audUni" inputmode="numeric" maxlength="15" data-input="aud-uni" data-change="uni-format" data-fk="aud-uni" value="${A.universe != null ? fmtNum(A.universe) : ''}" placeholder="Ex.: 50.000" autocomplete="off"><span class="suf-t">pessoas</span></div>
+      ${uniNoteHTML()}
+    </div>
   </div>`;
 }
 
@@ -1014,8 +1185,11 @@ function AudienceStep() {
     : `<div class="chips">${eduLabels(P.edu).map((l, i) => { const id = EDU.find(o => o.label === l).id; return `<span class="chip">${esc(l)}<button type="button" data-action="remove-edu" data-id="${id}" aria-label="Remover ${esc(l)}">${icon('x')}</button></span>`; }).join('')}</div>`;
   const eduPanel = UI.eduOpen ? `<div class="dd-panel"><div class="dd-list" id="eduList" role="listbox" aria-multiselectable="true" aria-label="Escolaridade">${EDU.map(o => `<button type="button" class="dd-opt" role="option" aria-selected="${P.edu.includes(o.id)}" data-action="toggle-edu" data-id="${o.id}" data-fk="edu-${o.id}"><span class="bx">${icon('check')}</span>${o.label}</button>`).join('')}</div>
     <div class="dd-foot"><button type="button" class="btn-quiet btn-sm" data-action="clear-profile" data-group="edu" data-fk="edu-clear">Limpar</button><button type="button" class="btn-mini solid" data-action="toggle-edu-dd" data-fk="edu-done">${icon('check')}Concluir</button></div></div>` : '';
+  const momChips = MOMENTOS.map(o => ChoiceChip({ id: o.id, label: o.label, selected: P.momento.includes(o.id), action: 'toggle-momento', fk: 'mom-' + o.id })).join('');
+  const regChips = REGIOES.map(o => ChoiceChip({ id: o.id, label: o.label, selected: P.regiao.includes(o.id), action: 'toggle-regiao', fk: 'reg-' + o.id })).join('');
   return `${StepHeader({ screen: 'publico', title: 'Qual <span class="accent">público</span> você quer ouvir?', sub: 'Defina nicho e perfil nesta tela. Só o nicho é obrigatório.', right: AudiencePreview() })}
   <div class="step-body">
+    ${AudienceRecap()}
     <section class="card-sec" aria-labelledby="secNicho">
       <div class="sec-head"><div class="sec-title" id="secNicho"><span class="sec-num">1</span>Nicho de atuação<span class="sec-tag req">Obrigatório</span></div>
         <button type="button" class="btn-mini" data-action="toggle-all-niches" data-fk="all-niches">${icon('listChecks')}${allOn ? 'Limpar seleção' : 'Selecionar todos'}</button></div>
@@ -1041,6 +1215,12 @@ function AudienceStep() {
         <div class="pf"><div class="pf-head"><span class="pf-label">Escolaridade</span>${clearBtn('edu')}</div>
           <div class="dd"><button type="button" class="dd-btn" id="eduBtn" data-action="toggle-edu-dd" data-fk="edu-dd" aria-haspopup="listbox" aria-expanded="${UI.eduOpen}"><span>${eduN ? `Escolaridade (${eduN})` : 'Selecionar escolaridade'}</span>${icon('down')}</button>${eduPanel}</div>
           ${eduChips}<div class="pf-note">${eduN ? 'Pode marcar mais de um nível.' : 'Em branco: todos os níveis. Pode marcar mais de um.'}</div></div>
+        <div class="pf" style="order:2"><div class="pf-head"><span class="pf-label">Momento do negócio</span>${clearBtn('momento')}</div>
+          <div class="cchips" style="margin-top:10px" role="group" aria-label="Momento do negócio">${momChips}</div>
+          <div class="pf-note">${P.momento.length ? 'Pode marcar mais de um momento.' : 'Em branco: todos os momentos. Pode marcar mais de um.'}</div></div>
+        <div class="pf" style="order:2"><div class="pf-head"><span class="pf-label">Região</span>${clearBtn('regiao')}</div>
+          <div class="cchips" style="margin-top:10px" role="group" aria-label="Região">${regChips}</div>
+          <div class="pf-note">${P.regiao.length ? 'Pode marcar mais de uma região.' : 'Em branco: todo o Brasil. Pode marcar mais de uma.'}</div></div>
         <div class="pf"><div class="pf-head"><span class="pf-label">Outros critérios</span>${clearBtn('other')}</div>
           <div class="cchips" style="margin-top:10px">${ChoiceChip({ id: 'other', label: 'Outros', selected: P.otherOn, action: 'toggle-other', fk: 'other-on' })}</div>
           ${P.otherOn ? `<label class="sr" for="otherText">Descreva outros critérios importantes para o público</label><textarea class="field" id="otherText" data-input="other-text" data-fk="other-text" maxlength="300" placeholder="Descreva outros critérios importantes para o público">${esc(P.other)}</textarea>
@@ -1049,16 +1229,31 @@ function AudienceStep() {
     </section>
   </div>`;
 }
+function AudienceRecap() {
+  const a = Services.AI.readAudience({ objective: S.objective, desc: S.audience.desc, niches: S.niches, profile: S.profile });
+  const hints = a.hints.map((h, i) => `<div class="ai-hint"><span><span class="tagline">Sugestão automática</span>${esc(h.text)}</span><button type="button" class="btn-mini solid" data-action="apply-hint" data-act="${h.act}" data-val="${esc(h.val)}" data-fk="hint-${i}">${icon('plus')}${esc(h.btn)}</button></div>`).join('');
+  return `<section class="card-sec recap" aria-labelledby="secRecap"><div class="sec-head"><div class="sec-title" id="secRecap">Público que você descreveu</div>
+    <button type="button" class="btn-mini" data-action="go-step" data-screen="objetivo" data-fk="recap-edit">${icon('edit')}Editar</button></div>
+    <p>${esc(S.audience.desc.trim())}</p>${hints ? `<div class="ai-hints">${hints}</div>` : ''}</section>`;
+}
 function refreshAudienceLive() {
   const n = availableNow(), c = $('.avail-pill .count'); if (c) { c.dataset.to = n; animateCounters(); }
   ['age', 'income'].forEach(g => { const el = $('#note-' + g); if (el) el.outerHTML = ProfileNote(g); });
   renderFooter();
 }
 
-/* ===== SampleSizeStep ===== */
+/* ===== SampleSizeStep (Calculadora Inteligente: objetivo → público → universo → amostra → custo) ===== */
+const fmtPct = e => (e * 100).toLocaleString('pt-BR', { maximumFractionDigits: 1 });
+const fmtDec = (n, d = 2) => Number(n).toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
+const clip = (t, n) => t.length > n ? t.slice(0, n - 1).trimEnd() + '…' : t;
 function SampleSizeStep() {
-  const m = S.sample.mode;
-  const prec = Object.keys(PRECISION).map(k => `<button type="button" role="radio" aria-checked="${S.sample.precision === k}" data-action="set-precision" data-key="${k}" data-fk="prec-${k}"><span>${PRECISION[k].label}<br><small>${PRECISION[k].hint}</small></span><b style="font-family:var(--display)">${fmtInt(Services.Sampling.recommend(k).n)}</b></button>`).join('');
+  const m = S.sample.mode, N = universeN(), G = compareGroups(), nn = nicheLabels().length;
+  const prec = Object.keys(PRECISION).map(k => { const pr = PRECISION[k], c = Services.Sampling.compute({ conf: pr.conf, e: pr.e, N, groups: G });
+    return `<button type="button" role="radio" aria-checked="${S.sample.precision === k}" data-action="set-precision" data-key="${k}" data-fk="prec-${k}"><span>${pr.label}<br><small>${pr.hint}</small></span><b style="font-family:var(--display)">${fmtInt(c.total)}</b></button>`; }).join('');
+  const adv = UI.advOpen || S.sample.precision === 'custom', cur = Services.Sampling.params(S.sample);
+  const advPanel = adv ? `<div class="adv-panel">
+      <div><label for="selConf">Nível de confiança</label><select class="field" id="selConf" data-change="conf" data-fk="sel-conf">${CONF_OPTS.map(c => `<option value="${c}" ${cur.conf === c ? 'selected' : ''}>${c}%</option>`).join('')}</select></div>
+      <div><label for="selMargin">Margem de erro</label><select class="field" id="selMargin" data-change="margin" data-fk="sel-margin">${MARGIN_OPTS.map(x => `<option value="${x}" ${Math.round(cur.e * 100) === x ? 'selected' : ''}>±${x}%</option>`).join('')}</select></div></div>` : '';
   const invalid = m === 'manual' && (sampleSize() < CONFIG.MIN_SAMPLE || sampleSize() > CONFIG.MAX_SAMPLE);
   return `${StepHeader({ screen: 'amostra', title: 'Quantas <span class="accent">empreendedoras</span> você quer ouvir?', sub: 'Escolha como prefere definir o tamanho da sua amostra.', right: AudiencePreview() })}
   <div class="step-body">
@@ -1070,34 +1265,80 @@ function SampleSizeStep() {
           <button type="button" data-action="sample-step" data-dir="1" aria-label="Aumentar" data-fk="s-plus">+</button><span>respostas</span></div>
       </div>
       <div class="mode ${m === 'calc' ? 'sel' : ''}" data-mode="calc">
-        <button type="button" class="mode-head" role="radio" aria-checked="${m === 'calc'}" data-action="set-mode" data-mode="calc" data-fk="mode-calc"><span class="radio"><i></i></span><span><span class="mode-title">Quero que o Saldo Alto calcule</span><span class="mode-desc" style="display:block">Vamos estimar a quantidade de respostas necessária com base no público da sua pesquisa.</span></span></button>
+        <button type="button" class="mode-head" role="radio" aria-checked="${m === 'calc'}" data-action="set-mode" data-mode="calc" data-fk="mode-calc"><span class="radio"><i></i></span><span><span class="mode-title">Quero que o Saldo Alto calcule</span><span class="mode-desc" style="display:block">Cálculo estatístico com o seu público, o universo e o nível de precisão. Os números ao lado mostram a amostra de cada nível.</span></span></button>
         <div class="prec" role="radiogroup" aria-label="Nível de precisão">${prec}</div>
-        <button type="button" class="btn-primary btn-sm" style="align-self:flex-start;padding:11px 22px" data-action="calc-sample" data-fk="calc-sample" ${UI.calcLoading ? 'disabled' : ''}>${UI.calcLoading ? '<span class="spin"></span>Calculando…' : `${icon('calc')}${S.sample.calcDone ? 'Calcular novamente' : 'Calcular amostra'}`}</button>
+        <button type="button" class="btn-quiet btn-sm adv-toggle" data-action="toggle-adv" data-fk="adv-toggle" aria-expanded="${adv}">${icon('sliders')}${adv ? 'Ocultar ajuste' : 'Ajustar confiança e margem'}</button>${advPanel}
+        <label class="chk ${nn < 2 ? 'off' : ''}"><input type="checkbox" data-change="compare" data-fk="cmp" ${S.sample.compare && nn > 1 ? 'checked' : ''} ${nn < 2 ? 'disabled' : ''}><span>Quero comparar os nichos entre si<small>${nn < 2 ? 'Selecione mais de um nicho na etapa Público para usar esta opção.' : `Calculamos a amostra para cada um dos ${nn} nichos, para que cada grupo tenha resultado próprio.`}</small></span></label>
       </div>
     </div>
     <div id="sampleResult">${SampleResult()}</div>
   </div>`;
 }
+function UsesBlock() {
+  const A = S.audience, N = universeN(), labels = nicheLabels(), prof = profileSummary();
+  const row = (k, v, sub, scr) => `<div class="uses-row"><div class="k">${k}</div><div class="v">${v}${sub ? `<small>${sub}</small>` : ''}</div><button type="button" class="btn-mini" data-action="go-step" data-screen="${scr}" data-fk="uses-${scr}-${k.length}">Editar</button></div>`;
+  return `<div class="uses" role="group" aria-label="Dados usados no cálculo">
+    ${row('Objetivo', esc(clip(S.objective.trim(), 140)), '', 'objetivo')}
+    ${row('Público-alvo', esc(clip(A.desc.trim(), 160)), [labels.length ? plural(labels.length, 'nicho', 'nichos') : '', prof.length ? plural(prof.length, 'filtro de perfil', 'filtros de perfil') : ''].filter(Boolean).join(' · '), 'publico')}
+    ${row('Universo', N ? `${fmtInt(N)} pessoas` : 'Não informado', N ? 'Informado por você' : 'Cálculo para população grande (cenário conservador)', 'objetivo')}
+  </div>`;
+}
+function SampleHowBody(c) {
+  const N = c.N, li = [];
+  li.push(`<li><b>Universo.</b> ${N ? `N = ${fmtInt(N)} pessoas, informado por você.` : 'Não informado. Não estimamos esse número por conta própria: usamos o cenário de população grande, sem correção, que é o mais conservador.'}</li>`);
+  li.push(`<li><b>Parâmetros.</b> Confiança de ${c.conf}% (z = ${fmtDec(c.z, 3)}), margem de erro de ±${fmtPct(c.e)}% e proporção esperada de 50%, o caso que exige a maior amostra.</li>`);
+  li.push(`<li><b>Amostra inicial (Cochran).</b><code>n₀ = z² × p × (1 − p) ÷ e² = ${fmtDec(c.z, 3)}² × 0,5 × 0,5 ÷ ${fmtDec(c.e, 3)}² = ${fmtDec(c.n0)}</code></li>`);
+  if (c.finite) li.push(`<li><b>Correção para população finita.</b><code>n = n₀ ÷ (1 + (n₀ − 1) ÷ N) = ${fmtDec(c.n0)} ÷ (1 + ${fmtDec(c.n0 - 1)} ÷ ${fmtInt(N)}) = ${fmtDec(c.nRaw)}</code></li>`);
+  li.push(`<li><b>Arredondamento.</b> Sempre para cima: <b>${fmtInt(c.per)} respostas</b>${c.groups > 1 ? ` por nicho, vezes ${c.groups} nichos = ${fmtInt(c.total)}` : ''}.</li>`);
+  const notes = [];
+  if (c.finite && N >= 100000) notes.push('Acima de ~100 mil pessoas, o tamanho do universo quase não muda a amostra.');
+  if (c.groups > 1) notes.push('Na comparação entre nichos usamos o universo total em cada um, porque não sabemos o tamanho de cada grupo. É o cálculo mais conservador.');
+  if (c.capped) notes.push('A amostra calculada passaria do universo informado; limitamos ao universo inteiro.');
+  return `<ol>${li.join('')}</ol>${notes.length ? `<p class="note">${notes.join(' ')}</p>` : ''}`;
+}
 function SampleResult() {
-  const m = S.sample.mode;
-  if (UI.calcLoading) return `<div class="result"><div class="skeleton" style="height:120px"></div><p class="fine">Analisando o público disponível para os critérios escolhidos…</p></div>`;
-  const n = sampleSize();
-  if (!m || (m === 'calc' && !S.sample.calcDone) || n <= 0) return '';
+  const m = S.sample.mode, n = sampleSize();
+  if (!m || n <= 0) return '';
+  const calc = m === 'calc', N = universeN(), G = compareGroups();
+  const c = calc ? sampleCalc() : null;
+  const conf = calc ? c.conf : 95, margin = calc ? c.e : Services.Sampling.marginFor(n, { conf: 95, N });
   const avail = availableNow(), fits = n <= avail && avail > 0, max = Math.max(n, avail, 1);
-  const p = PRECISION[S.sample.precision];
-  return `<div class="result">
-    <div class="result-grid">
-      <div class="metric hl"><div class="lbl">${m === 'calc' ? 'Amostra recomendada' : 'Sua amostra'}</div><div class="val">${fmtInt(n)}<small>respostas</small></div></div>
-      <div class="metric"><div class="lbl">Empreendedoras disponíveis</div><div class="val">${fmtInt(avail)}</div></div>
-    </div>
-    ${fits ? `<div class="result-msg">${icon('check')}<span>Encontramos ${fmtInt(avail)} empreendedoras que correspondem aos critérios selecionados.</span></div>` : ''}
-    <div class="cmp">
+  const ai = calc ? Services.AI.readAudience({ objective: S.objective, desc: S.audience.desc, niches: S.niches, profile: S.profile }) : null;
+  let aiBox = '';
+  if (calc) {
+    const g = PRECISION[ai.goal.key], same = S.sample.precision === ai.goal.key;
+    aiBox += `<div class="ai-hint" style="margin-bottom:10px"><span><span class="tagline">Sugestão automática</span>${esc(ai.goal.why)} Sugerimos <b>${g.label}</b> (${g.hint}).</span>${same ? `<span class="pf-note" style="margin:0">${icon('check')} Em uso</span>` : `<button type="button" class="btn-mini solid" data-action="set-precision" data-key="${ai.goal.key}" data-fk="ai-prec">${icon('sparkles')}Usar sugestão</button>`}</div>`;
+    if (ai.compare && nicheLabels().length > 1 && !S.sample.compare) aiBox += `<div class="ai-hint" style="margin-bottom:10px"><span><span class="tagline">Sugestão automática</span>Seu texto fala em comparar grupos. Cada nicho precisa da sua própria amostra para ter resultado confiável.</span><button type="button" class="btn-mini solid" data-action="toggle-compare" data-fk="ai-cmp">${icon('listChecks')}Comparar nichos</button></div>`;
+    if (c.finite && c.frac > 0.2 && !c.capped) aiBox += `<div class="ai-hint" style="margin-bottom:10px"><span><span class="tagline">Atenção</span>Esta amostra é ${fmtPct(c.frac)}% do universo informado. Vale conferir se o número do universo está correto.</span></div>`;
+    if (c.capped) aiBox += `<div class="ai-hint" style="margin-bottom:10px"><span><span class="tagline">Atenção</span>O universo informado é pequeno para essa precisão: o cálculo pede o universo inteiro (${fmtInt(N)} pessoas).</span></div>`;
+  }
+  const uniV = N ? `${fmtInt(N)}<small>pessoas</small>` : '', uniSub = N ? 'Informado por você' : 'Cálculo para população grande';
+  const metric = (lbl, val, sub, cls = '') => `<div class="metric ${cls}"><div class="lbl">${lbl}</div><div class="val ${val.txt ? 'txt' : ''}">${val.html}</div>${sub ? `<div class="sub">${sub}</div>` : ''}</div>`;
+  const grid = `<div class="result-grid four">
+      ${metric('Público estimado', N ? { html: uniV } : { html: 'Não informado', txt: true }, uniSub)}
+      ${metric(calc ? 'Amostra recomendada' : 'Sua amostra', { html: `${fmtInt(n)}<small>respostas</small>` }, calc && G > 1 ? `${fmtInt(c.per)} por nicho × ${G} nichos` : calc && c.capped ? 'Universo inteiro (censo)' : '', 'hl')}
+      ${metric('Confiança', { html: `${conf}%` }, calc ? 'Nível de confiança escolhido' : 'Referência para o cálculo da margem')}
+      ${metric('Margem de erro', { html: margin == null ? '—' : `±${fmtPct(margin)}%` }, calc ? 'Para mais ou para menos' : 'Aproximada, para essa amostra')}
+    </div>`;
+  const rec = `<p class="rec-line">${calc ? 'Recomendação' : 'Com a sua amostra'}: ${fmtInt(n)} respostas${margin != null ? ` · ${conf}% de confiança · margem de ±${fmtPct(margin)}%` : ''}<small>${N ? `Público estimado: ${fmtInt(N)} pessoas (informado por você).` : 'Você não informou o tamanho do público, então não mostramos um número de universo: o cálculo usa o cenário de população grande.'}</small></p>`;
+  const p = priceNow(), R = Services.Pricing.RULES, extra = Math.max(0, n - R.included.responses);
+  const cost = `<div class="cost-line"><div><div style="font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;opacity:.7;font-family:var(--display);font-weight:700">Investimento estimado até aqui</div><div class="amt">${fmtBRL(p.total)}</div>
+      <div class="d">${extra ? `Inclui ${fmtInt(extra)} respostas além das ${R.included.responses} da campanha base (${fmtBRL(p.sample)}).` : `Sua amostra cabe nas ${R.included.responses} respostas da campanha base.`} Perguntas e materiais podem mudar o valor final.${CONFIG.DEMO_MODE ? ' Valores de demonstração.' : ''}</div></div>
+      <button type="button" class="btn-quiet" data-action="pricing-how" data-fk="cost-how">${icon('info')}Como calculamos?</button></div>`;
+  const feas = `<div class="cmp">
       <div class="cmp-row"><div class="top"><span>Respostas necessárias</span><span>${fmtInt(n)}</span></div><div class="track"><i class="need" style="width:${(n / max * 100).toFixed(1)}%"></i></div></div>
-      <div class="cmp-row"><div class="top"><span>Público disponível</span><span>${fmtInt(avail)}</span></div><div class="track"><i class="have" style="width:${(avail / max * 100).toFixed(1)}%"></i></div></div>
+      <div class="cmp-row"><div class="top"><span>Empreendedoras disponíveis na base</span><span>${fmtInt(avail)}</span></div><div class="track"><i class="have" style="width:${(avail / max * 100).toFixed(1)}%"></i></div></div>
     </div>
-    ${fits ? `<p class="fine">Você vai precisar de cerca de ${Math.max(1, Math.round(n / avail * 100))}% do público disponível.${m === 'calc' ? ` Estimativa com ${p.conf}% de confiança e margem de erro de ±${Math.round(p.e * 100)}%.` : ''}</p>` : `
+    ${fits ? `<p class="fine">Você vai precisar de cerca de ${Math.max(1, Math.round(n / avail * 100))}% das ${fmtInt(avail)} empreendedoras da base que correspondem aos critérios. Esse número é uma estimativa de demonstração da nossa base e não é o tamanho do seu público.</p>` : `
     <div class="warn">${icon('alert')}<div class="warn-row"><p>Seu público atual não possui empreendedoras suficientes para atingir essa amostra.</p>
-      <button type="button" class="btn-mini solid" data-action="expand-audience" data-fk="expand">${icon('users')}Ampliar público</button></div></div>`}
+      <button type="button" class="btn-mini solid" data-action="expand-audience" data-fk="expand">${icon('users')}Ampliar público</button></div></div>`}`;
+  const disclaimer = `<div class="disclaimer">${icon('info')}<span><b>Isto é uma estimativa estatística, não uma garantia de representatividade.</b> O painel do Saldo Alto é formado por empreendedoras que aceitaram participar (elas não são sorteadas), então a margem de erro é uma referência: só vale se quem responde for parecido com o público que você quer estudar. Para comparar grupos, cada grupo precisa da sua própria amostra.</span></div>`;
+  const how = calc ? `<div class="how"><button type="button" class="how-btn" data-action="toggle-how" data-fk="how-btn" aria-expanded="${UI.howOpen}"><span>Como calculamos esta amostra</span>${icon('down')}</button>${UI.howOpen ? `<div class="how-body">${SampleHowBody(c)}</div>` : ''}</div>` : '';
+  return `<div class="result">
+    ${calc ? UsesBlock() : ''}${aiBox}
+    ${grid}${rec}
+    ${feas}
+    ${cost}${disclaimer}${how}
   </div>`;
 }
 
@@ -1223,6 +1464,13 @@ function PricingBreakdown() {
     <div class="modal-actions"><button type="button" class="btn-primary btn-sm" data-action="modal-close">Entendi</button></div>`;
 }
 
+const sampleSub = (n, avail) => {
+  const bits = [];
+  if (S.sample.mode === 'calc') { const c = sampleCalc(); bits.push(`${c.conf}% de confiança · ±${fmtPct(c.e)}%`); }
+  else { const e = Services.Sampling.marginFor(n, { conf: 95, N: universeN() }); if (e != null) bits.push(`≈ ±${fmtPct(e)}% (95% de confiança)`); }
+  bits.push(`${fmtInt(avail)} empreendedoras disponíveis`);
+  return bits.join(' · ');
+};
 /* ===== CampaignReview ===== */
 function CampaignReview() {
   const qc = questionCounts(), mc = mediaCounts(), n = sampleSize(), avail = availableNow();
@@ -1239,9 +1487,10 @@ function CampaignReview() {
     <div class="sum-grid">
       ${tile('Objetivo', esc(S.objective.trim()), '', 'objetivo', true, true)}
       ${tile('Material', M.involves ? (files || 'Descrito por texto') : 'Sem material', M.involves ? esc(M.desc.trim()) : 'Pesquisa geral, sem material para validar', 'objetivo')}
+      ${tile('Público-alvo', esc(S.audience.desc.trim()), universeN() ? `Universo informado: ${fmtInt(universeN())} pessoas` : 'Universo não informado', 'objetivo', true, true)}
       ${tile('Público', plural(labels.length, 'nicho selecionado', 'nichos selecionados'), esc(labels.join(' · ')), 'publico')}
       ${perfilTile}
-      ${tile('Amostra', plural(n, 'resposta', 'respostas'), `${fmtInt(avail)} empreendedoras disponíveis`, 'amostra')}
+      ${tile('Amostra', plural(n, 'resposta', 'respostas'), sampleSub(n, avail), 'amostra')}
       ${tile('Perguntas', fmtInt(qc.total), qc.open ? plural(qc.open, 'aberta', 'abertas') : '', 'perguntas')}
     </div>
     ${PricingSummary()}
@@ -1249,17 +1498,42 @@ function CampaignReview() {
 }
 
 /* ===== CheckoutStep (contratação) ===== */
+const SETORES = ['Varejo / E-commerce', 'Moda e beleza', 'Alimentação e bebidas', 'Educação', 'Saúde e bem-estar', 'Finanças / Fintech', 'Tecnologia', 'Agências de marketing e publicidade', 'Outro'];
+const regReqsHTML = () => SA.passwordChecks(UI.reg.senha).map(r => `<li class="${r.ok ? 'ok' : ''}">${esc(r.label)}</li>`).join('');
 function CheckoutStep() {
   if (S.contracted) return CheckoutDone();
-  const c = S.contact, e = UI.contactErr ? contactErrors() : {};
-  const f = (key, label, ph, type = 'text', full = false) => `<div class="ff ${e[key] ? 'invalid' : ''} ${full ? 'full' : ''}"><label for="c-${key}">${label}</label><input class="field" id="c-${key}" type="${type}" data-input="contact-${key}" data-fk="c-${key}" value="${esc(c[key])}" placeholder="${ph}" autocomplete="${key === 'email' ? 'email' : key === 'whatsapp' ? 'tel' : key === 'name' ? 'name' : 'organization'}"><span class="err">${e[key] || ''}</span></div>`;
+  const c = S.contact, e = UI.contactErr ? contactErrors() : {}, visitor = isVisitor();
+  const auto = { name: 'name', company: 'organization', email: 'email', whatsapp: 'tel', cnpj: 'off', senha: 'new-password', senha2: 'new-password' };
+  const f = (key, label, ph, type = 'text', full = false, val = c[key], extra = '') => `<div class="ff ${e[key] ? 'invalid' : ''} ${full ? 'full' : ''}"><label for="c-${key}">${label}</label><input class="field" id="c-${key}" type="${type}" data-input="contact-${key}" data-fk="c-${key}" value="${esc(val)}" placeholder="${ph}" autocomplete="${auto[key] || 'off'}" ${extra}><span class="err">${e[key] || ''}</span></div>`;
+  const consentBox = (txt) => `<label class="consent ${UI.contactErr && !c.consent ? 'invalid' : ''}" style="${UI.contactErr && !c.consent ? 'outline:2px solid var(--pink-dark);outline-offset:2px' : ''}"><input type="checkbox" data-change="contact-consent" ${c.consent ? 'checked' : ''}><span>${txt}</span></label>`;
+  const price = `<div class="price" style="margin-top:22px"><div class="k">Investimento estimado</div><div class="amt">${fmtBRL(priceNow().total)}</div><span class="from">A partir de ${fmtBRL(CONFIG.MIN_PRICE)}</span>
+      <button type="button" class="btn-quiet" data-action="pricing-how">${icon('info')}Como calculamos?</button></div>`;
+  if (visitor) {
+    const sel = `<div class="ff full ${e.setor ? 'invalid' : ''}"><label for="c-setor">Setor de atuação *</label><select class="field" id="c-setor" data-change="contact-setor" data-fk="c-setor"><option value="">Selecione</option>${SETORES.map(o => `<option ${c.setor === o ? 'selected' : ''}>${esc(o)}</option>`).join('')}</select><span class="err">${e.setor || ''}</span></div>`;
+    const pw = (key, label, ph) => `<div class="ff ${e[key] ? 'invalid' : ''}"><label for="c-${key}">${label}</label><input class="field" id="c-${key}" type="password" data-input="reg-${key}" data-fk="c-${key}" value="${esc(UI.reg[key])}" placeholder="${ph}" autocomplete="new-password"><span class="err">${e[key] || ''}</span></div>`;
+    return `${StepHeader({ screen: 'contratacao', title: 'Crie sua conta e <span class="accent">envie a pesquisa</span>', sub: 'Os dados da sua empresa viram o seu cadastro no Saldo Alto. Depois você acompanha tudo em Minhas pesquisas.' })}
+  <div class="step-body">
+    <div class="form-grid">
+      <div class="reg-sec">Dados da empresa</div>
+      ${f('company', 'Nome da empresa *', 'Como a empresa é conhecida')}${f('cnpj', 'CNPJ *', '00.000.000/0000-00', 'text', false, SA.maskCnpj(c.cnpj), 'inputmode="numeric" maxlength="18"')}
+      ${sel}
+      <div class="reg-sec">Seus dados e acesso</div>
+      ${f('name', 'Seu nome *', 'Nome e sobrenome')}${f('email', 'E-mail de acesso *', 'voce@empresa.com.br', 'email')}
+      ${f('whatsapp', 'WhatsApp *', '(11) 90000-0000', 'tel', true, c.whatsapp, 'inputmode="tel" maxlength="15"')}
+      ${pw('senha', 'Senha *', 'Crie uma senha')}${pw('senha2', 'Confirmar senha *', 'Repita a senha')}
+      <ul class="reg-reqs full" id="regReqs" aria-live="polite" style="grid-column:1 / -1">${regReqsHTML()}</ul>
+    </div>
+    ${consentBox('Li e aceito a <a href="politica-privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a> e a <a href="politica-cancelamento.html" target="_blank" rel="noopener">Política de Cancelamento</a>, e concordo com o contato comercial sobre esta pesquisa. *')}
+    <p class="reg-note">Já tem conta? <a href="entrar.html?next=criar-pesquisa.html">Entrar e continuar esta pesquisa</a> · seu rascunho fica guardado neste navegador.</p>
+    ${price}
+  </div>`;
+  }
   return `${StepHeader({ screen: 'contratacao', title: 'Últimos detalhes para <span class="accent">contratar</span>', sub: 'Deixe seus dados de contato. Nosso time confirma o escopo e o valor final antes do pagamento.' })}
   <div class="step-body">
     <div class="form-grid">${f('name', 'Seu nome *', 'Nome e sobrenome')}${f('company', 'Empresa *', 'Nome da empresa')}${f('email', 'E-mail *', 'voce@empresa.com.br', 'email')}${f('whatsapp', 'WhatsApp *', '(11) 90000-0000', 'tel')}</div>
-    <label class="consent ${UI.contactErr && !c.consent ? 'invalid' : ''}" style="${UI.contactErr && !c.consent ? 'outline:2px solid var(--pink-dark);outline-offset:2px' : ''}"><input type="checkbox" data-change="contact-consent" ${c.consent ? 'checked' : ''}><span>Li e concordo com o uso dos meus dados para contato comercial, conforme a <a href="politica-privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>. *</span></label>
+    ${consentBox('Li e concordo com o uso dos meus dados para contato comercial, conforme a <a href="politica-privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>. *')}
     ${SA.can('financeiro') ? '' : '<div class="perm-note">Só quem tem acesso financeiro (o titular da conta ou o titular financeiro) pode contratar. Salve o rascunho e peça para essa pessoa concluir a contratação.</div>'}
-    <div class="price" style="margin-top:22px"><div class="k">Investimento estimado</div><div class="amt">${fmtBRL(priceNow().total)}</div><span class="from">A partir de ${fmtBRL(CONFIG.MIN_PRICE)}</span>
-      <button type="button" class="btn-quiet" data-action="pricing-how">${icon('info')}Como calculamos?</button></div>
+    ${price}
   </div>`;
 }
 function CheckoutDone() {
@@ -1267,9 +1541,9 @@ function CheckoutDone() {
   return `<div class="done-hero"><div class="done-badge">${icon('check')}</div>
     <span class="eyebrow">Pesquisa enviada</span>
     <h1 class="step-title" style="margin:0 auto">Recebemos a sua <span class="accent">pesquisa!</span></h1>
-    <p class="step-sub" style="margin:12px auto 0">Código <b>${esc(c.id)}</b>. Ela já aparece em <b>Minhas pesquisas</b> com o status “Em revisão”. Nosso time vai revisar tudo e falar com você pelo WhatsApp em até 1 dia útil para confirmar o escopo e o valor final.</p>
+    ${UI.justRegistered ? `<p class="step-sub" style="margin:12px auto 0">Sua conta também foi criada, com o e-mail <b>${esc(UI.justRegistered)}</b>. Use a senha que você acabou de definir para entrar da próxima vez.</p>` : ''}${SA.isDemo() ? '<p class="step-sub" style="margin:12px auto 0"><b>Demonstração:</b> nada foi enviado ao time de verdade.</p>' : ''}<p class="step-sub" style="margin:12px auto 0">Código <b>${esc(c.id)}</b>. Ela já aparece em <b>Minhas pesquisas</b> com o status “Em revisão”. Nosso time vai revisar tudo e falar com você pelo WhatsApp em até 1 dia útil para confirmar o escopo e o valor final.</p>
     <div class="done-actions"><a class="btn-primary" href="painel.html#pesquisas">Ver em Minhas pesquisas</a>
-      <a class="btn-ghost" target="_blank" rel="noopener" href="${whatsappLink()}">${icon('chat')}Falar com o time agora</a>
+      ${SA.isDemo() ? '' : `<a class="btn-ghost" target="_blank" rel="noopener" href="${whatsappLink()}">${icon('chat')}Falar com o time agora</a>`}
       <button type="button" class="btn-quiet" data-action="new-campaign">Criar outra pesquisa</button></div></div>`;
 }
 function whatsappLink() {
@@ -1283,6 +1557,13 @@ function contactErrors() {
   if (c.company.trim().length < 2) e.company = 'Informe o nome da empresa.';
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(c.email.trim())) e.email = 'Informe um e-mail válido.';
   if (c.whatsapp.replace(/\D/g, '').length < 10) e.whatsapp = 'Informe um WhatsApp com DDD.';
+  if (isVisitor()) {
+    if (!SA.validCnpj(c.cnpj)) e.cnpj = 'CNPJ inválido. Confira os 14 números.';
+    if (!c.setor) e.setor = 'Escolha o setor de atuação.';
+    if (SA.passwordChecks(UI.reg.senha).some(r => !r.ok)) e.senha = 'A senha precisa de 8 caracteres, uma letra e um número.';
+    if (!UI.reg.senha2 || UI.reg.senha2 !== UI.reg.senha) e.senha2 = 'As senhas não conferem.';
+  }
+  Object.keys(UI.srv).forEach(k => { if (UI.srv[k] && !e[k]) e[k] = UI.srv[k]; });   // erros vindos do servidor (CNPJ já cadastrado, e-mail em uso…)
   return e;
 }
 </script>
@@ -1296,6 +1577,8 @@ const SCREENS = {
 const OK = { ok: true, hint: '' };
 const VALID = {
   objetivo: () => S.objective.trim().length < 15 ? { ok: false, hint: 'Conte um pouco mais sobre o que você quer descobrir.' }
+    : S.audience.desc.trim().length < 10 ? { ok: false, hint: 'Descreva o público que você quer pesquisar.' }
+    : S.audience.universe != null && !(S.audience.universe >= CONFIG.MIN_SAMPLE) ? { ok: false, hint: `O universo informado precisa ter ao menos ${CONFIG.MIN_SAMPLE} pessoas. Corrija ou deixe em branco.` }
     : S.material.involves === null ? { ok: false, hint: 'Diga se sua pesquisa envolve validar algum material.' }
     : S.material.involves && !S.material.desc.trim() && !S.media.length ? { ok: false, hint: 'Descreva ou anexe o material que será avaliado.' } : OK,
   publico: () => !nicheLabels().length ? { ok: false, hint: 'Escolha ao menos um nicho.' }
@@ -1304,14 +1587,13 @@ const VALID = {
   amostra: () => {
     const m = S.sample.mode, n = sampleSize();
     if (!m) return { ok: false, hint: 'Escolha como definir a amostra.' };
-    if (m === 'calc' && !S.sample.calcDone) return { ok: false, hint: 'Clique em “Calcular amostra” para continuar.' };
     if (n < CONFIG.MIN_SAMPLE || n > CONFIG.MAX_SAMPLE) return { ok: false, hint: `Informe entre ${fmtInt(CONFIG.MIN_SAMPLE)} e ${fmtInt(CONFIG.MAX_SAMPLE)} respostas.` };
     if (n > availableNow()) return { ok: false, hint: 'Ajuste a amostra ou amplie o público para continuar.' };
     return OK;
   },
   perguntas: () => UI.editingId ? { ok: false, hint: 'Conclua a edição da pergunta para continuar.' }
     : !S.questions.length ? { ok: false, hint: 'Adicione ao menos uma pergunta.' } : OK,
-  revisao: () => OK, contratacao: () => SA.can('financeiro') ? OK : { ok: false, hint: 'Só quem tem acesso financeiro pode contratar. Salve o rascunho.' }
+  revisao: () => OK, contratacao: () => isVisitor() || SA.can('financeiro') ? OK : { ok: false, hint: 'Só quem tem acesso financeiro pode contratar. Salve o rascunho.' }
 };
 const frontierIndex = () => { const i = ALL_SCREENS.findIndex(s => !S.completed.includes(s)); return i < 0 ? ALL_SCREENS.length - 1 : i; };
 const firstInvalid = () => ['objetivo', 'publico', 'amostra', 'perguntas'].find(s => !VALID[s]().ok);
@@ -1333,13 +1615,13 @@ function renderFooter() {
   if (S.contracted) { el.innerHTML = ''; return; }
   const v = VALID[S.screen](), busy = UI.submitting;
   const backToReview = UI.returnToReview && !['revisao', 'contratacao'].includes(S.screen);
-  const label = backToReview ? 'Voltar à revisão' : S.screen === 'revisao' ? 'Contratar pesquisa' : S.screen === 'contratacao' ? 'Confirmar contratação' : 'Continuar';
+  const label = backToReview ? 'Voltar à revisão' : S.screen === 'revisao' ? (isVisitor() ? 'Informar dados da empresa' : 'Contratar pesquisa') : S.screen === 'contratacao' ? (isVisitor() ? 'Criar conta e enviar pesquisa' : 'Confirmar contratação') : 'Continuar';
   el.innerHTML = `${!v.ok ? `<div class="foot-hint-m">${esc(v.hint)}</div>` : ''}<div class="row">
     <div class="foot-actions">${S.screen === 'objetivo' ? '' : `<button type="button" class="btn-ghost" data-action="go-back" data-fk="back">${icon('arrowLeft')}Voltar</button>`}</div>
     <span class="foot-hint">${!v.ok ? esc(v.hint) : ''}</span>
     <div class="foot-actions"><button type="button" class="btn-primary" id="nextBtn" data-action="go-next" data-fk="next" ${!v.ok || busy ? 'disabled' : ''}>${busy ? '<span class="spin"></span>Enviando…' : `${label}${icon('arrowRight')}`}</button></div></div>`;
 }
-function renderChrome() { const st = $('#saveExitTop'); if (st) st.hidden = !!S.contracted; $('#mprogress').innerHTML = ProgressBar(); renderFooter(); }
+function renderChrome() { const st = $('#saveExitTop'); if (st) st.hidden = !!S.contracted || isVisitor(); $('#mprogress').innerHTML = ProgressBar(); renderFooter(); }
 
 function render({ enter = false } = {}) {
   const a = document.activeElement, fk = a && a.getAttribute ? a.getAttribute('data-fk') : null, y = window.scrollY;
@@ -1381,11 +1663,27 @@ function next() {
 }
 function back() { const i = ALL_SCREENS.indexOf(S.screen); if (i > 0) { UI.returnToReview = false; goTo(ALL_SCREENS[i - 1]); } }
 
+const SERVER_FIELD = { empresa: 'company', cnpj: 'cnpj', nome: 'name', email: 'email', telefone: 'whatsapp', senha: 'senha', aceite: 'consent' };
 async function submit() {
   const errs = contactErrors();
   if (Object.keys(errs).length || !S.contact.consent) { UI.contactErr = true; render(); toast('Confira os campos destacados.', 'alert'); return; }
   UI.submitting = true; renderFooter();
   try {
+    // 1) sem conta ainda: os dados da empresa viram o cadastro na plataforma
+    if (isVisitor()) {
+      const c = S.contact;
+      try {
+        const data = await SA.api('register', { empresa: c.company.trim(), cnpj: SA.digits(c.cnpj), setor: c.setor, nome: c.name.trim(), email: c.email.trim(),
+          telefone: SA.digits(c.whatsapp), senha: UI.reg.senha, aceite: true });
+        SA.saveSession(data, false);
+        UI.justRegistered = c.email.trim().toLowerCase(); UI.reg = { senha: '', senha2: '' }; UI.srv = {};
+        Draft.clearAnon();
+      } catch (err) {
+        if (err.fields) { UI.srv = {}; Object.keys(err.fields).forEach(k => { UI.srv[SERVER_FIELD[k] || k] = err.fields[k]; }); UI.contactErr = true; }
+        UI.submitting = false; render(); toast(err.message || 'Não foi possível criar a conta agora.', 'alert'); return;
+      }
+    }
+    // 2) envia a pesquisa para a conta (nova ou já existente)
     clearTimeout(Sync.timer); await Sync.idle();
     const c = S.contact, pricing = priceNow();
     const res = await SA.api('surveys.submit', { id: S.surveyId || undefined, nome: surveyName(), resumo: { ...surveySummary(), preco: pricing.total },
@@ -1393,10 +1691,11 @@ async function submit() {
     const p = res.pesquisa;
     mutate(s => { s.contracted = { id: p.codigo, at: p.enviadaEm, total: pricing.total, surveyId: p.id }; s.surveyId = p.id;
       ['revisao', 'contratacao'].forEach(x => { if (!s.completed.includes(x)) s.completed.push(x); });
-      s.contact = { name: '', company: '', email: '', whatsapp: '', consent: false }; }, { render: false });
-    Draft.clear(p.id); Draft.clear(null); Sync.status('idle');
+      s.contact = { name: '', company: '', cnpj: '', setor: '', email: '', whatsapp: '', consent: false }; }, { render: false });
+    Draft.clear(p.id); Draft.clear(null); Draft.clearAnon(); Sync.status('idle');
     history.replaceState(null, '', 'criar-pesquisa.html?id=' + encodeURIComponent(p.id));
-  } catch (e) { toast(e.message || 'Não foi possível enviar agora. Tente novamente.', 'alert'); }
+    userChrome();
+  } catch (e) { toast(e.message || 'Não foi possível enviar agora. Tente novamente.', 'alert'); userChrome(); }
   UI.submitting = false; UI.contactErr = false; render({ enter: true });
 }
 
@@ -1448,13 +1747,13 @@ const moveToQuestions = (qid, edit = false) => {
 
 /* Público: sugestões para ampliar */
 function clearedProfile(p, g) {
-  const c = { ...p, edu: [...p.edu] };
-  if (g === 'age') { c.ageMin = null; c.ageMax = null; } else if (g === 'income') { c.incMin = null; c.incMax = null; } else if (g === 'edu') c.edu = []; else { c.otherOn = false; c.other = ''; }
+  const c = { ...p, edu: [...p.edu], momento: [...p.momento], regiao: [...p.regiao] };
+  if (g === 'age') { c.ageMin = null; c.ageMax = null; } else if (g === 'income') { c.incMin = null; c.incMax = null; } else if (g === 'edu') c.edu = []; else if (g === 'momento') c.momento = []; else if (g === 'regiao') c.regiao = []; else { c.otherOn = false; c.other = ''; }
   return c;
 }
 function openExpander() {
   const cur = availableNow(), need = sampleSize(), opts = [];
-  ['income', 'edu', 'age'].forEach(g => { if (profileActive(g)) { const n = availableNow({ profile: clearedProfile(S.profile, g) }); if (n > cur) opts.push({ kind: 'f:' + g, title: `Remover o filtro de ${PROFILE_GROUPS[g].toLowerCase()}`, sub: `${fmtInt(cur)} → ${fmtInt(n)} empreendedoras`, gain: n - cur }); } });
+  ['income', 'edu', 'age', 'momento', 'regiao'].forEach(g => { if (profileActive(g)) { const n = availableNow({ profile: clearedProfile(S.profile, g) }); if (n > cur) opts.push({ kind: 'f:' + g, title: `Remover o filtro de ${PROFILE_GROUPS[g].toLowerCase()}`, sub: `${fmtInt(cur)} → ${fmtInt(n)} empreendedoras`, gain: n - cur }); } });
   const allN = [...new Set([...S.niches, ...STD_NICHES])], nn = availableNow({ niches: allN });
   if (nn > cur) opts.push({ kind: 'niches', title: 'Incluir todos os nichos', sub: `${fmtInt(cur)} → ${fmtInt(nn)} empreendedoras`, gain: nn - cur });
   opts.sort((a, b) => b.gain - a.gain);
@@ -1535,15 +1834,22 @@ const Actions = {
     const pn = $('.dd-panel'); if (pn) { const over = pn.getBoundingClientRect().bottom - (window.innerHeight - 16); if (over > 0) window.scrollBy({ top: over, behavior: 'smooth' }); } },
   'toggle-edu': el => mutate(s => toggleIn(s.profile.edu, el.dataset.id)),
   'remove-edu': el => { UI.focusKey = 'edu-dd'; mutate(s => { s.profile.edu = s.profile.edu.filter(id => id !== el.dataset.id); }); },
+  'toggle-momento': el => mutate(s => toggleIn(s.profile.momento, el.dataset.id)),
+  'toggle-regiao': el => mutate(s => toggleIn(s.profile.regiao, el.dataset.id)),
+  'apply-hint': el => { const a = el.dataset.act, v = el.dataset.val;
+    mutate(s => { if (a === 'niche') { if (!s.niches.includes(v)) s.niches.push(v); } else if (a === 'regiao' || a === 'momento') { if (!s.profile[a].includes(v)) s.profile[a].push(v); }
+      else if (a === 'other') { s.profile.otherOn = true; if (!s.profile.other.trim()) s.profile.other = v; } }); toast('Filtro aplicado. Você pode ajustar quando quiser.'); },
   'toggle-other': () => { UI.focusKey = S.profile.otherOn ? 'other-on' : 'other-text'; mutate(s => { s.profile.otherOn = !s.profile.otherOn; }); },
-  'clear-profile': el => { const g = el.dataset.group; UI.focusKey = g === 'age' ? 'age-min' : g === 'income' ? 'inc-min' : g === 'edu' ? 'edu-dd' : 'other-on'; mutate(s => { s.profile = clearedProfile(s.profile, g); }); },
+  'clear-profile': el => { const g = el.dataset.group; UI.focusKey = g === 'age' ? 'age-min' : g === 'income' ? 'inc-min' : g === 'edu' ? 'edu-dd' : g === 'momento' ? 'mom-' + MOMENTOS[0].id : g === 'regiao' ? 'reg-' + REGIOES[0].id : 'other-on'; mutate(s => { s.profile = clearedProfile(s.profile, g); }); },
 
   /* amostra */
   'set-mode': el => mutate(s => { s.sample.mode = el.dataset.mode; }),
   'set-precision': el => mutate(s => { s.sample.precision = el.dataset.key; s.sample.mode = 'calc'; }),
+  'toggle-adv': () => { UI.advOpen = !(UI.advOpen || S.sample.precision === 'custom'); UI.focusKey = 'adv-toggle'; render(); },
+  'toggle-how': () => { UI.howOpen = !UI.howOpen; UI.focusKey = 'how-btn'; render(); },
+  'toggle-compare': () => mutate(s => { s.sample.compare = !s.sample.compare; s.sample.mode = 'calc'; }),
   'sample-step': el => mutate(s => { const cur = Math.floor(Number(s.sample.manual) || 0), step = cur < 100 ? 10 : 50, dir = +el.dataset.dir;
     s.sample.manual = Math.min(CONFIG.MAX_SAMPLE, Math.max(CONFIG.MIN_SAMPLE, cur + dir * step)); s.sample.mode = 'manual'; }),
-  'calc-sample': async () => { S.sample.mode = 'calc'; UI.calcLoading = true; render(); await wait(950); UI.calcLoading = false; S.sample.calcDone = true; persist(); UI.focusKey = 'calc-sample'; render(); const r = $('#sampleResult'); if (r) r.scrollIntoView({ behavior: 'smooth', block: 'center' }); },
   'expand-audience': () => openExpander(),
   'apply-expander': el => {
     const k = el.dataset.kind;
@@ -1579,7 +1885,7 @@ const Actions = {
   /* revisão */
   'pricing-how': () => Modal.open(PricingBreakdown())
 };
-async function resetAll(keepId = false) { const oldId = S.surveyId; await MediaStore.clear(); Draft.clear(oldId); Draft.clear(null); S = initialState(); if (keepId) S.surveyId = oldId; Object.assign(UI, { eduOpen: false, customOpen: false, editingId: null, menuId: null, sugLoading: false, calcLoading: false, mediaLoading: {}, submitting: false, contactErr: false, returnToReview: false }); render({ enter: true }); if (keepId) persistNow(); }
+async function resetAll(keepId = false) { const oldId = S.surveyId; await MediaStore.clear(); Draft.clear(oldId); Draft.clear(null); S = initialState(); if (keepId) S.surveyId = oldId; Object.assign(UI, { advOpen: false, howOpen: false, eduOpen: false, customOpen: false, editingId: null, menuId: null, sugLoading: false, calcLoading: false, mediaLoading: {}, submitting: false, contactErr: false, returnToReview: false }); render({ enter: true }); if (keepId) persistNow(); }
 
 /* Inputs (não re-renderizam a tela, para não perder o cursor) */
 const setQ = (el, fn) => { const q = qById(el.dataset.qid); if (q) { fn(q); persist(); } };
@@ -1587,6 +1893,9 @@ const digits = v => Number(String(v).replace(/\D/g, '')) || 0;
 const Inputs = {
   'survey-name': el => { S.name = el.value; persist(); },
   objective: el => { S.objective = el.value; persist(); $('#objCounter').textContent = el.value.length + '/800'; const h = $('#matHint'); if (h) h.hidden = !(S.material.involves === null && MAT_RE.test(norm(el.value))); renderFooter(); },
+  'aud-desc': el => { S.audience.desc = el.value; persist(); const c = $('#audCounter'); if (c) c.textContent = el.value.length + '/500'; renderFooter(); },
+  'aud-uni': el => { if (/[^\d.]/.test(el.value)) el.value = el.value.replace(/[^\d.]/g, ''); const c = el.value.replace(/\D/g, ''); S.audience.universe = c === '' ? null : Number(c); persist();
+    const n = $('#uniNote'); if (n) n.outerHTML = uniNoteHTML(); renderFooter(); },
   'mat-desc': el => { S.material.desc = el.value; persist(); renderFooter(); },
   'age-min': el => { const c = el.value.replace(/\D/g, '').slice(0, 3); if (el.value !== c) el.value = c; S.profile.ageMin = c === '' ? null : Number(c); persist(); refreshAudienceLive(); },
   'age-max': el => { const c = el.value.replace(/\D/g, '').slice(0, 3); if (el.value !== c) el.value = c; S.profile.ageMax = c === '' ? null : Number(c); persist(); refreshAudienceLive(); },
@@ -1602,11 +1911,20 @@ const Inputs = {
   'q-range-min': el => setQ(el, q => { q.range.min = digits(el.value); }),
   'q-range-max': el => setQ(el, q => { q.range.max = digits(el.value); })
 };
-['name', 'company', 'email', 'whatsapp'].forEach(k => { Inputs['contact-' + k] = el => { S.contact[k] = el.value; persist(); }; });
+['name', 'company', 'email'].forEach(k => { Inputs['contact-' + k] = el => { S.contact[k] = el.value; delete UI.srv[k]; persist(); }; });
+Inputs['contact-whatsapp'] = el => { if (isVisitor()) el.value = SA.maskPhone(el.value); S.contact.whatsapp = el.value; delete UI.srv.whatsapp; persist(); };
+Inputs['contact-cnpj'] = el => { el.value = SA.maskCnpj(el.value); S.contact.cnpj = SA.digits(el.value); delete UI.srv.cnpj; persist(); };
+Inputs['reg-senha'] = el => { UI.reg.senha = el.value; delete UI.srv.senha; const r = $('#regReqs'); if (r) r.innerHTML = regReqsHTML(); };
+Inputs['reg-senha2'] = el => { UI.reg.senha2 = el.value; };
 const Changes = {
+  'uni-format': el => { const c = el.value.replace(/\D/g, ''); el.value = c === '' ? '' : fmtNum(Number(c)); },
+  conf: el => mutate(s => { s.sample.conf = Number(el.value); s.sample.precision = 'custom'; s.sample.mode = 'calc'; }),
+  margin: el => mutate(s => { s.sample.margin = Number(el.value); s.sample.precision = 'custom'; s.sample.mode = 'calc'; }),
+  compare: el => mutate(s => { s.sample.compare = el.checked; s.sample.mode = 'calc'; }),
   'inc-format': el => { const c = el.value.replace(/\D/g, ''); el.value = c === '' ? '' : fmtNum(Number(c)); },
   'media-files': el => { handleFiles(el.files); el.value = ''; },
-  'contact-consent': el => { S.contact.consent = el.checked; persist(); }
+  'contact-consent': el => { S.contact.consent = el.checked; persist(); },
+  'contact-setor': el => { S.contact.setor = el.value; persist(); }
 };
 
 /* Listeners globais */
@@ -1638,7 +1956,9 @@ document.addEventListener('visibilitychange', () => { if (document.visibilitySta
 function migrateDraft(d) {
   const base = initialState();
   const out = { ...base, ...d, v: 2, sample: { ...base.sample, ...d.sample }, contact: { ...base.contact, ...d.contact },
-    material: { ...base.material, ...(d.material || {}) }, profile: { ...base.profile, ...(d.profile || {}) } };
+    material: { ...base.material, ...(d.material || {}) }, profile: { ...base.profile, ...(d.profile || {}) }, audience: { ...base.audience, ...(d.audience || {}) } };
+  ['momento', 'regiao', 'edu'].forEach(k => { if (!Array.isArray(out.profile[k])) out.profile[k] = []; });
+  if (out.audience.universe != null && !(Number(out.audience.universe) > 0)) out.audience.universe = null;
   if (d.v === 1) {
     const f = d.filters || {}, pick = (map, ids) => (ids || []).map(id => map[id]).filter(Boolean);
     const ages = pick({ '18-24': [18, 24], '25-34': [25, 34], '35-44': [35, 44], '45-54': [45, 54], '55+': [55, null] }, f.age);
@@ -1663,33 +1983,60 @@ function fatal(msg, href = 'painel.html#pesquisas', label = 'Voltar para Minhas 
   $('#footbar').innerHTML = ''; $('#mprogress').innerHTML = '';
 }
 
+/* Cabeçalho: visitante vê "Entrar"; quem tem conta vê o menu do usuário */
+function userChrome() {
+  const v = isVisitor(), slot = $('#userSlot');
+  $('#topLogo').href = v ? 'saldo-alto-empresas.html' : 'painel.html#pesquisas';
+  $('#topLogo').setAttribute('aria-label', v ? 'Saldo Alto — voltar para o site' : 'Saldo Alto — voltar para Minhas pesquisas');
+  const back = $('#topBack'); back.href = v ? 'saldo-alto-empresas.html' : 'painel.html#pesquisas'; back.textContent = v ? '← Voltar ao site' : '← Minhas pesquisas';
+  if (v) slot.innerHTML = '<a class="btn-quiet" href="entrar.html?next=criar-pesquisa.html">Já tenho conta · Entrar</a>';
+  else { slot.innerHTML = SA.userMenuHTML(); SA.bindUserMenu(slot); }
+  const st = $('#saveExitTop'); if (st) st.hidden = v || !!S.contracted;
+}
+
 (async function boot() {
   if (CONFIG.DEMO_MODE) $('#demoPill').hidden = false;
-  let me;
-  try { me = await SA.guard(); } catch (e) { fatal(e.message); return; }
-  if (!SA.can('pesquisas_criar')) { location.replace('painel.html#pesquisas'); return; }
-  $('#userSlot').innerHTML = SA.userMenuHTML(); SA.bindUserMenu($('#userSlot'));
   const qid = new URLSearchParams(location.search).get('id');
-  let resumed = false, recovered = false;
-  if (qid) {
-    try {
-      const d = await SA.api('surveys.get', { id: qid }), p = d.pesquisa;
-      if (p.status !== 'rascunho') { location.replace('painel.html#pesquisa/' + encodeURIComponent(qid)); return; }
-      let st = p.dados; const local = Draft.load(qid);
-      if (local && local.state && (!st || local.at > p.atualizadaEm)) { st = local.state; recovered = true; }
-      S = migrateDraft(st || {}); S.surveyId = qid; if (!S.name && p.nome && p.nome !== 'Pesquisa sem nome') S.name = p.nome;
-      if (!SCREENS[S.screen]) S.screen = 'objetivo';
-      resumed = S.completed.length > 0 || S.objective.trim().length > 0;
-    } catch (e) { fatal(e.code === 'nao_encontrado' ? 'Esta pesquisa não existe ou não pertence à sua empresa.' : e.message); return; }
+  let me = null, resumed = false, recovered = false, adopted = false;
+
+  if (SA.session()) {
+    try { me = await SA.guard(); } catch (e) { fatal(e.message); return; }
+    if (!SA.can('pesquisas_criar')) { location.replace('painel.html#pesquisas'); return; }
+    if (qid) {
+      try {
+        const d = await SA.api('surveys.get', { id: qid }), p = d.pesquisa;
+        if (p.status !== 'rascunho') { location.replace('painel.html#pesquisa/' + encodeURIComponent(qid)); return; }
+        let st = p.dados; const local = Draft.load(qid);
+        if (local && local.state && (!st || local.at > p.atualizadaEm)) { st = local.state; recovered = true; }
+        S = migrateDraft(st || {}); S.surveyId = qid; if (!S.name && p.nome && p.nome !== 'Pesquisa sem nome') S.name = p.nome;
+        if (!SCREENS[S.screen]) S.screen = 'objetivo';
+        resumed = S.completed.length > 0 || S.objective.trim().length > 0;
+      } catch (e) { fatal(e.code === 'nao_encontrado' ? 'Esta pesquisa não existe ou não pertence à sua empresa.' : e.message); return; }
+    } else {
+      // veio do "Entrar" depois de começar a pesquisa sem conta: traz o rascunho junto
+      const anon = Draft.loadAnon();
+      if (anon && anon.state && !anon.state.contracted) {
+        S = migrateDraft(anon.state); S.surveyId = null; if (!SCREENS[S.screen]) S.screen = 'objetivo';
+        Draft.clearAnon(); adopted = true; resumed = true;
+      }
+    }
+    // dados de contato já vêm da conta
+    const u = me.user, a = me.account, c = S.contact;
+    if (!c.name) c.name = u.nome || ''; if (!c.company) c.company = a.empresa || ''; if (!c.email) c.email = u.email || ''; if (!c.whatsapp) c.whatsapp = SA.maskPhone(u.telefone || '');
+  } else {
+    // visitante: monta a pesquisa aqui e cria a conta na última etapa
+    const local = Draft.load(null);
+    if (local && local.state && !local.state.contracted) { S = migrateDraft(local.state); if (!SCREENS[S.screen]) S.screen = 'objetivo'; resumed = S.completed.length > 0 || S.objective.trim().length > 0; }
+    if (S.screen === 'contratacao' && !S.completed.includes('revisao')) S.screen = 'objetivo';
   }
-  // dados de contato já vêm da conta
-  const u = me.user, a = me.account, c = S.contact;
-  if (!c.name) c.name = u.nome || ''; if (!c.company) c.company = a.empresa || ''; if (!c.email) c.email = u.email || ''; if (!c.whatsapp) c.whatsapp = SA.maskPhone(u.telefone || '');
+  userChrome();
   for (const m of S.media) await MediaStore.restore(m.id);
   render({ enter: true });
-  if (recovered) { toast('Recuperamos alterações que não tinham sido enviadas.'); Sync.schedule(400); }
+  if (adopted) { toast('Trouxemos a pesquisa que você começou. Ela já está na sua conta.'); Sync.schedule(400); }
+  else if (recovered) { toast('Recuperamos alterações que não tinham sido enviadas.'); Sync.schedule(400); }
   else if (resumed && !S.contracted) toast('Continuamos de onde você parou.');
-  if (S.surveyId && !recovered) Sync.status('saved');
+  if (isVisitor()) { if (Sync.hasContent()) Sync.status('local'); }
+  else if (S.surveyId && !recovered) Sync.status('saved');
 })();
 </script>
 </body>

@@ -44,3 +44,14 @@
 .sa-toast.ok{background:#171512; color:#C6D92E;}
 .sa-toast.err{background:#C4104F; color:#fff;}
 @keyframes saIn{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:none}}
+
+/* ---------- modo demonstração ---------- */
+.sa-demo-bar{display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:center; background:#C6D92E; color:#171512; padding:8px 16px; font-family:'Quicksand',sans-serif; font-size:.88rem; font-weight:700; line-height:1.3; text-align:center; position:relative; z-index:70;}
+.sa-demo-bar b{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.95rem;}
+.sa-demo-dot{width:9px; height:9px; border-radius:50%; background:#E8156A; box-shadow:0 0 0 4px rgba(232,21,106,.25); flex-shrink:0;}
+.sa-demo-txt span{font-weight:600;}
+.sa-demo-actions{display:flex; gap:8px;}
+.sa-demo-actions button{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; background:#171512; color:#FAF3F0; border:none; border-radius:100px; padding:5px 14px; cursor:pointer; transition:background .2s;}
+.sa-demo-actions button:hover{background:#E8156A;}
+.sa-demo-tag{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.72rem; letter-spacing:.04em; text-transform:uppercase; background:#C6D92E; color:#171512; border-radius:100px; padding:2px 9px;}
+@media (max-width:820px){ .sa-demo-txt span{display:none;} .sa-demo-bar{padding:7px 12px; gap:8px;} }

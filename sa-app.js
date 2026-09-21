@@ -4,7 +4,7 @@
 (function () {
   'use strict';
 
-  var API_URL = 'https://script.google.com/macros/s/AKfycbzna3zsTVsMpw91g9GGNQWe7tuWhCtWBYvSkSeZy3lZiBsJQcg_YW8vyufLRN3CiE0H/exec';
+  var API_URL = 'https://script.google.com/macros/s/AKfycbwBAhem3EsiCO14pLdLooRACzjPeTgYTWmqC6es8sTZ76WKZuMQm0iMmsqW1HX5a_Do/exec';
   var SESSION_KEY = 'sa.sessao.v1';
   var API_OK_KEY = 'sa.api.ok';
   var API_MIN = 2;
@@ -26,6 +26,10 @@
     } catch (e) { return null; }
   }
   function saveSession(s, remember) {
+    if (s.demo) {   // demonstração: só nesta aba, sem apagar uma sessão real guardada no navegador
+      set('sessionStorage', SESSION_KEY, JSON.stringify({ token: 'demo', expiraEm: s.expiraEm, user: s.user, account: s.account, local: false, demo: true }));
+      return;
+    }
     var prev = get('localStorage', SESSION_KEY) ? true : false;
     var useLocal = remember === undefined ? prev : !!remember;
     var raw = JSON.stringify({ token: s.token, expiraEm: s.expiraEm, user: s.user, account: s.account, local: useLocal });
@@ -35,7 +39,7 @@
   function clearSession() { del('sessionStorage', SESSION_KEY); del('localStorage', SESSION_KEY); }
   function refreshSession(payload) {   // atualiza user/account mantendo o token atual
     var cur = session(); if (!cur) return;
-    saveSession({ token: cur.token, expiraEm: payload.expiraEm || cur.expiraEm, user: payload.user || cur.user, account: payload.account || cur.account }, cur.local);
+    saveSession({ token: cur.token, expiraEm: payload.expiraEm || cur.expiraEm, user: payload.user || cur.user, account: payload.account || cur.account, demo: cur.demo }, cur.local);
   }
 
   /* ---------- erros e chamadas ---------- */
@@ -64,8 +68,20 @@
     return pingPromise;
   }
 
+  function isDemo() { var s = session(); return !!(s && s.demo); }
+  function demoApi(action, payload) {   // a demonstração nunca fala com o servidor
+    return new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        try {
+          if (!window.SADemo) throw SAError('demo', 'A demonstração não pôde ser carregada. Recarregue a página.');
+          resolve(window.SADemo.handle(action, payload));
+        } catch (e) { reject(e); }
+      }, 90 + Math.round(Math.random() * 110));
+    });
+  }
   function api(action, payload) {
     payload = payload || {};
+    if (isDemo()) return demoApi(action, payload);
     return ensureApi().then(function () {
       var body = { action: action }, k;
       for (k in payload) body[k] = payload[k];
@@ -111,7 +127,20 @@
       return data;
     });
   }
+  function enterDemo() {   // entra na empresa fictícia, sem cadastro e sem senha
+    if (!window.SADemo) return false;
+    saveSession(window.SADemo.start(), false);
+    location.href = 'painel.html#pesquisas';
+    return true;
+  }
+  function resetDemo() {
+    if (window.SADemo) window.SADemo.reset();
+    if (/painel\.html$/.test(location.pathname)) { history.replaceState(null, '', 'painel.html#pesquisas'); location.reload(); }   // mesma página: recarrega para voltar aos dados iniciais
+    else location.href = 'painel.html#pesquisas';
+  }
+  function exitDemo() { if (window.SADemo) window.SADemo.reset(); del('sessionStorage', SESSION_KEY); location.replace('entrar.html?saiu=1'); }
   function signOut() {
+    if (isDemo()) return exitDemo();
     var done = function () { clearSession(); location.replace('entrar.html?saiu=1'); };
     if (!session()) return done();
     api('logout').then(done, done);
@@ -208,13 +237,14 @@
     var s = session(), u = (s && s.user) || {}, a = (s && s.account) || {};
     return '<div class="sa-user">' +
       '<button type="button" class="sa-avatar" id="saAvatar" aria-haspopup="menu" aria-expanded="false" aria-label="Menu da conta">' +
-      '<span class="sa-ini">' + esc(initials(u.nome)) + '</span><span class="sa-uname">' + esc(firstName(u.nome)) + '</span>' +
+      '<span class="sa-ini">' + esc(initials(u.nome)) + '</span><span class="sa-uname">' + esc(firstName(u.nome)) + '</span>' + (isDemo() ? '<span class="sa-demo-tag">Demo</span>' : '') +
       '<svg class="sa-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>' +
       '<div class="sa-menu" id="saMenu" role="menu">' +
       '<div class="sa-menu-head"><b>' + esc(u.nome || '') + '</b><span>' + esc(a.empresa || '') + '</span><span>' + esc(u.email || '') + '</span></div>' +
       '<a href="painel.html#perfil" role="menuitem">' + svg('user') + 'Meu perfil</a>' +
       '<a href="painel.html#config" role="menuitem">' + svg('gear') + 'Configurações</a>' +
-      '<hr><button type="button" role="menuitem" data-sa-signout>' + svg('out') + 'Sair</button>' +
+      '<hr>' + (isDemo() ? '<button type="button" role="menuitem" data-sa-demo-reset>' + svg('out') + 'Reiniciar demonstração</button>' : '') +
+      '<button type="button" role="menuitem" data-sa-signout>' + svg('out') + (isDemo() ? 'Sair da demonstração' : 'Sair') + '</button>' +
       '</div></div>';
   }
   function bindUserMenu(root) {
@@ -230,6 +260,21 @@
       else if (e.target.closest('a')) close();
     });
   }
+
+  /* Faixa fixa no topo: deixa claro que é um ambiente de demonstração com dados fictícios */
+  function mountDemoBar() {
+    if (!isDemo() || document.getElementById('saDemoBar')) return;
+    var bar = document.createElement('div');
+    bar.id = 'saDemoBar'; bar.className = 'sa-demo-bar'; bar.setAttribute('role', 'status');
+    bar.innerHTML = '<span class="sa-demo-dot" aria-hidden="true"></span><span class="sa-demo-txt"><b>Ambiente de demonstração</b><span> · empresa fictícia “Demo Saldo Alto” · nada aqui é real e nada afeta contas cadastradas</span></span>' +
+      '<span class="sa-demo-actions"><button type="button" data-sa-demo-reset>Reiniciar demo</button><button type="button" data-sa-demo-exit>Sair da demo</button></span>';
+    document.body.insertBefore(bar, document.body.firstChild);
+  }
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('[data-sa-demo-reset]')) { e.preventDefault(); resetDemo(); }
+    else if (e.target.closest('[data-sa-demo-exit]')) { e.preventDefault(); exitDemo(); }
+  });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mountDemoBar); else mountDemoBar();
 
   /* Cabeçalho completo do painel */
   function mountHeader(target, active) {
@@ -257,7 +302,7 @@
 
   window.SA = {
     API_URL: API_URL, api: api, session: session, saveSession: saveSession, clearSession: clearSession, refreshSession: refreshSession,
-    guard: guard, signOut: signOut, goLogin: goLogin, safeNext: safeNext, can: can,
+    guard: guard, signOut: signOut, isDemo: isDemo, enterDemo: enterDemo, resetDemo: resetDemo, exitDemo: exitDemo, mountDemoBar: mountDemoBar, Err: SAError, goLogin: goLogin, safeNext: safeNext, can: can,
     esc: esc, digits: digits, maskCnpj: maskCnpj, maskPhone: maskPhone, maskCep: maskCep, validCnpj: validCnpj, isEmail: isEmail,
     passwordChecks: passwordChecks, fmtDate: fmtDate, fmtDateTime: fmtDateTime, fmtInt: fmtInt, fmtBRL: fmtBRL, initials: initials, firstName: firstName,
     STATUS: STATUS, PERM_LABELS: PERM_LABELS, ROLE_LABELS: ROLE_LABELS, toast: toast,

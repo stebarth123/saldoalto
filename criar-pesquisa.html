@@ -215,7 +215,7 @@
   .dd-btn:hover,.dd-btn[aria-expanded="true"]{border-color:var(--pink);}
   .dd-btn .ic{transition:transform .2s; color:var(--ink-soft);}
   .dd-btn[aria-expanded="true"] .ic{transform:rotate(180deg);}
-  .stage:has(.dd-panel){position:relative; z-index:25;}   /* a lista aberta fica acima da barra Voltar/Continuar */
+  .stage:has(.cbx.open),.stage:has(.dd-list){position:relative; z-index:25;}   /* a lista aberta fica acima da barra Voltar/Continuar */
   .dd-panel{position:absolute; left:0; right:0; top:calc(100% + 6px); z-index:15; background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:0 20px 40px -16px rgba(23,21,18,.35); padding:6px;}
   .dd-list{max-height:250px; overflow-y:auto; display:flex; flex-direction:column;}
   .dd-opt{display:flex; align-items:center; gap:10px; width:100%; border:none; background:none; text-align:left; padding:9px 10px; border-radius:11px; font-weight:700; font-size:.9rem;}
@@ -317,15 +317,32 @@
   .cost-line .btn-quiet{color:var(--cream);}
   .disclaimer{margin-top:16px; display:flex; gap:10px; align-items:flex-start; background:var(--cream); border-radius:16px; padding:13px 16px; font-size:.84rem; font-weight:600; line-height:1.5; color:var(--ink);}
   .disclaimer .ic{margin-top:2px; color:var(--pink); flex-shrink:0;}
-  .how{margin-top:14px; border:1px solid var(--line); border-radius:16px; overflow:hidden;}
+  .how{margin-top:14px; border:1px solid var(--line); border-radius:16px; position:relative; background:#fff;}
+  .how-head{display:flex; align-items:center;}
+  .how-head .how-btn{flex:1; border-radius:16px;}
   .how-btn{display:flex; justify-content:space-between; align-items:center; width:100%; background:#fff; border:none; padding:12px 16px; font-family:var(--display); font-weight:800; font-size:.92rem; text-align:left;}
   .how-body{padding:4px 18px 16px; background:#fff; font-size:.88rem; font-weight:600; line-height:1.55;}
   .how-body ol{margin:8px 0 0; padding-left:20px; display:flex; flex-direction:column; gap:10px;}
   .how-body code{display:block; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.82rem; font-weight:600; background:var(--cream); border-radius:10px; padding:7px 10px; margin-top:5px; overflow-wrap:anywhere;}
   .how-body .note{color:var(--ink-soft); font-size:.82rem; margin-top:12px;}
+  .pf.wide{grid-column:1 / -1;}
+  .loc-row{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:10px;}
+  .loc-row label{display:block; font-weight:700; font-size:.78rem; color:var(--ink-soft); margin-bottom:4px;}
+  .loc-row .field{width:100%; font-size:.95rem; padding:10px 14px;}
+  .loc-row select.field,.adv-panel select.field{appearance:none; -webkit-appearance:none; padding-right:38px; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23171512' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center;}
+  .loc-row .field:disabled{background-color:rgba(255,255,255,.55); color:var(--ink-soft); cursor:not-allowed;}
+  .cbx{position:relative;}
+  .cbx .dd-panel{display:none; max-height:280px; overflow-y:auto;}
+  .cbx.open .dd-panel{display:block;}
+  .dd-empty{padding:9px 10px; font-size:.82rem; font-weight:600; color:var(--ink-soft);}
+  .other-crit{margin-top:16px; padding-top:16px; border-top:1px dashed var(--line);}
+  .info-wrap{position:relative; display:flex; align-items:center; padding-right:12px;}
+  .info-btn{width:26px; height:26px; border-radius:50%; border:2px solid var(--ink-soft); background:#fff; color:var(--ink-soft); font-family:Georgia,'Times New Roman',serif; font-style:italic; font-weight:700; font-size:.9rem; line-height:1; display:flex; align-items:center; justify-content:center; transition:all .15s;}
+  .info-btn:hover,.info-btn[aria-expanded="true"]{border-color:var(--pink); color:var(--pink);}
+  .info-pop{position:absolute; right:8px; top:calc(100% + 8px); z-index:20; width:min(380px, calc(100vw - 48px)); background:var(--ink); color:var(--cream); border-radius:16px; padding:14px 16px; font-size:.84rem; font-weight:600; line-height:1.5; box-shadow:0 20px 40px -14px rgba(23,21,18,.5);}
   .result-grid.four > *{min-width:0;}
   @media (max-width:560px){ .result-grid.four{grid-template-columns:1fr;} .result-grid.four .metric .val{font-size:1.9rem;} }
-  @media (max-width:900px){ .result-grid.four{grid-template-columns:1fr 1fr;} .uses-row{grid-template-columns:1fr auto;} .uses-row .k{grid-column:1 / -1; padding:0;} .adv-panel{grid-template-columns:1fr;} }
+  @media (max-width:900px){ .loc-row{grid-template-columns:1fr;} .result-grid.four{grid-template-columns:1fr 1fr;} .uses-row{grid-template-columns:1fr auto;} .uses-row .k{grid-column:1 / -1; padding:0;} .adv-panel{grid-template-columns:1fr;} }
 
   /* ---------- perguntas ---------- */
   .q-section{margin-top:30px;}
@@ -563,7 +580,6 @@
    2. CONFIG + dados de domínio (nichos, filtros, tipos de pergunta)
    3. SERVICES  → camada de integração. HOJE TUDO É MOCK.
         Services.AI           → trocar por chamada a uma função de servidor (Claude API)
-        Services.Respondents  → trocar pela base real de respondentes
         Services.Sampling     → cálculo de amostra (Cochran) — já é real, ajustar parâmetros
         Services.Pricing      → trocar pelo mecanismo real de precificação
         Services.Campaigns    → pagamento + criação/publicação da campanha
@@ -637,8 +653,7 @@ const CONFIG = {
   WHATSAPP: '5511976026891',             // mesmo número comercial das landings
   MIN_PRICE: 2500,                       // "A partir de R$ 2.500" — nunca apresentar como preço fixo
   MIN_SAMPLE: 30, MAX_SAMPLE: 5000,
-  MAX_IMAGE_MB: 15, MAX_VIDEO_MB: 200,
-  BASE_ATIVA: 5015                       // base de respondentes DE DEMONSTRAÇÃO (não é o número real de usuárias)
+  MAX_IMAGE_MB: 15, MAX_VIDEO_MB: 200
 };
 
 const NICHES = [
@@ -651,9 +666,7 @@ const NICHES = [
   { id: 'servicos', label: 'Serviços (design, marketing etc.)', share: 0.09 }
 ];
 const STD_NICHES = NICHES.map(n => n.id);
-/* Perfil demográfico: idade e renda são faixas livres (mín./máx.). As "bandas" abaixo só alimentam a ESTIMATIVA de público (mock). */
-const AGE_BANDS = [{ from: 18, to: 25, share: 0.09 }, { from: 25, to: 35, share: 0.34 }, { from: 35, to: 45, share: 0.30 }, { from: 45, to: 55, share: 0.19 }, { from: 55, to: 75, share: 0.08 }];
-const INCOME_BANDS = [{ from: 0, to: 1500, share: 0.18 }, { from: 1500, to: 3000, share: 0.31 }, { from: 3000, to: 5000, share: 0.26 }, { from: 5000, to: 10000, share: 0.17 }, { from: 10000, to: 30000, share: 0.08 }];
+/* Perfil demográfico: idade e renda são faixas livres (mín./máx.). */
 const AGE_LIMITS = { min: 18, max: 99 };
 const EDU = [
   { id: 'sem', label: 'Sem escolaridade', share: 0.01 },
@@ -667,17 +680,58 @@ const EDU = [
   { id: 'mest', label: 'Mestrado', share: 0.05 },
   { id: 'dout', label: 'Doutorado', share: 0.02 }
 ];
-/* Momento do negócio e região: opções fixas. As "shares" só alimentam a ESTIMATIVA de público de demonstração (não são dados reais). */
+/* Momento do negócio (lista suspensa, múltipla escolha) */
 const MOMENTOS = [
-  { id: 'ideia', label: 'Só a ideia (ainda não abriu)', share: 0.10 },
-  { id: 'comecando', label: 'Começando (até 1 ano)', share: 0.30 },
-  { id: 'crescimento', label: 'Em crescimento (1 a 3 anos)', share: 0.35 },
-  { id: 'consolidado', label: 'Consolidado (mais de 3 anos)', share: 0.25 }
+  { id: 'ideia', label: 'Só a ideia (ainda não abriu)' },
+  { id: 'comecando', label: 'Começando (até 1 ano)' },
+  { id: 'crescimento', label: 'Em crescimento (1 a 3 anos)' },
+  { id: 'consolidado', label: 'Consolidado (mais de 3 anos)' }
 ];
-const REGIOES = [
-  { id: 'norte', label: 'Norte', share: 0.06 }, { id: 'nordeste', label: 'Nordeste', share: 0.22 },
-  { id: 'centro_oeste', label: 'Centro-Oeste', share: 0.08 }, { id: 'sudeste', label: 'Sudeste', share: 0.48 }, { id: 'sul', label: 'Sul', share: 0.16 }
-];
+/* Localização hierárquica: Região → Estado → Cidade. Cada nível só existe depois do anterior; dá para parar em qualquer um. */
+const REGIOES = [{ id: 'norte', label: 'Norte' }, { id: 'nordeste', label: 'Nordeste' }, { id: 'centro_oeste', label: 'Centro-Oeste' }, { id: 'sudeste', label: 'Sudeste' }, { id: 'sul', label: 'Sul' }];
+const UFS = [
+  ['AC', 'Acre', 'norte'], ['AP', 'Amapá', 'norte'], ['AM', 'Amazonas', 'norte'], ['PA', 'Pará', 'norte'], ['RO', 'Rondônia', 'norte'], ['RR', 'Roraima', 'norte'], ['TO', 'Tocantins', 'norte'],
+  ['AL', 'Alagoas', 'nordeste'], ['BA', 'Bahia', 'nordeste'], ['CE', 'Ceará', 'nordeste'], ['MA', 'Maranhão', 'nordeste'], ['PB', 'Paraíba', 'nordeste'], ['PE', 'Pernambuco', 'nordeste'], ['PI', 'Piauí', 'nordeste'], ['RN', 'Rio Grande do Norte', 'nordeste'], ['SE', 'Sergipe', 'nordeste'],
+  ['DF', 'Distrito Federal', 'centro_oeste'], ['GO', 'Goiás', 'centro_oeste'], ['MT', 'Mato Grosso', 'centro_oeste'], ['MS', 'Mato Grosso do Sul', 'centro_oeste'],
+  ['ES', 'Espírito Santo', 'sudeste'], ['MG', 'Minas Gerais', 'sudeste'], ['RJ', 'Rio de Janeiro', 'sudeste'], ['SP', 'São Paulo', 'sudeste'],
+  ['PR', 'Paraná', 'sul'], ['RS', 'Rio Grande do Sul', 'sul'], ['SC', 'Santa Catarina', 'sul']
+].map(([id, label, r]) => ({ id, label, r }));
+const ufBy = id => UFS.find(u => u.id === id);
+const regBy = id => REGIOES.find(r => r.id === id);
+/* Cidades: a lista completa vem do IBGE (API pública de localidades). Se a consulta falhar (ou na demonstração, que não usa rede), cai nesta lista resumida. */
+const FALLBACK_CITIES = {
+  AC: 'Rio Branco|Cruzeiro do Sul|Sena Madureira|Tarauacá|Feijó|Brasiléia', AP: 'Macapá|Santana|Laranjal do Jari|Oiapoque|Mazagão', AM: 'Manaus|Parintins|Itacoatiara|Manacapuru|Coari|Tabatinga',
+  PA: 'Belém|Ananindeua|Santarém|Marabá|Parauapebas|Castanhal|Abaetetuba|Altamira', RO: 'Porto Velho|Ji-Paraná|Ariquemes|Vilhena|Cacoal|Rolim de Moura', RR: 'Boa Vista|Rorainópolis|Caracaraí|Pacaraima',
+  TO: 'Palmas|Araguaína|Gurupi|Porto Nacional|Paraíso do Tocantins', AL: 'Maceió|Arapiraca|Rio Largo|Palmeira dos Índios|União dos Palmares|Penedo',
+  BA: 'Salvador|Feira de Santana|Vitória da Conquista|Camaçari|Itabuna|Juazeiro|Lauro de Freitas|Ilhéus|Porto Seguro', CE: 'Fortaleza|Caucaia|Juazeiro do Norte|Maracanaú|Sobral|Crato|Itapipoca',
+  MA: 'São Luís|Imperatriz|São José de Ribamar|Timon|Caxias|Codó|Paço do Lumiar', PB: 'João Pessoa|Campina Grande|Santa Rita|Patos|Bayeux|Sousa',
+  PE: 'Recife|Jaboatão dos Guararapes|Olinda|Caruaru|Petrolina|Paulista|Cabo de Santo Agostinho', PI: 'Teresina|Parnaíba|Picos|Piripiri|Floriano',
+  RN: 'Natal|Mossoró|Parnamirim|São Gonçalo do Amarante|Ceará-Mirim|Caicó', SE: 'Aracaju|Nossa Senhora do Socorro|Lagarto|Itabaiana|São Cristóvão', DF: 'Brasília',
+  GO: 'Goiânia|Aparecida de Goiânia|Anápolis|Rio Verde|Luziânia|Águas Lindas de Goiás|Valparaíso de Goiás|Catalão', MT: 'Cuiabá|Várzea Grande|Rondonópolis|Sinop|Tangará da Serra|Cáceres|Sorriso',
+  MS: 'Campo Grande|Dourados|Três Lagoas|Corumbá|Ponta Porã|Naviraí', ES: 'Vitória|Vila Velha|Serra|Cariacica|Linhares|Cachoeiro de Itapemirim|Colatina|Guarapari',
+  MG: 'Belo Horizonte|Uberlândia|Contagem|Juiz de Fora|Betim|Montes Claros|Ribeirão das Neves|Uberaba|Governador Valadares|Ipatinga',
+  RJ: 'Rio de Janeiro|São Gonçalo|Duque de Caxias|Nova Iguaçu|Niterói|Belford Roxo|Campos dos Goytacazes|São João de Meriti|Petrópolis|Volta Redonda',
+  SP: 'São Paulo|Guarulhos|Campinas|São Bernardo do Campo|Santo André|Osasco|São José dos Campos|Ribeirão Preto|Sorocaba|Santos|Mauá|São José do Rio Preto|Mogi das Cruzes|Diadema|Jundiaí|Piracicaba|Bauru|São Caetano do Sul|Barueri',
+  PR: 'Curitiba|Londrina|Maringá|Ponta Grossa|Cascavel|São José dos Pinhais|Foz do Iguaçu|Colombo', RS: 'Porto Alegre|Caxias do Sul|Canoas|Pelotas|Santa Maria|Gravataí|Viamão|Novo Hamburgo|São Leopoldo',
+  SC: 'Florianópolis|Joinville|Blumenau|São José|Chapecó|Itajaí|Criciúma|Jaraguá do Sul|Lages|Balneário Camboriú'
+};
+const Cities = {
+  cache: {},   // uf -> { list, full } | 'loading'
+  get(uf) { const c = this.cache[uf]; return c && c !== 'loading' ? c : null; },
+  async load(uf) {
+    if (!uf || this.cache[uf]) return;
+    const fb = () => ({ list: (FALLBACK_CITIES[uf] || '').split('|').filter(Boolean), full: false });
+    if (SA.isDemo && SA.isDemo()) { this.cache[uf] = fb(); return; }        // a demonstração não usa rede
+    this.cache[uf] = 'loading';
+    try {
+      const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 7000);
+      const r = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios?orderBy=nome`, { signal: ctl.signal }); clearTimeout(t);
+      const j = await r.json();
+      if (!Array.isArray(j) || !j.length) throw new Error('vazio');
+      this.cache[uf] = { list: j.map(m => m.nome), full: true };
+    } catch (e) { this.cache[uf] = fb(); }
+  }
+};
 const PROFILE_GROUPS = { age: 'Faixa etária', income: 'Faixa de renda', edu: 'Escolaridade', momento: 'Momento do negócio', regiao: 'Região', other: 'Outros critérios' };
 const CONF_OPTS = [90, 95, 99], MARGIN_OPTS = [2, 3, 4, 5, 7, 10];
 const QTYPES = [
@@ -729,16 +783,19 @@ const Services = {
         alimentacao: /aliment|confeit|doce|bolo|marmita|padaria|culinar|salgad|brigadeiro/, moda: /moda|costur|roupa|vestuari|ateli|acessori/,
         educacao: /educa|curso|mentoria|professora|aula|escola/, revenda: /revend|catalogo|sacoleira/, servicos: /design|marketing|consultoria|social media|fotograf/ };
       NICHES.forEach(n => { if (NICHE_KW[n.id].test(td) && !niches.includes(n.id)) hints.push({ text: `Sua descrição fala de “${n.label}”, mas esse nicho ainda não está selecionado.`, btn: 'Selecionar nicho', act: 'niche', val: n.id }); });
-      const REG_KW = { sudeste: /sudeste|sao paulo|rio de janeiro|minas gerais|espirito santo|\bsp\b/, sul: /\bsul\b|parana|santa catarina|rio grande do sul|curitiba|porto alegre/,
-        nordeste: /nordeste|bahia|pernambuco|ceara|recife|salvador|fortaleza/, norte: /\bnorte\b|amazonas|manaus|belem|amazonia/, centro_oeste: /centro-oeste|centro oeste|goias|brasilia|mato grosso|distrito federal/ };
-      REGIOES.forEach(r => { if (REG_KW[r.id].test(td) && !(P.regiao || []).includes(r.id)) hints.push({ text: `Você citou a região ${r.label}. Quer filtrar por ela?`, btn: `Filtrar: ${r.label}`, act: 'regiao', val: r.id }); });
+      /* Localização: se o texto cita um estado, sugere Região + Estado; se só a região, sugere a Região. */
+      const L = P.local || {}; let locDone = false;
+      [...UFS].sort((a, b) => b.label.length - a.label.length).filter(u => u.id !== 'PA').forEach(u => { if (!locDone && new RegExp('(^|[^a-z])' + norm(u.label) + '([^a-z]|$)').test(td) && L.uf !== u.id) { locDone = true;
+        hints.push({ text: `Você citou ${u.label}. Quer filtrar por ${regBy(u.r).label} → ${u.label}?`, btn: `Filtrar: ${u.label}`, act: 'local', val: `${u.r}|${u.id}` }); } });
+      const REG_KW = { sudeste: /sudeste/, sul: /(^|[^a-z])sul([^a-z]|$)/, nordeste: /nordeste/, norte: /(^|[^a-z])norte([^a-z]|$)/, centro_oeste: /centro-oeste|centro oeste/ };
+      if (!locDone) REGIOES.forEach(r => { if (!locDone && REG_KW[r.id].test(td) && L.regiao !== r.id) { locDone = true; hints.push({ text: `Você citou a região ${r.label}. Quer filtrar por ela?`, btn: `Filtrar: ${r.label}`, act: 'local', val: `${r.id}|` }); } });
       const MOM_KW = { ideia: /so a ideia|ideia de negocio|ainda nao abr|pensando em abrir|pretend\w+ abrir/, comecando: /comecando|iniciante|iniciando|recem|acabaram de abrir|primeiro ano|abrindo/,
         crescimento: /em crescimento|crescendo|escalando|expandindo/, consolidado: /consolidad|estabelecid|mais de \d+ anos|ha \d+ anos/ };
       MOMENTOS.forEach(m => { if (MOM_KW[m.id].test(td) && !(P.momento || []).includes(m.id)) hints.push({ text: `Pela descrição, o momento do negócio parece ser “${m.label}”. Quer filtrar por ele?`, btn: 'Filtrar por momento', act: 'momento', val: m.id }); });
       const fi = td.indexOf('fatur');
-      if (fi >= 0 && !(P.otherOn && (P.other || '').trim())) {
+      if (fi >= 0 && !(P.others || []).some(o => /fatur/i.test(o))) {
         const snip = String(desc).slice(fi).split(/[.;\n]/)[0].trim().slice(0, 80);
-        hints.push({ text: 'Você citou faturamento. O filtro de renda é a renda pessoal, não o faturamento do negócio; podemos registrar isso em “Outros critérios” para o time aplicar.', btn: 'Registrar em Outros critérios', act: 'other', val: snip.charAt(0).toUpperCase() + snip.slice(1) });
+        hints.push({ text: 'Você citou faturamento. O filtro de renda é a renda pessoal, não o faturamento do negócio; podemos registrar isso como outro critério para o time aplicar.', btn: 'Adicionar como critério', act: 'other', val: snip.charAt(0).toUpperCase() + snip.slice(1) });
       }
       const compare = /compar|diferenc|por nicho|por regiao|por segmento|cada nicho|entre nichos|entre regioes/.test(t);
       return { goal, hints, compare };
@@ -747,25 +804,6 @@ const Services = {
       await wait(1500);
       const set = media.kind === 'video' ? AI_MEDIA.video : AI_MEDIA.image;
       return set.map(q => makeQuestion(q.type, { ...clone(q), source: 'media', mediaId: media.id, mediaName: media.name }));
-    }
-  },
-  /* Base de respondentes — produção: consulta à base real (assíncrona, com debounce) */
-  Respondents: {
-    available({ niches, customNiches, profile }) {
-      const p = profile || {};
-      let share = 1;
-      if (niches.length || customNiches.length) {
-        share = niches.reduce((a, id) => a + (NICHES.find(n => n.id === id) || { share: 0 }).share, 0)
-          + (customNiches.length ? 0.03 + (customNiches.length - 1) * 0.01 : 0);
-      }
-      const overlap = (bands, a, b) => bands.reduce((acc, x) => acc + Math.max(0, Math.min(x.to, b) - Math.max(x.from, a)) / (x.to - x.from) * x.share, 0);
-      if (p.ageMin != null || p.ageMax != null) share *= overlap(AGE_BANDS, p.ageMin ?? AGE_LIMITS.min, (p.ageMax ?? AGE_LIMITS.max) + 1);
-      if (p.incMin != null || p.incMax != null) share *= overlap(INCOME_BANDS, p.incMin ?? 0, p.incMax ?? Infinity);
-      if ((p.edu || []).length) share *= EDU.filter(o => p.edu.includes(o.id)).reduce((a, o) => a + o.share, 0);
-      if ((p.momento || []).length) share *= MOMENTOS.filter(o => p.momento.includes(o.id)).reduce((a, o) => a + o.share, 0);
-      if ((p.regiao || []).length) share *= REGIOES.filter(o => p.regiao.includes(o.id)).reduce((a, o) => a + o.share, 0);
-      /* "Outros critérios" (texto livre) não entra na conta: é analisado pelo time. Em produção, vira filtro estruturado. */
-      return Math.round(CONFIG.BASE_ATIVA * Math.min(share, 1));
     }
   },
   /* Amostra — cálculo estatístico de verdade (roda no navegador, sem dados inventados):
@@ -815,13 +853,13 @@ const Services = {
     RULES: {
       included: { responses: 150, questions: 10 },
       perExtraResponse: 4, perExtraQuestion: 12, perOpenQuestion: 45, perAdvancedQuestion: 15,
-      perExtraNiche: 150, perExtraSegment: 20, perImage: 150, perVideo: 350
+      perExtraSegment: 20, perImage: 150, perVideo: 350
     },
     estimate(m) {
       const R = this.RULES;
       const sample = Math.max(0, m.sample - R.included.responses) * R.perExtraResponse;
       const complexity = Math.max(0, m.questions - m.open - R.included.questions) * R.perExtraQuestion + m.open * R.perOpenQuestion + m.advanced * R.perAdvancedQuestion;
-      const segmentation = Math.max(0, m.niches - 1) * R.perExtraNiche + Math.max(0, m.segments - 1) * R.perExtraSegment;
+      const segmentation = Math.max(0, m.segments - 1) * R.perExtraSegment;
       const materials = m.images * R.perImage + m.videos * R.perVideo;
       const subtotal = CONFIG.MIN_PRICE + sample + complexity + segmentation + materials;
       const total = Math.max(CONFIG.MIN_PRICE, Math.round(subtotal / 10) * 10);
@@ -912,7 +950,7 @@ const initialState = () => ({
   material: { involves: null, desc: '' },            // involves: null (não respondeu) | true | false — os arquivos ficam em S.media
   audience: { desc: '', universe: null },            // público-alvo (texto) e universo (nº de pessoas) — universe null = a empresa não sabe
   niches: [], customNiches: [],
-  profile: { ageMin: null, ageMax: null, incMin: null, incMax: null, edu: [], momento: [], regiao: [], otherOn: false, other: '' },
+  profile: { ageMin: null, ageMax: null, incMin: null, incMax: null, edu: [], momento: [], local: { regiao: '', uf: '', cidade: '' }, others: [] },
   sample: { mode: null, manual: 500, precision: 'padrao', conf: 95, margin: 5, compare: false },
   questions: [], suggestions: [], aiAutoRan: false,
   media: [],
@@ -921,7 +959,7 @@ const initialState = () => ({
 });
 let S = initialState();
 const isVisitor = () => !SA.session();   // sem conta: monta a pesquisa e cria a conta na última etapa
-const UI = { reg: { senha: '', senha2: '' }, srv: {}, justRegistered: null, advOpen: false, howOpen: false, eduOpen: false, customOpen: false, editingId: null, menuId: null, sugLoading: false, calcLoading: false, mediaLoading: {}, submitting: false, contactErr: false, drag: null };
+const UI = { reg: { senha: '', senha2: '' }, srv: {}, justRegistered: null, advOpen: false, howOpen: false, infoOpen: false, dd: null, otherOpen: false, cityQ: '', customOpen: false, editingId: null, menuId: null, sugLoading: false, calcLoading: false, mediaLoading: {}, submitting: false, contactErr: false, drag: null };
 
 /* Rascunho local: cópia de segurança por usuária e pesquisa. A conta (servidor) é a fonte principal. */
 const Draft = {
@@ -1010,9 +1048,8 @@ const MediaStore = {
 /* ---------- Seletores derivados do estado ---------- */
 const nicheLabels = () => [...NICHES.filter(n => S.niches.includes(n.id)).map(n => n.label), ...S.customNiches];
 const profileActive = g => { const p = S.profile; return g === 'age' ? p.ageMin != null || p.ageMax != null : g === 'income' ? p.incMin != null || p.incMax != null : g === 'edu' ? p.edu.length > 0
-  : g === 'momento' ? p.momento.length > 0 : g === 'regiao' ? p.regiao.length > 0 : !!(p.otherOn && p.other.trim()); };
+  : g === 'momento' ? p.momento.length > 0 : g === 'regiao' ? !!p.local.regiao : p.others.length > 0; };
 const profileGroupsActive = () => Object.keys(PROFILE_GROUPS).filter(profileActive);
-const availableNow = (over = {}) => Services.Respondents.available({ niches: S.niches, customNiches: S.customNiches, profile: S.profile, ...over });
 /* Cálculo estatístico da amostra (modo "calcular"): universo → parâmetros → n. Alimenta o preço via sampleSize(). */
 const universeN = () => { const u = Number(S.audience.universe); return Number.isFinite(u) && u > 0 ? u : null; };
 const compareGroups = () => S.sample.compare && nicheLabels().length > 1 ? nicheLabels().length : 1;
@@ -1051,11 +1088,6 @@ const OptionCard = ({ id, label, ic, selected, action, small = false, fk }) => `
     ${ic ? `<span class="opt-ic">${icon(ic)}</span>` : ''}<span>${esc(label)}</span><span class="opt-check">${icon('check')}</span>
   </button>`;
 
-const AudiencePreview = () => {
-  const n = availableNow();
-  return `<span class="avail-pill" title="Base de demonstração">${icon('users')}<span>≈ <b class="count" data-key="avail" data-to="${n}">${fmtInt(n)}</b> empreendedoras</span></span>`;
-};
-
 /* ===== ProgressBar (topo): etapa atual, % concluído e segmentos clicáveis das etapas já liberadas ===== */
 function ProgressBar() {
   const cur = stepOf(S.screen), pct = percentDone(), frontier = frontierIndex();
@@ -1081,10 +1113,11 @@ const ageError = (p = S.profile) => p.ageMin != null && p.ageMin < AGE_LIMITS.mi
   : p.ageMax != null && p.ageMax < AGE_LIMITS.min ? `A idade máxima precisa ser de ${AGE_LIMITS.min} anos ou mais.`
   : p.ageMin != null && p.ageMax != null && p.ageMin > p.ageMax ? 'A idade mínima não pode ser maior que a máxima.' : '';
 const incomeError = (p = S.profile) => p.incMin != null && p.incMax != null && p.incMin > p.incMax ? 'A renda mínima não pode ser maior que a máxima.' : '';
+const locText = (l = S.profile.local) => [l.regiao ? (regBy(l.regiao) || {}).label : '', l.uf ? (ufBy(l.uf) || {}).label : '', l.cidade].filter(Boolean).join(' → ');
 const profileSummary = (p = S.profile) => [
   ['Faixa etária', ageText(p)], ['Faixa de renda', incomeText(p)], ['Escolaridade', p.edu.length ? eduText(p.edu) : ''],
   ['Momento do negócio', p.momento.length ? MOMENTOS.filter(o => p.momento.includes(o.id)).map(o => o.label).join(' · ') : ''],
-  ['Região', p.regiao.length ? REGIOES.filter(o => p.regiao.includes(o.id)).map(o => o.label).join(' · ') : ''], ['Outros critérios', p.otherOn && p.other.trim() ? p.other.trim() : '']
+  ['Região', locText(p.local)], ['Outros critérios', p.others.join(' · ')]
 ].filter(x => x[1]);
 
 /* ===== ObjectiveStep (objetivo do estudo + material) ===== */
@@ -1174,20 +1207,52 @@ const ProfileNote = g => {
   if (g === 'age') { const e = ageError(); return e ? `<div class="pf-note err" id="note-age">${e}</div>` : `<div class="pf-note" id="note-age">${profileActive('age') ? `Exibido como <b>${ageText(p)}</b>` : 'Em branco: todas as idades. Para “55+”, preencha só a mínima.'}</div>`; }
   const e = incomeError(); return e ? `<div class="pf-note err" id="note-income">${e}</div>` : `<div class="pf-note" id="note-income">${profileActive('income') ? `Renda mensal · <b>${incomeText(p)}</b>` : 'Renda mensal. Em branco: todas as faixas.'}</div>`;
 };
-const clearBtn = g => profileActive(g) || (g === 'other' && S.profile.otherOn) ? `<button type="button" class="btn-quiet btn-sm" style="padding:2px 8px" data-action="clear-profile" data-group="${g}" data-fk="clear-${g}">Limpar</button>` : '';
+const clearBtn = g => profileActive(g) ? `<button type="button" class="btn-quiet btn-sm" style="padding:2px 8px" data-action="clear-profile" data-group="${g}" data-fk="clear-${g}">Limpar</button>` : '';
+
+/* Lista suspensa de múltipla escolha (Escolaridade e Momento do negócio) */
+const DD_OPTS = { edu: EDU, momento: MOMENTOS };
+function MultiDD(key, label, unit) {
+  const opts = DD_OPTS[key], sel = S.profile[key], n = sel.length, open = UI.dd === key;
+  const chosen = opts.filter(o => sel.includes(o.id));
+  const chips = !n ? '' : n > 3 ? `<div class="chips"><span class="chip plain">${n} ${unit} selecionados</span></div>`
+    : `<div class="chips">${chosen.map(o => `<span class="chip">${esc(o.label)}<button type="button" data-action="remove-opt" data-group="${key}" data-id="${o.id}" aria-label="Remover ${esc(o.label)}">${icon('x')}</button></span>`).join('')}</div>`;
+  const panel = open ? `<div class="dd-panel"><div class="dd-list" id="${key}List" role="listbox" aria-multiselectable="true" aria-label="${label}">${opts.map(o => `<button type="button" class="dd-opt" role="option" aria-selected="${sel.includes(o.id)}" data-action="toggle-opt" data-group="${key}" data-id="${o.id}" data-fk="dd-${key}-${o.id}"><span class="bx">${icon('check')}</span>${esc(o.label)}</button>`).join('')}</div>
+    <div class="dd-foot"><button type="button" class="btn-quiet btn-sm" data-action="clear-profile" data-group="${key}" data-fk="dd-${key}-clear">Limpar</button><button type="button" class="btn-mini solid" data-action="toggle-dd" data-dd="${key}" data-fk="dd-${key}-done">${icon('check')}Concluir</button></div></div>` : '';
+  return `<div class="dd"><button type="button" class="dd-btn" id="${key}Btn" data-action="toggle-dd" data-dd="${key}" data-fk="dd-${key}" aria-haspopup="listbox" aria-expanded="${open}"><span>${n ? `${label} (${n})` : `Selecionar ${label.toLowerCase()}`}</span>${icon('down')}</button>${panel}</div>${chips}`;
+}
+
+/* Localização: Região → Estado → Cidade (cada nível depende do anterior; dá para parar em qualquer um) */
+function cityListHTML() {
+  const L = S.profile.local, c = Cities.get(L.uf);
+  if (!c) return '<div class="dd-empty">Carregando cidades…</div>';
+  const q = norm(UI.cityQ.trim()), arr = q ? c.list.filter(x => norm(x).includes(q)) : c.list, shown = arr.slice(0, 40);
+  return (shown.length ? shown.map(x => `<button type="button" class="dd-opt" role="option" aria-selected="${x === L.cidade}" data-action="pick-city" data-city="${esc(x)}">${esc(x)}</button>`).join('') : `<div class="dd-empty">Nenhuma cidade encontrada${c.full ? '' : ' na lista resumida'}.</div>`)
+    + (arr.length > shown.length ? `<div class="dd-empty">Mostrando ${shown.length} de ${fmtInt(arr.length)}. Continue digitando para filtrar.</div>` : '');
+}
+function LocNoteHTML() {
+  const L = S.profile.local, c = L.uf ? Cities.get(L.uf) : null;
+  return L.regiao ? `Localização: <b>${esc(locText(L))}</b>${L.uf && c && !c.full ? '. Lista de cidades resumida: se a sua não aparecer, deixe o filtro no nível do estado.' : ''}` : 'Em branco: todo o Brasil. Você pode parar em qualquer nível.';
+}
+function LocationField() {
+  const L = S.profile.local, ufs = L.regiao ? UFS.filter(u => u.r === L.regiao) : [];
+  if (L.uf && !Cities.cache[L.uf]) Cities.load(L.uf).then(() => { if (S.profile.local.uf && S.screen === 'publico' && document.activeElement && document.activeElement.id !== 'locCidade') render(); });
+  const c = L.uf ? Cities.get(L.uf) : null;
+  const opt = (v, t, cur) => `<option value="${esc(v)}" ${cur === v ? 'selected' : ''}>${esc(t)}</option>`;
+  const regSel = `<div><label for="locRegiao">Região do Brasil</label><select class="field sel" id="locRegiao" data-change="loc-regiao" data-fk="loc-regiao">${opt('', 'Todo o Brasil', L.regiao)}${REGIOES.map(r => opt(r.id, r.label, L.regiao)).join('')}</select></div>`;
+  const ufSel = `<div><label for="locUf">Estado</label><select class="field sel" id="locUf" data-change="loc-uf" data-fk="loc-uf" ${L.regiao ? '' : 'disabled'}>${L.regiao ? opt('', `Todos os estados (${regBy(L.regiao).label})`, L.uf) + ufs.map(u => opt(u.id, u.label, L.uf)).join('') : '<option value="">Escolha a região primeiro</option>'}</select></div>`;
+  const city = `<div><label for="locCidade">Cidade</label><div class="cbx" id="cityBox"><input class="field" id="locCidade" role="combobox" aria-expanded="false" aria-controls="cityList" autocomplete="off" data-input="loc-city-q" data-change="loc-city-commit" data-fk="loc-city"
+      value="${esc(UI.cityQ !== '' ? UI.cityQ : L.cidade)}" placeholder="${L.uf ? 'Digite para buscar' : 'Escolha o estado primeiro'}" ${L.uf ? '' : 'disabled'}>${L.uf ? `<div class="dd-panel" id="cityList" role="listbox" aria-label="Cidades">${cityListHTML()}</div>` : ''}</div></div>`;
+  const note = LocNoteHTML();
+  return `<div class="loc-row">${regSel}${ufSel}${city}</div><div class="pf-note" id="note-loc">${note}</div>`;
+}
+
 function AudienceStep() {
   const P = S.profile, total = nicheLabels().length, allOn = STD_NICHES.every(id => S.niches.includes(id));
   const nicheChips = NICHES.map(n => ChoiceChip({ id: n.id, label: n.label, selected: S.niches.includes(n.id), action: 'toggle-niche' })).join('')
     + S.customNiches.map((c, i) => `<span class="cchip custom"><span class="cb">${icon('check')}</span>${esc(c)}<button type="button" class="x" data-action="remove-custom-niche" data-i="${i}" aria-label="Remover ${esc(c)}">${icon('x')}</button></span>`).join('')
     + `<button type="button" class="cchip dashed" data-action="open-custom-niche" data-fk="more-niche" aria-expanded="${UI.customOpen}">${icon('plus')}Selecionar outro nicho</button>`;
-  const eduN = P.edu.length;
-  const eduChips = !eduN ? '' : eduN > 3 ? `<div class="chips"><span class="chip plain">${eduN} níveis selecionados</span></div>`
-    : `<div class="chips">${eduLabels(P.edu).map((l, i) => { const id = EDU.find(o => o.label === l).id; return `<span class="chip">${esc(l)}<button type="button" data-action="remove-edu" data-id="${id}" aria-label="Remover ${esc(l)}">${icon('x')}</button></span>`; }).join('')}</div>`;
-  const eduPanel = UI.eduOpen ? `<div class="dd-panel"><div class="dd-list" id="eduList" role="listbox" aria-multiselectable="true" aria-label="Escolaridade">${EDU.map(o => `<button type="button" class="dd-opt" role="option" aria-selected="${P.edu.includes(o.id)}" data-action="toggle-edu" data-id="${o.id}" data-fk="edu-${o.id}"><span class="bx">${icon('check')}</span>${o.label}</button>`).join('')}</div>
-    <div class="dd-foot"><button type="button" class="btn-quiet btn-sm" data-action="clear-profile" data-group="edu" data-fk="edu-clear">Limpar</button><button type="button" class="btn-mini solid" data-action="toggle-edu-dd" data-fk="edu-done">${icon('check')}Concluir</button></div></div>` : '';
-  const momChips = MOMENTOS.map(o => ChoiceChip({ id: o.id, label: o.label, selected: P.momento.includes(o.id), action: 'toggle-momento', fk: 'mom-' + o.id })).join('');
-  const regChips = REGIOES.map(o => ChoiceChip({ id: o.id, label: o.label, selected: P.regiao.includes(o.id), action: 'toggle-regiao', fk: 'reg-' + o.id })).join('');
-  return `${StepHeader({ screen: 'publico', title: 'Qual <span class="accent">público</span> você quer ouvir?', sub: 'Defina nicho e perfil nesta tela. Só o nicho é obrigatório.', right: AudiencePreview() })}
+  const otherChips = P.others.map((c, i) => `<span class="cchip custom"><span class="cb">${icon('check')}</span>${esc(c)}<button type="button" class="x" data-action="remove-other" data-i="${i}" aria-label="Remover ${esc(c)}">${icon('x')}</button></span>`).join('');
+  return `${StepHeader({ screen: 'publico', title: 'Qual <span class="accent">público</span> você quer ouvir?', sub: 'Defina nicho e perfil nesta tela. Só o nicho é obrigatório.' })}
   <div class="step-body">
     ${AudienceRecap()}
     <section class="card-sec" aria-labelledby="secNicho">
@@ -1213,18 +1278,18 @@ function AudienceStep() {
             <div><label for="incMax">Renda máxima</label><div class="affix pre"><span class="pre-t">R$</span><input class="field" id="incMax" inputmode="numeric" maxlength="9" data-input="inc-max" data-change="inc-format" data-fk="inc-max" value="${P.incMax != null ? fmtNum(P.incMax) : ''}" placeholder="Ex.: 8.000" autocomplete="off"></div></div>
           </div>${ProfileNote('income')}</div>
         <div class="pf"><div class="pf-head"><span class="pf-label">Escolaridade</span>${clearBtn('edu')}</div>
-          <div class="dd"><button type="button" class="dd-btn" id="eduBtn" data-action="toggle-edu-dd" data-fk="edu-dd" aria-haspopup="listbox" aria-expanded="${UI.eduOpen}"><span>${eduN ? `Escolaridade (${eduN})` : 'Selecionar escolaridade'}</span>${icon('down')}</button>${eduPanel}</div>
-          ${eduChips}<div class="pf-note">${eduN ? 'Pode marcar mais de um nível.' : 'Em branco: todos os níveis. Pode marcar mais de um.'}</div></div>
-        <div class="pf" style="order:2"><div class="pf-head"><span class="pf-label">Momento do negócio</span>${clearBtn('momento')}</div>
-          <div class="cchips" style="margin-top:10px" role="group" aria-label="Momento do negócio">${momChips}</div>
-          <div class="pf-note">${P.momento.length ? 'Pode marcar mais de um momento.' : 'Em branco: todos os momentos. Pode marcar mais de um.'}</div></div>
-        <div class="pf" style="order:2"><div class="pf-head"><span class="pf-label">Região</span>${clearBtn('regiao')}</div>
-          <div class="cchips" style="margin-top:10px" role="group" aria-label="Região">${regChips}</div>
-          <div class="pf-note">${P.regiao.length ? 'Pode marcar mais de uma região.' : 'Em branco: todo o Brasil. Pode marcar mais de uma.'}</div></div>
-        <div class="pf"><div class="pf-head"><span class="pf-label">Outros critérios</span>${clearBtn('other')}</div>
-          <div class="cchips" style="margin-top:10px">${ChoiceChip({ id: 'other', label: 'Outros', selected: P.otherOn, action: 'toggle-other', fk: 'other-on' })}</div>
-          ${P.otherOn ? `<label class="sr" for="otherText">Descreva outros critérios importantes para o público</label><textarea class="field" id="otherText" data-input="other-text" data-fk="other-text" maxlength="300" placeholder="Descreva outros critérios importantes para o público">${esc(P.other)}</textarea>
-          <div class="pf-note">Esses critérios são analisados pelo time do Saldo Alto e podem reduzir o público disponível.</div>` : `<div class="pf-note">Algo mais que defina quem deve responder? Marque “Outros” e descreva.</div>`}</div>
+          ${MultiDD('edu', 'Escolaridade', 'níveis')}<div class="pf-note">${P.edu.length ? 'Pode marcar mais de um nível.' : 'Em branco: todos os níveis. Pode marcar mais de um.'}</div></div>
+        <div class="pf"><div class="pf-head"><span class="pf-label">Momento do negócio</span>${clearBtn('momento')}</div>
+          ${MultiDD('momento', 'Momento do negócio', 'momentos')}<div class="pf-note">${P.momento.length ? 'Pode marcar mais de um momento.' : 'Em branco: todos os momentos. Pode marcar mais de um.'}</div></div>
+        <div class="pf wide"><div class="pf-head"><span class="pf-label">Região</span>${clearBtn('regiao')}</div>
+          ${LocationField()}</div>
+      </div>
+      <div class="other-crit">
+        <div class="cchips" role="group" aria-label="Outros critérios">${otherChips}<button type="button" class="cchip dashed" data-action="open-other" data-fk="more-other" aria-expanded="${UI.otherOpen}">${icon('plus')}Adicionar outro critério</button></div>
+        ${UI.otherOpen ? `<div class="inline-field"><label for="otherNew">Qual critério?</label>
+          <div class="inline-row"><input class="field" id="otherNew" data-fk="other-new" maxlength="120" placeholder="Ex.: Já vende pela internet, tem funcionárias, atende em domicílio…" autocomplete="off">
+          <button type="button" class="btn-mini solid" data-action="add-other">${icon('plus')}Adicionar</button></div></div>` : ''}
+        <div class="pf-note">${P.others.length ? 'Esses critérios são analisados pelo time do Saldo Alto na avaliação da pesquisa.' : 'Algo mais que defina quem deve responder? Adicione quantos critérios quiser.'}</div>
       </div>
     </section>
   </div>`;
@@ -1237,7 +1302,6 @@ function AudienceRecap() {
     <p>${esc(S.audience.desc.trim())}</p>${hints ? `<div class="ai-hints">${hints}</div>` : ''}</section>`;
 }
 function refreshAudienceLive() {
-  const n = availableNow(), c = $('.avail-pill .count'); if (c) { c.dataset.to = n; animateCounters(); }
   ['age', 'income'].forEach(g => { const el = $('#note-' + g); if (el) el.outerHTML = ProfileNote(g); });
   renderFooter();
 }
@@ -1255,7 +1319,7 @@ function SampleSizeStep() {
       <div><label for="selConf">Nível de confiança</label><select class="field" id="selConf" data-change="conf" data-fk="sel-conf">${CONF_OPTS.map(c => `<option value="${c}" ${cur.conf === c ? 'selected' : ''}>${c}%</option>`).join('')}</select></div>
       <div><label for="selMargin">Margem de erro</label><select class="field" id="selMargin" data-change="margin" data-fk="sel-margin">${MARGIN_OPTS.map(x => `<option value="${x}" ${Math.round(cur.e * 100) === x ? 'selected' : ''}>±${x}%</option>`).join('')}</select></div></div>` : '';
   const invalid = m === 'manual' && (sampleSize() < CONFIG.MIN_SAMPLE || sampleSize() > CONFIG.MAX_SAMPLE);
-  return `${StepHeader({ screen: 'amostra', title: 'Quantas <span class="accent">empreendedoras</span> você quer ouvir?', sub: 'Escolha como prefere definir o tamanho da sua amostra.', right: AudiencePreview() })}
+  return `${StepHeader({ screen: 'amostra', title: 'Quantas <span class="accent">empreendedoras</span> você quer ouvir?', sub: 'Escolha como prefere definir o tamanho da sua amostra.' })}
   <div class="step-body">
     <div class="modes">
       <div class="mode ${m === 'manual' ? 'sel' : ''}" data-mode="manual">
@@ -1296,13 +1360,18 @@ function SampleHowBody(c) {
   if (c.capped) notes.push('A amostra calculada passaria do universo informado; limitamos ao universo inteiro.');
   return `<ol>${li.join('')}</ol>${notes.length ? `<p class="note">${notes.join(' ')}</p>` : ''}`;
 }
+function SampleHowManual(n) {
+  const N = universeN(), e = Services.Sampling.marginFor(n, { conf: 95, N }), z = Services.Sampling.zScore(95);
+  return `<ol><li><b>Parâmetros.</b> Confiança de 95% (z = ${fmtDec(z, 3)}) e proporção esperada de 50%, o caso mais conservador.</li>
+    <li><b>Margem de erro.</b><code>e = z × √( p × (1 − p) ÷ n${N ? ' × (N − n) ÷ (N − 1)' : ''} ) = ±${fmtPct(e)}%</code></li>
+    <li><b>Universo.</b> ${N ? `N = ${fmtInt(N)} pessoas, informado por você, com correção para população finita.` : 'Não informado: usamos o cenário de população grande, sem correção.'}</li></ol>`;
+}
 function SampleResult() {
   const m = S.sample.mode, n = sampleSize();
   if (!m || n <= 0) return '';
   const calc = m === 'calc', N = universeN(), G = compareGroups();
   const c = calc ? sampleCalc() : null;
   const conf = calc ? c.conf : 95, margin = calc ? c.e : Services.Sampling.marginFor(n, { conf: 95, N });
-  const avail = availableNow(), fits = n <= avail && avail > 0, max = Math.max(n, avail, 1);
   const ai = calc ? Services.AI.readAudience({ objective: S.objective, desc: S.audience.desc, niches: S.niches, profile: S.profile }) : null;
   let aiBox = '';
   if (calc) {
@@ -1320,25 +1389,20 @@ function SampleResult() {
       ${metric('Confiança', { html: `${conf}%` }, calc ? 'Nível de confiança escolhido' : 'Referência para o cálculo da margem')}
       ${metric('Margem de erro', { html: margin == null ? '—' : `±${fmtPct(margin)}%` }, calc ? 'Para mais ou para menos' : 'Aproximada, para essa amostra')}
     </div>`;
-  const rec = `<p class="rec-line">${calc ? 'Recomendação' : 'Com a sua amostra'}: ${fmtInt(n)} respostas${margin != null ? ` · ${conf}% de confiança · margem de ±${fmtPct(margin)}%` : ''}<small>${N ? `Público estimado: ${fmtInt(N)} pessoas (informado por você).` : 'Você não informou o tamanho do público, então não mostramos um número de universo: o cálculo usa o cenário de população grande.'}</small></p>`;
+  const rec = `<p class="rec-line">${calc ? 'Recomendação' : 'Com a sua amostra'}: ${fmtInt(n)} respostas${margin != null ? ` · ${conf}% de confiança · margem de ±${fmtPct(margin)}%` : ''}<small>${N ? `Público estimado: ${fmtInt(N)} pessoas (informado por você).` : 'Você não informou o tamanho do público, então não mostramos um número de universo: o cálculo usa o cenário de população grande.'}</small></p>
+    <p class="fine" style="margin-top:10px">Depois do envio, o time do Saldo Alto analisa a viabilidade da pesquisa para este público e esta amostra.</p>`;
   const p = priceNow(), R = Services.Pricing.RULES, extra = Math.max(0, n - R.included.responses);
   const cost = `<div class="cost-line"><div><div style="font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;opacity:.7;font-family:var(--display);font-weight:700">Investimento estimado até aqui</div><div class="amt">${fmtBRL(p.total)}</div>
       <div class="d">${extra ? `Inclui ${fmtInt(extra)} respostas além das ${R.included.responses} da campanha base (${fmtBRL(p.sample)}).` : `Sua amostra cabe nas ${R.included.responses} respostas da campanha base.`} Perguntas e materiais podem mudar o valor final.${CONFIG.DEMO_MODE ? ' Valores de demonstração.' : ''}</div></div>
       <button type="button" class="btn-quiet" data-action="pricing-how" data-fk="cost-how">${icon('info')}Como calculamos?</button></div>`;
-  const feas = `<div class="cmp">
-      <div class="cmp-row"><div class="top"><span>Respostas necessárias</span><span>${fmtInt(n)}</span></div><div class="track"><i class="need" style="width:${(n / max * 100).toFixed(1)}%"></i></div></div>
-      <div class="cmp-row"><div class="top"><span>Empreendedoras disponíveis na base</span><span>${fmtInt(avail)}</span></div><div class="track"><i class="have" style="width:${(avail / max * 100).toFixed(1)}%"></i></div></div>
-    </div>
-    ${fits ? `<p class="fine">Você vai precisar de cerca de ${Math.max(1, Math.round(n / avail * 100))}% das ${fmtInt(avail)} empreendedoras da base que correspondem aos critérios. Esse número é uma estimativa de demonstração da nossa base e não é o tamanho do seu público.</p>` : `
-    <div class="warn">${icon('alert')}<div class="warn-row"><p>Seu público atual não possui empreendedoras suficientes para atingir essa amostra.</p>
-      <button type="button" class="btn-mini solid" data-action="expand-audience" data-fk="expand">${icon('users')}Ampliar público</button></div></div>`}`;
-  const disclaimer = `<div class="disclaimer">${icon('info')}<span><b>Isto é uma estimativa estatística, não uma garantia de representatividade.</b> O painel do Saldo Alto é formado por empreendedoras que aceitaram participar (elas não são sorteadas), então a margem de erro é uma referência: só vale se quem responde for parecido com o público que você quer estudar. Para comparar grupos, cada grupo precisa da sua própria amostra.</span></div>`;
-  const how = calc ? `<div class="how"><button type="button" class="how-btn" data-action="toggle-how" data-fk="how-btn" aria-expanded="${UI.howOpen}"><span>Como calculamos esta amostra</span>${icon('down')}</button>${UI.howOpen ? `<div class="how-body">${SampleHowBody(c)}</div>` : ''}</div>` : '';
+  const infoTxt = 'Isto é uma estimativa estatística, não uma garantia de representatividade. O painel do Saldo Alto é formado por empreendedoras que aceitaram participar (elas não são sorteadas), então a margem de erro é uma referência: só vale se quem responde for parecido com o público que você quer estudar. Para comparar grupos, cada grupo precisa da sua própria amostra.';
+  const how = `<div class="how"><div class="how-head"><button type="button" class="how-btn" data-action="toggle-how" data-fk="how-btn" aria-expanded="${UI.howOpen}"><span>${calc ? 'Como calculamos a amostra' : 'Como estimamos a margem de erro'}</span>${icon('down')}</button>
+      <span class="info-wrap"><button type="button" class="info-btn" data-action="toggle-info" data-fk="info-btn" aria-label="Sobre esta estimativa" aria-expanded="${UI.infoOpen}" aria-haspopup="dialog">i</button>${UI.infoOpen ? `<div class="info-pop" role="dialog" aria-label="Sobre esta estimativa">${infoTxt}</div>` : ''}</span></div>
+      ${UI.howOpen ? `<div class="how-body">${calc ? SampleHowBody(c) : SampleHowManual(n)}</div>` : ''}</div>`;
   return `<div class="result">
     ${calc ? UsesBlock() : ''}${aiBox}
     ${grid}${rec}
-    ${feas}
-    ${cost}${disclaimer}${how}
+    ${cost}${how}
   </div>`;
 }
 
@@ -1453,7 +1517,7 @@ function PricingBreakdown() {
   return `<h3 id="modalTitle">Como calculamos</h3>
     <p class="msub">O valor mínimo de uma campanha é ${fmtBRL(CONFIG.MIN_PRICE)}. A partir daí, o preço varia conforme o que a sua pesquisa exige.</p>
     <table class="bd"><tbody>
-      ${row('Campanha base', `Inclui até ${R.included.responses} respostas, ${R.included.questions} perguntas objetivas, 1 nicho e os critérios de perfil`, fmtBRL(p.base))}
+      ${row('Campanha base', `Inclui até ${R.included.responses} respostas, ${R.included.questions} perguntas objetivas, os nichos e os critérios de perfil`, fmtBRL(p.base))}
       ${row('Tamanho da amostra', plural(m.sample, 'respondente', 'respondentes'), money(p.sample))}
       ${row('Perguntas', `${plural(m.questions, 'pergunta', 'perguntas')}${m.open ? ` · ${plural(m.open, 'aberta', 'abertas')} (cobradas à parte)` : ''}${m.advanced ? ` · ${plural(m.advanced, 'avançada', 'avançadas')}` : ''}`, money(p.complexity))}
       ${row('Segmentação', `${plural(m.niches, 'nicho', 'nichos')}${m.filterGroups ? ` + ${plural(m.filterGroups, 'critério de perfil', 'critérios de perfil')} (incluídos)` : ''}${m.segments > 1 ? ` · ${plural(m.segments, 'corte de análise', 'cortes de análise')}` : ''}`, money(p.segmentation))}
@@ -1464,16 +1528,14 @@ function PricingBreakdown() {
     <div class="modal-actions"><button type="button" class="btn-primary btn-sm" data-action="modal-close">Entendi</button></div>`;
 }
 
-const sampleSub = (n, avail) => {
-  const bits = [];
-  if (S.sample.mode === 'calc') { const c = sampleCalc(); bits.push(`${c.conf}% de confiança · ±${fmtPct(c.e)}%`); }
-  else { const e = Services.Sampling.marginFor(n, { conf: 95, N: universeN() }); if (e != null) bits.push(`≈ ±${fmtPct(e)}% (95% de confiança)`); }
-  bits.push(`${fmtInt(avail)} empreendedoras disponíveis`);
-  return bits.join(' · ');
+const sampleSub = n => {
+  if (S.sample.mode === 'calc') { const c = sampleCalc(); return `${c.conf}% de confiança · ±${fmtPct(c.e)}%`; }
+  const e = Services.Sampling.marginFor(n, { conf: 95, N: universeN() });
+  return e != null ? `≈ ±${fmtPct(e)}% (95% de confiança)` : '';
 };
 /* ===== CampaignReview ===== */
 function CampaignReview() {
-  const qc = questionCounts(), mc = mediaCounts(), n = sampleSize(), avail = availableNow();
+  const qc = questionCounts(), mc = mediaCounts(), n = sampleSize();
   const labels = nicheLabels(), prof = profileSummary();
   const M = S.material, files = mc.images + mc.videos ? [mc.images ? plural(mc.images, 'imagem', 'imagens') : '', mc.videos ? plural(mc.videos, 'vídeo', 'vídeos') : ''].filter(Boolean).join(' + ') : '';
   const bad = firstInvalid();
@@ -1490,7 +1552,7 @@ function CampaignReview() {
       ${tile('Público-alvo', esc(S.audience.desc.trim()), universeN() ? `Universo informado: ${fmtInt(universeN())} pessoas` : 'Universo não informado', 'objetivo', true, true)}
       ${tile('Público', plural(labels.length, 'nicho selecionado', 'nichos selecionados'), esc(labels.join(' · ')), 'publico')}
       ${perfilTile}
-      ${tile('Amostra', plural(n, 'resposta', 'respostas'), sampleSub(n, avail), 'amostra')}
+      ${tile('Amostra', plural(n, 'resposta', 'respostas'), sampleSub(n), 'amostra')}
       ${tile('Perguntas', fmtInt(qc.total), qc.open ? plural(qc.open, 'aberta', 'abertas') : '', 'perguntas')}
     </div>
     ${PricingSummary()}
@@ -1583,12 +1645,11 @@ const VALID = {
     : S.material.involves && !S.material.desc.trim() && !S.media.length ? { ok: false, hint: 'Descreva ou anexe o material que será avaliado.' } : OK,
   publico: () => !nicheLabels().length ? { ok: false, hint: 'Escolha ao menos um nicho.' }
     : ageError() || incomeError() ? { ok: false, hint: ageError() || incomeError() }
-    : S.profile.otherOn && !S.profile.other.trim() ? { ok: false, hint: 'Descreva os outros critérios ou desmarque “Outros”.' } : OK,
+    : OK,
   amostra: () => {
     const m = S.sample.mode, n = sampleSize();
     if (!m) return { ok: false, hint: 'Escolha como definir a amostra.' };
     if (n < CONFIG.MIN_SAMPLE || n > CONFIG.MAX_SAMPLE) return { ok: false, hint: `Informe entre ${fmtInt(CONFIG.MIN_SAMPLE)} e ${fmtInt(CONFIG.MAX_SAMPLE)} respostas.` };
-    if (n > availableNow()) return { ok: false, hint: 'Ajuste a amostra ou amplie o público para continuar.' };
     return OK;
   },
   perguntas: () => UI.editingId ? { ok: false, hint: 'Conclua a edição da pergunta para continuar.' }
@@ -1648,7 +1709,7 @@ const Modal = {
 /* Navegação */
 function goTo(screen) {
   if (!SCREENS[screen] || ALL_SCREENS.indexOf(screen) > frontierIndex()) return;
-  S.screen = screen; UI.menuId = null; UI.editingId = null; UI.editErr = ''; UI.eduOpen = false;
+  S.screen = screen; UI.menuId = null; UI.editingId = null; UI.editErr = ''; UI.dd = null; UI.infoOpen = false;
   if (screen === 'revisao') UI.returnToReview = false;
   persist(); render({ enter: true });
 }
@@ -1747,20 +1808,10 @@ const moveToQuestions = (qid, edit = false) => {
 
 /* Público: sugestões para ampliar */
 function clearedProfile(p, g) {
-  const c = { ...p, edu: [...p.edu], momento: [...p.momento], regiao: [...p.regiao] };
-  if (g === 'age') { c.ageMin = null; c.ageMax = null; } else if (g === 'income') { c.incMin = null; c.incMax = null; } else if (g === 'edu') c.edu = []; else if (g === 'momento') c.momento = []; else if (g === 'regiao') c.regiao = []; else { c.otherOn = false; c.other = ''; }
+  const c = { ...p, edu: [...p.edu], momento: [...p.momento], local: { ...p.local }, others: [...p.others] };
+  if (g === 'age') { c.ageMin = null; c.ageMax = null; } else if (g === 'income') { c.incMin = null; c.incMax = null; } else if (g === 'edu') c.edu = []; else if (g === 'momento') c.momento = [];
+  else if (g === 'regiao') c.local = { regiao: '', uf: '', cidade: '' }; else c.others = [];
   return c;
-}
-function openExpander() {
-  const cur = availableNow(), need = sampleSize(), opts = [];
-  ['income', 'edu', 'age', 'momento', 'regiao'].forEach(g => { if (profileActive(g)) { const n = availableNow({ profile: clearedProfile(S.profile, g) }); if (n > cur) opts.push({ kind: 'f:' + g, title: `Remover o filtro de ${PROFILE_GROUPS[g].toLowerCase()}`, sub: `${fmtInt(cur)} → ${fmtInt(n)} empreendedoras`, gain: n - cur }); } });
-  const allN = [...new Set([...S.niches, ...STD_NICHES])], nn = availableNow({ niches: allN });
-  if (nn > cur) opts.push({ kind: 'niches', title: 'Incluir todos os nichos', sub: `${fmtInt(cur)} → ${fmtInt(nn)} empreendedoras`, gain: nn - cur });
-  opts.sort((a, b) => b.gain - a.gain);
-  Modal.open(`<h3 id="modalTitle">Ampliar público</h3>
-    <p class="msub">Sua amostra pede ${fmtInt(need)} respostas e há ${fmtInt(cur)} empreendedoras disponíveis. ${opts.length ? 'Escolha como ampliar:' : 'Seu público já inclui todas as empreendedoras da base, então o caminho é reduzir a amostra.'}</p>
-    ${opts.length ? `<div class="exp-list">${opts.map(o => `<button type="button" class="exp" data-action="apply-expander" data-kind="${o.kind}"><span>${o.title}<small>${o.sub}</small></span><b>+${fmtInt(o.gain)}</b></button>`).join('')}</div>` : ''}
-    <div class="modal-actions"><button type="button" class="btn-ghost btn-sm" data-action="modal-close">${opts.length ? 'Ajustar manualmente' : 'Ajustar a amostra'}</button></div>`);
 }
 
 /* Materiais */
@@ -1830,32 +1881,34 @@ const Actions = {
   'remove-custom-niche': el => { UI.focusKey = 'more-niche'; mutate(s => s.customNiches.splice(+el.dataset.i, 1)); },
 
   /* público: perfil */
-  'toggle-edu-dd': () => { UI.eduOpen = !UI.eduOpen; UI.focusKey = 'edu-dd'; render();
+  'toggle-dd': el => { const k = el.dataset.dd; UI.dd = UI.dd === k ? null : k; UI.focusKey = 'dd-' + k; render();
     const pn = $('.dd-panel'); if (pn) { const over = pn.getBoundingClientRect().bottom - (window.innerHeight - 16); if (over > 0) window.scrollBy({ top: over, behavior: 'smooth' }); } },
-  'toggle-edu': el => mutate(s => toggleIn(s.profile.edu, el.dataset.id)),
-  'remove-edu': el => { UI.focusKey = 'edu-dd'; mutate(s => { s.profile.edu = s.profile.edu.filter(id => id !== el.dataset.id); }); },
-  'toggle-momento': el => mutate(s => toggleIn(s.profile.momento, el.dataset.id)),
-  'toggle-regiao': el => mutate(s => toggleIn(s.profile.regiao, el.dataset.id)),
+  'toggle-opt': el => mutate(s => toggleIn(s.profile[el.dataset.group], el.dataset.id)),
+  'remove-opt': el => { const g = el.dataset.group; UI.focusKey = 'dd-' + g; mutate(s => { s.profile[g] = s.profile[g].filter(id => id !== el.dataset.id); }); },
+  'pick-city': el => { UI.cityQ = ''; $('#cityBox') && $('#cityBox').classList.remove('open'); mutate(s => { s.profile.local.cidade = el.dataset.city; }); },
+  'open-other': () => { UI.otherOpen = !UI.otherOpen; UI.focusKey = UI.otherOpen ? 'other-new' : 'more-other'; UI.scrollToFocus = UI.otherOpen; render(); },
+  'add-other': () => {
+    const inp = $('#otherNew'), v = (inp.value || '').trim();
+    if (!v) { toast('Escreva o critério.', 'alert'); inp.focus(); return; }
+    if (S.profile.others.some(o => norm(o) === norm(v))) { toast('Esse critério já está na lista.', 'alert'); return; }
+    UI.focusKey = 'other-new'; mutate(s => s.profile.others.push(v));
+  },
+  'remove-other': el => { UI.focusKey = 'more-other'; mutate(s => s.profile.others.splice(+el.dataset.i, 1)); },
   'apply-hint': el => { const a = el.dataset.act, v = el.dataset.val;
-    mutate(s => { if (a === 'niche') { if (!s.niches.includes(v)) s.niches.push(v); } else if (a === 'regiao' || a === 'momento') { if (!s.profile[a].includes(v)) s.profile[a].push(v); }
-      else if (a === 'other') { s.profile.otherOn = true; if (!s.profile.other.trim()) s.profile.other = v; } }); toast('Filtro aplicado. Você pode ajustar quando quiser.'); },
-  'toggle-other': () => { UI.focusKey = S.profile.otherOn ? 'other-on' : 'other-text'; mutate(s => { s.profile.otherOn = !s.profile.otherOn; }); },
-  'clear-profile': el => { const g = el.dataset.group; UI.focusKey = g === 'age' ? 'age-min' : g === 'income' ? 'inc-min' : g === 'edu' ? 'edu-dd' : g === 'momento' ? 'mom-' + MOMENTOS[0].id : g === 'regiao' ? 'reg-' + REGIOES[0].id : 'other-on'; mutate(s => { s.profile = clearedProfile(s.profile, g); }); },
+    mutate(s => { if (a === 'niche') { if (!s.niches.includes(v)) s.niches.push(v); } else if (a === 'momento') { if (!s.profile.momento.includes(v)) s.profile.momento.push(v); }
+      else if (a === 'local') { const [r, u] = v.split('|'); s.profile.local = { regiao: r, uf: u || '', cidade: '' }; UI.cityQ = ''; if (u) Cities.load(u).then(() => { if (S.screen === 'publico') render(); }); }
+      else if (a === 'other') { if (!s.profile.others.some(o => norm(o) === norm(v))) s.profile.others.push(v); } }); toast('Filtro aplicado. Você pode ajustar quando quiser.'); },
+  'clear-profile': el => { const g = el.dataset.group; UI.focusKey = g === 'age' ? 'age-min' : g === 'income' ? 'inc-min' : g === 'regiao' ? 'loc-regiao' : 'dd-' + g; UI.cityQ = ''; mutate(s => { s.profile = clearedProfile(s.profile, g); }); },
 
   /* amostra */
   'set-mode': el => mutate(s => { s.sample.mode = el.dataset.mode; }),
   'set-precision': el => mutate(s => { s.sample.precision = el.dataset.key; s.sample.mode = 'calc'; }),
   'toggle-adv': () => { UI.advOpen = !(UI.advOpen || S.sample.precision === 'custom'); UI.focusKey = 'adv-toggle'; render(); },
+  'toggle-info': () => { UI.infoOpen = !UI.infoOpen; UI.focusKey = 'info-btn'; render(); },
   'toggle-how': () => { UI.howOpen = !UI.howOpen; UI.focusKey = 'how-btn'; render(); },
   'toggle-compare': () => mutate(s => { s.sample.compare = !s.sample.compare; s.sample.mode = 'calc'; }),
   'sample-step': el => mutate(s => { const cur = Math.floor(Number(s.sample.manual) || 0), step = cur < 100 ? 10 : 50, dir = +el.dataset.dir;
     s.sample.manual = Math.min(CONFIG.MAX_SAMPLE, Math.max(CONFIG.MIN_SAMPLE, cur + dir * step)); s.sample.mode = 'manual'; }),
-  'expand-audience': () => openExpander(),
-  'apply-expander': el => {
-    const k = el.dataset.kind;
-    mutate(s => { if (k === 'niches') s.niches = [...new Set([...s.niches, ...STD_NICHES])]; else s.profile = clearedProfile(s.profile, k.split(':')[1]); });
-    Modal.close(); toast(`Público ampliado: ${fmtInt(availableNow())} empreendedoras.`, 'users');
-  },
 
   /* perguntas */
   'sug-add': el => mutate(() => moveToQuestions(el.dataset.qid)),
@@ -1885,7 +1938,7 @@ const Actions = {
   /* revisão */
   'pricing-how': () => Modal.open(PricingBreakdown())
 };
-async function resetAll(keepId = false) { const oldId = S.surveyId; await MediaStore.clear(); Draft.clear(oldId); Draft.clear(null); S = initialState(); if (keepId) S.surveyId = oldId; Object.assign(UI, { advOpen: false, howOpen: false, eduOpen: false, customOpen: false, editingId: null, menuId: null, sugLoading: false, calcLoading: false, mediaLoading: {}, submitting: false, contactErr: false, returnToReview: false }); render({ enter: true }); if (keepId) persistNow(); }
+async function resetAll(keepId = false) { const oldId = S.surveyId; await MediaStore.clear(); Draft.clear(oldId); Draft.clear(null); S = initialState(); if (keepId) S.surveyId = oldId; Object.assign(UI, { advOpen: false, howOpen: false, infoOpen: false, dd: null, otherOpen: false, cityQ: '', customOpen: false, editingId: null, menuId: null, sugLoading: false, calcLoading: false, mediaLoading: {}, submitting: false, contactErr: false, returnToReview: false }); render({ enter: true }); if (keepId) persistNow(); }
 
 /* Inputs (não re-renderizam a tela, para não perder o cursor) */
 const setQ = (el, fn) => { const q = qById(el.dataset.qid); if (q) { fn(q); persist(); } };
@@ -1901,7 +1954,8 @@ const Inputs = {
   'age-max': el => { const c = el.value.replace(/\D/g, '').slice(0, 3); if (el.value !== c) el.value = c; S.profile.ageMax = c === '' ? null : Number(c); persist(); refreshAudienceLive(); },
   'inc-min': el => { if (/[^\d.]/.test(el.value)) el.value = el.value.replace(/[^\d.]/g, ''); const c = el.value.replace(/\D/g, ''); S.profile.incMin = c === '' ? null : Number(c); persist(); refreshAudienceLive(); },
   'inc-max': el => { if (/[^\d.]/.test(el.value)) el.value = el.value.replace(/[^\d.]/g, ''); const c = el.value.replace(/\D/g, ''); S.profile.incMax = c === '' ? null : Number(c); persist(); refreshAudienceLive(); },
-  'other-text': el => { S.profile.other = el.value; persist(); renderFooter(); },
+  'loc-city-q': el => { UI.cityQ = el.value; if (S.profile.local.cidade) { S.profile.local.cidade = ''; persist(); }
+    const l = $('#cityList'); if (l) l.innerHTML = cityListHTML(); const b = $('#cityBox'); if (b) b.classList.add('open'); const n = $('#note-loc'); if (n) n.innerHTML = LocNoteHTML(); renderFooter(); },
   'sample-manual': el => { const clean = el.value.replace(/\D/g, '').slice(0, 5); if (el.value !== clean) el.value = clean; S.sample.manual = Number(clean) || 0; persist();
     const n = S.sample.manual; el.classList.toggle('invalid', n < CONFIG.MIN_SAMPLE || n > CONFIG.MAX_SAMPLE); $('#sampleResult').innerHTML = SampleResult(); renderFooter(); },
   'q-text': el => setQ(el, q => { q.text = el.value; }),
@@ -1917,6 +1971,10 @@ Inputs['contact-cnpj'] = el => { el.value = SA.maskCnpj(el.value); S.contact.cnp
 Inputs['reg-senha'] = el => { UI.reg.senha = el.value; delete UI.srv.senha; const r = $('#regReqs'); if (r) r.innerHTML = regReqsHTML(); };
 Inputs['reg-senha2'] = el => { UI.reg.senha2 = el.value; };
 const Changes = {
+  'loc-regiao': el => { UI.cityQ = ''; mutate(s => { s.profile.local = { regiao: el.value, uf: '', cidade: '' }; }); },
+  'loc-uf': el => { UI.cityQ = ''; const u = el.value; mutate(s => { s.profile.local.uf = u; s.profile.local.cidade = ''; }); if (u) Cities.load(u).then(() => { if (S.profile.local.uf === u && S.screen === 'publico') render(); }); },
+  'loc-city-commit': el => { const q = norm(el.value.trim()), c = Cities.get(S.profile.local.uf), hit = c && q ? c.list.find(x => norm(x) === q) : null;
+    if (S.profile.local.cidade && !UI.cityQ) return; UI.cityQ = ''; mutate(s => { s.profile.local.cidade = hit || ''; }); },
   'uni-format': el => { const c = el.value.replace(/\D/g, ''); el.value = c === '' ? '' : fmtNum(Number(c)); },
   conf: el => mutate(s => { s.sample.conf = Number(el.value); s.sample.precision = 'custom'; s.sample.mode = 'calc'; }),
   margin: el => mutate(s => { s.sample.margin = Number(el.value); s.sample.precision = 'custom'; s.sample.mode = 'calc'; }),
@@ -1931,16 +1989,25 @@ const Changes = {
 document.addEventListener('click', e => {
   const t = e.target.closest('[data-action]');
   if (e.target.id === 'modal') { Modal.close(); return; }
-  if (UI.eduOpen && !e.target.closest('.dd')) { UI.eduOpen = false; render(); }
+  $$('.cbx.open').forEach(x => { if (!x.contains(e.target)) x.classList.remove('open'); });
+  if (UI.dd && !e.target.closest('.dd')) { UI.dd = null; render(); }
+  if (UI.infoOpen && !e.target.closest('.info-wrap')) { UI.infoOpen = false; render(); }
   if (!t) { if (UI.menuId && !e.target.closest('.menu')) { UI.menuId = null; render(); } return; }
   const fn = Actions[t.dataset.action];
   if (fn) { if (t.tagName !== 'A') e.preventDefault(); fn(t, e); }
 });
 document.addEventListener('input', e => { const k = e.target.dataset && e.target.dataset.input; if (k && Inputs[k]) Inputs[k](e.target, e); });
 document.addEventListener('change', e => { const k = e.target.dataset && e.target.dataset.change; if (k && Changes[k]) Changes[k](e.target, e); });
-document.addEventListener('focusin', e => { if (e.target.id === 'sampleManual' && S.sample.mode !== 'manual') mutate(s => { s.sample.mode = 'manual'; }); });
+document.addEventListener('focusin', e => {
+  if (e.target.id === 'sampleManual' && S.sample.mode !== 'manual') mutate(s => { s.sample.mode = 'manual'; });
+  if (e.target.id === 'locCidade') { const b = $('#cityBox'); if (b) b.classList.add('open'); }
+});
+document.addEventListener('mousedown', e => { if (e.target.closest && e.target.closest('#cityList')) e.preventDefault(); });   // não tira o foco do campo ao escolher a cidade
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { if ($('#modal').classList.contains('open')) Modal.close(); else if (UI.eduOpen) { UI.eduOpen = false; UI.focusKey = 'edu-dd'; render(); } else if (UI.menuId) { UI.menuId = null; render(); } }
+  if (e.key === 'Escape') { if ($('#modal').classList.contains('open')) Modal.close(); else if (UI.infoOpen) { UI.infoOpen = false; UI.focusKey = 'info-btn'; render(); } else if (UI.dd) { UI.focusKey = 'dd-' + UI.dd; UI.dd = null; render(); }
+    else if ($('.cbx.open')) $('.cbx.open').classList.remove('open'); else if (UI.menuId) { UI.menuId = null; render(); } }
+  if (e.key === 'Enter' && e.target.id === 'otherNew') { e.preventDefault(); Actions['add-other'](e.target); }
+  if (e.key === 'Enter' && e.target.id === 'locCidade') { e.preventDefault(); const f = $('#cityList .dd-opt'); if (f) f.click(); }
   if (e.key === 'Enter' && e.target.id === 'customNiche') { e.preventDefault(); Actions['add-custom-niche'](e.target); }
   if (e.key === 'Enter' && e.target.id === 'sampleManual') e.target.blur();
 });
@@ -1957,7 +2024,14 @@ function migrateDraft(d) {
   const base = initialState();
   const out = { ...base, ...d, v: 2, sample: { ...base.sample, ...d.sample }, contact: { ...base.contact, ...d.contact },
     material: { ...base.material, ...(d.material || {}) }, profile: { ...base.profile, ...(d.profile || {}) }, audience: { ...base.audience, ...(d.audience || {}) } };
-  ['momento', 'regiao', 'edu'].forEach(k => { if (!Array.isArray(out.profile[k])) out.profile[k] = []; });
+  const dp = d.profile || {}, P = out.profile;
+  ['momento', 'edu'].forEach(k => { if (!Array.isArray(P[k])) P[k] = []; });
+  if (!Array.isArray(P.others)) P.others = (dp.otherOn && String(dp.other || '').trim()) ? [String(dp.other).trim()] : [];      // "Outros critérios" era um texto único
+  if (!P.local || typeof P.local !== 'object') P.local = { regiao: Array.isArray(dp.regiao) && dp.regiao[0] ? dp.regiao[0] : '', uf: '', cidade: '' };
+  P.local = { regiao: P.local.regiao || '', uf: P.local.uf || '', cidade: P.local.cidade || '' };
+  if (P.local.uf && (!ufBy(P.local.uf) || ufBy(P.local.uf).r !== P.local.regiao)) P.local = { regiao: P.local.regiao, uf: '', cidade: '' };   // nunca combinações incoerentes
+  if (!P.local.uf) P.local.cidade = '';
+  delete P.regiao; delete P.otherOn; delete P.other;
   if (out.audience.universe != null && !(Number(out.audience.universe) > 0)) out.audience.universe = null;
   if (d.v === 1) {
     const f = d.filters || {}, pick = (map, ids) => (ids || []).map(id => map[id]).filter(Boolean);

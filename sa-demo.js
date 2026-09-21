@@ -39,7 +39,7 @@
   function baseState(s) {
     return { v: 2, surveyId: null, name: s.name, screen: s.screen || 'contratacao', completed: s.completed, objective: s.objetivo, material: { involves: false, desc: '' },
       audience: { desc: s.publico, universe: s.universo || null },
-      niches: s.niches, customNiches: [], profile: Object.assign({ ageMin: null, ageMax: null, incMin: null, incMax: null, edu: [], momento: [], regiao: [], otherOn: false, other: '' }, s.profile || {}),
+      niches: s.niches, customNiches: [], profile: Object.assign({ ageMin: null, ageMax: null, incMin: null, incMax: null, edu: [], momento: [], local: { regiao: '', uf: '', cidade: '' }, others: [] }, s.profile || {}),
       sample: { mode: 'manual', manual: s.amostra, precision: 'padrao', conf: 95, margin: 5, compare: false }, questions: s.questions, suggestions: [], aiAutoRan: true, media: [],
       contact: { name: 'Helena Prado', company: 'Demo Saldo Alto', cnpj: '', setor: '', email: 'helena@demosaldoalto.example', whatsapp: '(11) 99999-0001', consent: true },
       contracted: s.codigo ? { id: s.codigo, at: s.enviadaEm, total: s.preco, surveyId: s.id } : null };
@@ -58,7 +58,7 @@
     }
     add({ id: 'P-demo-01', nome: 'Teste da nova embalagem — linha skincare', status: 'encerrada', criadaEm: daysAgo(58), atualizadaEm: daysAgo(9), enviadaEm: daysAgo(56), codigo: 'SA-20260725-K7QD',
       objetivo: 'Entender se a nova embalagem da linha de skincare transmite qualidade e se as empreendedoras da beleza a recomendariam para clientes.', niches: ['beleza', 'saude'], nichosLabel: 'Serviços de Beleza / Estética, Saúde / Bem-estar',
-      amostra: 300, respostas: 300, preco: 4180, criadoPor: 'U-demo-1', profile: { ageMin: 25, ageMax: 50, momento: ['crescimento', 'consolidado'], regiao: ['sudeste'] },
+      amostra: 300, respostas: 300, preco: 4180, criadoPor: 'U-demo-1', profile: { ageMin: 25, ageMax: 50, momento: ['crescimento', 'consolidado'], local: { regiao: 'sudeste', uf: 'SP', cidade: '' } },
       publico: 'Empreendedoras da beleza e do bem-estar, com negócio em crescimento ou consolidado, na região Sudeste.', universo: 40000,
       questions: [
         Q('scale', 'Em uma escala de 1 a 5, quanto a embalagem transmite qualidade?', { scale: scale(5, 'Nenhuma qualidade', 'Muita qualidade') }),
